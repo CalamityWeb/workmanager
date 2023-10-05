@@ -2,9 +2,11 @@
 vendor/
 node_modules/
 
+!public/web/assets/images/
 !public/web/assets/.gitkeep
 public/web/assets/
 
+!admin/web/assets/images/
 !admin/web/assets/.gitkeep
 admin/web/assets/
 

@@ -26,6 +26,8 @@ class Application {
     public View $view;
     public ?User $user;
 
+    public array $URL;
+
     public function __construct($rootDir, $config) {
 
         $this->user = null;
@@ -36,6 +38,11 @@ class Application {
         $this->router = new Router($this->request, $this->response);
         $this->session = new Session();
         $this->view = new View();
+
+        $this->URL = [
+            'PUBLIC' => $_ENV['PUBLIC_URL'],
+            'ADMIN' => $_ENV['ADMIN_URL']
+        ];
 
         try {
             $this->db = new Database($config['database']);

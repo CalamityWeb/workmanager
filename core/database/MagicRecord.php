@@ -71,7 +71,7 @@ use tframe\core\Model;
         return $statement;
     }
 
-    public static function findOne(array $where = [], array $order = []): MagicRecord {
+    public static function findOne(array $where = [], array $order = []) {
         $statement = self::getPrepare($where, $order);
         return $statement->fetchObject(static::class);
     }
@@ -81,7 +81,7 @@ use tframe\core\Model;
         return $statement->fetchAll();
     }
 
-    public static function queryOne(string $tableName, string $query): MagicRecord {
+    public static function queryOne(string $tableName, string $query) {
         $statement = self::prepare("SELECT * FROM $tableName WHERE $query");
         $statement->execute();
         return $statement->fetchObject(static::class);
