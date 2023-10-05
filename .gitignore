@@ -1,0 +1,14 @@
+.idea/
+vendor/
+node_modules/
+
+!public/web/assets/.gitkeep
+public/web/assets/
+
+!admin/web/assets/.gitkeep
+admin/web/assets/
+
+.gitignore
+.env
+composer.lock
+package-lock.json
