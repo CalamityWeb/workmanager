@@ -6,8 +6,8 @@ use Exception;
 use tframe\core\Application;
 use Throwable;
 
-class ForbiddenException extends Exception {
-    public function __construct(string $message = "You don't have permission to view this page", int $code = 403, ?Throwable $previous = null) {
+class InternalServerErrorException extends Exception {
+    public function __construct(string $message = "Internal server error", int $code = 500, ?Throwable $previous = null) {
         Application::$app->view->title = 'ERROR - ' .$code;
         parent::__construct($message, $code, $previous);
     }

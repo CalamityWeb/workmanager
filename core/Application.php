@@ -6,6 +6,7 @@ use tframe\common\components\mailer\Mailer;
 use tframe\common\models\User;
 use tframe\core\database\Database;
 use Exception;
+use tframe\core\exception\ServiceUnavailableException;
 
 class Application {
     const EVENT_BEFORE_REQUEST = 'beforeRequest';
@@ -27,9 +28,9 @@ class Application {
     public ?User $user;
 
     public array $URL;
+    public bool $maintenance;
 
     public function __construct($rootDir, $config) {
-
         $this->user = null;
         self::$ROOT_DIR = $rootDir;
         self::$app = $this;
@@ -43,6 +44,8 @@ class Application {
             'PUBLIC' => $_ENV['PUBLIC_URL'],
             'ADMIN' => $_ENV['ADMIN_URL']
         ];
+
+        $this->maintenance = $config['maintenance'];
 
         try {
             $this->db = new Database($config['database']);
@@ -76,6 +79,9 @@ class Application {
         self::$app->session->remove('userId');
     }
 
+    /**
+     * @throws \tframe\core\exception\ServiceUnavailableException
+     */
     public function run(): void {
         $this->triggerEvent(self::EVENT_BEFORE_REQUEST);
         try {

@@ -5,7 +5,7 @@ namespace tframe\common\components\mailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use tframe\core\Application;
-use tframe\core\exception\BadParameterException;
+use tframe\core\exception\BadRequestException;
 
 class Mailer {
     public PHPMailer $mail;
@@ -23,21 +23,22 @@ class Mailer {
         $this->mail->CharSet = PHPMailer::CHARSET_UTF8;
     }
 
+
     /**
-     * @throws \tframe\core\exception\BadParameterException
+     * @throws \tframe\core\exception\BadRequestException
      */
     public function setFrom(string $address, $name = ''): static {
         try {
             $this->mail->setFrom($address, $name);
         } catch (Exception $e) {
-            throw new BadParameterException();
+            throw new BadRequestException();
         }
         return $this;
     }
 
 
     /**
-     * @throws \tframe\core\exception\BadParameterException
+     * @throws \tframe\core\exception\BadRequestException
      */
     public function setReplyTo(string|array $addresses, $name = ''): static {
         if(is_array($addresses)) {
@@ -49,14 +50,14 @@ class Mailer {
                         $this->mail->addReplyTo($address);
                     }
                 } catch (Exception $e) {
-                    throw new BadParameterException();
+                    throw new BadRequestException();
                 }
             }
         } else {
             try {
                 $this->mail->addReplyTo($addresses);
             } catch (Exception $e) {
-                throw new BadParameterException();
+                throw new BadRequestException();
             }
         }
         return $this;
@@ -64,7 +65,7 @@ class Mailer {
 
 
     /**
-     * @throws \tframe\core\exception\BadParameterException
+     * @throws \tframe\core\exception\BadRequestException
      */
     public function setAddress(string|array $recipients): static {
         if(is_array($recipients)) {
@@ -76,14 +77,14 @@ class Mailer {
                         $this->mail->addAddress($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new BadParameterException();
+                    throw new BadRequestException();
                 }
             }
         } else {
             try {
                 $this->mail->addAddress($recipients);
             } catch (Exception $e) {
-                throw new BadParameterException();
+                throw new BadRequestException();
             }
         }
         return $this;
@@ -91,7 +92,7 @@ class Mailer {
 
 
     /**
-     * @throws \tframe\core\exception\BadParameterException
+     * @throws \tframe\core\exception\BadRequestException
      */
     public function setCC(string|array $recipients): static {
         if(is_array($recipients)) {
@@ -103,14 +104,14 @@ class Mailer {
                         $this->mail->addCC($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new BadParameterException();
+                    throw new BadRequestException();
                 }
             }
         } else {
             try {
                 $this->mail->addCC($recipients);
             } catch (Exception $e) {
-                throw new BadParameterException();
+                throw new BadRequestException();
             }
         }
         return $this;
@@ -118,7 +119,7 @@ class Mailer {
 
 
     /**
-     * @throws \tframe\core\exception\BadParameterException
+     * @throws \tframe\core\exception\BadRequestException
      */
     public function setBCC(string|array $recipients): static {
         if(is_array($recipients)) {
@@ -130,21 +131,21 @@ class Mailer {
                         $this->mail->addBCC($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new BadParameterException();
+                    throw new BadRequestException();
                 }
             }
         } else {
             try {
                 $this->mail->addBCC($recipients);
             } catch (Exception $e) {
-                throw new BadParameterException();
+                throw new BadRequestException();
             }
         }
         return $this;
     }
 
     /**
-     * @throws \tframe\core\exception\BadParameterException
+     * @throws \tframe\core\exception\BadRequestException
      */
     public function addAttachment(string|array $attachments): static {
         if(is_array($attachments)) {
@@ -152,21 +153,21 @@ class Mailer {
                 try {
                     $this->mail->addAttachment($attachment);
                 } catch (Exception $e) {
-                    throw new BadParameterException();
+                    throw new BadRequestException();
                 }
             }
         } else {
             try {
                 $this->mail->addAttachment($attachments);
             } catch (Exception $e) {
-                throw new BadParameterException();
+                throw new BadRequestException();
             }
         }
         return $this;
     }
 
     /**
-     * @throws \tframe\core\exception\BadParameterException
+     * @throws \tframe\core\exception\BadRequestException
      */
     public function setTemplate(string $subject, string $templateName, array $args = []): static {
         try {
@@ -178,23 +179,23 @@ class Mailer {
             }
             $this->mail->Body = $content;
         } catch (Exception $e) {
-            throw new BadParameterException();
+            throw new BadRequestException();
         }
         return $this;
     }
 
     /**
-     * @throws \tframe\core\exception\BadParameterException
+     * @throws \tframe\core\exception\BadRequestException
      */
     public function send(): true {
         try {
             if($this->mail->send()) {
                 return true;
             } else {
-                throw new BadParameterException();
+                throw new BadRequestException();
             }
         } catch (Exception $e) {
-            throw new BadParameterException();
+            throw new BadRequestException();
         }
     }
 }

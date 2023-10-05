@@ -6,8 +6,8 @@ use Exception;
 use tframe\core\Application;
 use Throwable;
 
-class BadParameterException extends Exception {
-    public function __construct(?Throwable $previous = null, string $message = "Server error - bad parameter", int $code = 500) {
+class ServiceUnavailableException extends Exception {
+    public function __construct(string $message = "Service Unavailable", int $code = 503, ?Throwable $previous = null) {
         Application::$app->view->title = 'ERROR - ' .$code;
         parent::__construct($message, $code, $previous);
     }

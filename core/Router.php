@@ -3,6 +3,7 @@
 namespace tframe\core;
 
 use tframe\core\exception\NotFoundException;
+use tframe\core\exception\ServiceUnavailableException;
 
 class Router {
     private Request $request;
@@ -24,8 +25,13 @@ class Router {
 
     /**
      * @throws \tframe\core\exception\NotFoundException
+     * @throws \tframe\core\exception\ServiceUnavailableException
      */
     public function resolve(): mixed {
+        if(Application::$app->maintenance) {
+            throw new ServiceUnavailableException("Maintenance in progress");
+        }
+
         $method = $this->request->getMethod();
         $url = $this->request->getUrl();
         $callback = $this->routeMap[$method][$url] ?? false;
