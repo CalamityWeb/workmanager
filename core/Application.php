@@ -45,7 +45,7 @@ class Application {
             'ADMIN' => $_ENV['ADMIN_URL']
         ];
 
-        $this->maintenance = $config['maintenance'];
+        $this->maintenance = strtolower($config['maintenance']) == 'true';
 
         try {
             $this->db = new Database($config['database']);
