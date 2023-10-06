@@ -27,7 +27,8 @@ class Application {
     public View $view;
     public ?User $user;
 
-    public array $URL;
+    public static array $URL;
+    public static array $GLOBALS;
     public bool $maintenance;
 
     public function __construct($rootDir, $config) {
@@ -40,12 +41,16 @@ class Application {
         $this->session = new Session();
         $this->view = new View();
 
-        $this->URL = [
+        self::$URL = [
             'PUBLIC' => $_ENV['PUBLIC_URL'],
             'ADMIN' => $_ENV['ADMIN_URL']
         ];
 
         $this->maintenance = strtolower($config['maintenance']) == 'true';
+
+        foreach (require dirname(__DIR__) .  '/common/config/globals.php' as $key => $value) {
+           self::$GLOBALS[$key] = $value;
+        }
 
         try {
             $this->db = new Database($config['database']);
@@ -79,9 +84,6 @@ class Application {
         self::$app->session->remove('userId');
     }
 
-    /**
-     * @throws \tframe\core\exception\ServiceUnavailableException
-     */
     public function run(): void {
         $this->triggerEvent(self::EVENT_BEFORE_REQUEST);
         try {
