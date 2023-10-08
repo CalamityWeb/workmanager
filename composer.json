@@ -36,7 +36,18 @@
 			"if exist .\\admin\\web\\assets\\adminlte rmdir /s /q .\\admin\\web\\assets\\adminlte",
 			"mkdir .\\admin\\web\\assets\\adminlte",
 			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\css\\adminlte.css admin\\web\\assets\\adminlte\\ /Y",
-			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\js\\adminlte.js admin\\web\\assets\\adminlte\\ /Y"
+			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\js\\adminlte.js admin\\web\\assets\\adminlte\\ /Y",
+
+			"if exist .\\admin\\web\\assets\\fontawesome rmdir /s /q .\\admin\\web\\assets\\fontawesome",
+			"if exist .\\public\\web\\assets\\fontawesome rmdir /s /q .\\public\\web\\assets\\fontawesome",
+			"mkdir .\\admin\\web\\assets\\fontawesome",
+			"mkdir .\\public\\web\\assets\\fontawesome",
+			"copy .\\vendor\\components\\font-awesome\\css\\all.css public\\web\\assets\\fontawesome\\ /Y",
+			"copy .\\vendor\\components\\font-awesome\\css\\all.css admin\\web\\assets\\fontawesome\\ /Y",
+			"del /q .\\admin\\web\\assets\\webfonts",
+			"del /q .\\public\\web\\assets\\webfonts",
+			"xcopy .\\vendor\\components\\font-awesome\\webfonts\\ .\\admin\\web\\assets\\webfonts\\ /E/C/I/Y",
+			"xcopy .\\vendor\\components\\font-awesome\\webfonts\\ .\\public\\web\\assets\\webfonts\\ /E/C/I/Y"
 		]
 	}
 }

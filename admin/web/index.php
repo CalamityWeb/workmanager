@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+use tframe\admin\controllers\AuthController;
 use tframe\admin\controllers\SiteController;
 use tframe\core\Application;
 
@@ -28,5 +29,7 @@ $config = [
 $app = new Application(dirname(__DIR__), $config);
 
 $app->router->get('/', [SiteController::class, 'index']);
+
+$app->router->get('/auth/login', [AuthController::class, 'login']);
 
 $app->run();
