@@ -21,7 +21,8 @@ $config = [
         'host' => $_ENV['EMAIL_HOST'],
         'username' => $_ENV['EMAIL_USERNAME'],
         'password' => $_ENV['EMAIL_PASSWORD']
-    ]
+    ],
+    'maintenance' => $_ENV['ADMIN_MAINTENANCE']
 ];
 
 $app = new Application(dirname(__DIR__), $config);
