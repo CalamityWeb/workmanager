@@ -84,12 +84,12 @@ class Application {
         self::$app->session->remove('userId');
     }
 
-    public function run(): void {
+    public function run(): mixed {
         $this->triggerEvent(self::EVENT_BEFORE_REQUEST);
         try {
-            echo $this->router->resolve();
+            return $this->router->resolve();
         } catch (Exception $e) {
-            echo $this->router->renderViewOnly('@common.error', [
+            return $this->router->renderViewOnly('@common.error', [
                 'exception' => $e,
             ]);
         }
