@@ -29,9 +29,9 @@ class FieldWithIcon extends IconField {
         return '
         <input
             type="' . $this->type . '"
-            class="' . $this->model->hasError($this->attribute) ? ' is-invalid' : '' . '"
+            class="form-control ' . (($this->model->hasError($this->attribute)) ? " is-invalid" : "") .'"
             name="' . $this->attribute . '"
-            value="' . $_POST[$this->attribute] ?? $this->model->{$this->attribute} . '"
+            value="' . ($_POST[$this->attribute] ?? $this->model->{$this->attribute}) . '"
             placeholder="' . $this->model->getLabel($this->attribute) . '"
             ' . implode(" ", $attributes) . '
             ' . (($this->required) ? 'required' : '') . '

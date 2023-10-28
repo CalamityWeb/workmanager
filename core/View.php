@@ -29,7 +29,7 @@ class View {
         ob_start();
         include_once $this->layoutPathBuilder($layoutName);
         $layoutContent = ob_get_clean();
-        return str_replace('{{content}}', $viewContent, $layoutContent);
+        return str_replace(['{{content}}', '{{css}}', '{{js}}'], [$viewContent, $this->css, $this->js], $layoutContent);
     }
 
     public function renderViewOnly($view, array $params): string {

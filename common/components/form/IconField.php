@@ -25,8 +25,10 @@ abstract class IconField {
         return '
         <div class="input-group">
             ' . $this->renderInput($this->options) . '
-            <div class="input-group-text">
-                <span class="' . $this->icon . '"></span>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="' . $this->icon . '"></span>
+                </div>
             </div>
         </div>
         <div class="mb-3">

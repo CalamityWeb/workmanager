@@ -27,27 +27,27 @@
 	},
 	"scripts": {
 		"post-update-cmd": [
-			"del /q .\\public\\web\\assets\\bootstrap",
-			"xcopy .\\vendor\\twbs\\bootstrap\\dist\\ .\\public\\web\\assets\\bootstrap\\ /E/C/I/Y",
+			"del /q .\\public\\web\\assets\\modules\\bootstrap",
+			"xcopy .\\vendor\\twbs\\bootstrap\\dist\\ .\\public\\web\\assets\\modules\\bootstrap\\ /E/C/I/Y",
 
-			"del /q .\\admin\\web\\assets\\bootstrap",
-			"xcopy .\\vendor\\twbs\\bootstrap\\dist\\ .\\admin\\web\\assets\\bootstrap\\ /E/C/I/Y",
+			"del /q .\\admin\\web\\assets\\modules\\bootstrap",
+			"xcopy .\\vendor\\twbs\\bootstrap\\dist\\ .\\admin\\web\\assets\\modules\\bootstrap\\ /E/C/I/Y",
 
-			"if exist .\\admin\\web\\assets\\adminlte rmdir /s /q .\\admin\\web\\assets\\adminlte",
-			"mkdir .\\admin\\web\\assets\\adminlte",
-			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\css\\adminlte.css admin\\web\\assets\\adminlte\\ /Y",
-			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\js\\adminlte.js admin\\web\\assets\\adminlte\\ /Y",
+			"if exist .\\admin\\web\\assets\\modules\\adminlte rmdir /s /q .\\admin\\web\\assets\\modules\\adminlte",
+			"mkdir .\\admin\\web\\assets\\modules\\adminlte",
+			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\css\\adminlte.css admin\\web\\assets\\modules\\adminlte\\ /Y",
+			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\js\\adminlte.js admin\\web\\assets\\modules\\adminlte\\ /Y",
 
-			"if exist .\\admin\\web\\assets\\fontawesome rmdir /s /q .\\admin\\web\\assets\\fontawesome",
-			"if exist .\\public\\web\\assets\\fontawesome rmdir /s /q .\\public\\web\\assets\\fontawesome",
-			"mkdir .\\admin\\web\\assets\\fontawesome",
-			"mkdir .\\public\\web\\assets\\fontawesome",
-			"copy .\\vendor\\components\\font-awesome\\css\\all.css public\\web\\assets\\fontawesome\\ /Y",
-			"copy .\\vendor\\components\\font-awesome\\css\\all.css admin\\web\\assets\\fontawesome\\ /Y",
-			"del /q .\\admin\\web\\assets\\webfonts",
-			"del /q .\\public\\web\\assets\\webfonts",
-			"xcopy .\\vendor\\components\\font-awesome\\webfonts\\ .\\admin\\web\\assets\\webfonts\\ /E/C/I/Y",
-			"xcopy .\\vendor\\components\\font-awesome\\webfonts\\ .\\public\\web\\assets\\webfonts\\ /E/C/I/Y"
+			"if exist .\\admin\\web\\assets\\modules\\fontawesome rmdir /s /q .\\admin\\web\\assets\\modules\\fontawesome",
+			"if exist .\\public\\web\\assets\\modules\\fontawesome rmdir /s /q .\\public\\web\\assets\\modules\\fontawesome",
+			"mkdir .\\admin\\web\\assets\\modules\\fontawesome",
+			"mkdir .\\public\\web\\assets\\modules\\fontawesome",
+			"copy .\\vendor\\components\\font-awesome\\css\\all.css public\\web\\assets\\modules\\fontawesome\\ /Y",
+			"copy .\\vendor\\components\\font-awesome\\css\\all.css admin\\web\\assets\\modules\\fontawesome\\ /Y",
+			"del /q .\\admin\\web\\assets\\modules\\webfonts",
+			"del /q .\\public\\web\\assets\\modules\\webfonts",
+			"xcopy .\\vendor\\components\\font-awesome\\webfonts\\ .\\admin\\web\\assets\\modules\\webfonts\\ /E/C/I/Y",
+			"xcopy .\\vendor\\components\\font-awesome\\webfonts\\ .\\public\\web\\assets\\modules\\webfonts\\ /E/C/I/Y"
 		]
 	}
 }

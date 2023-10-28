@@ -2,6 +2,10 @@
 /**
  * @var $this \tframe\core\View
  */
+
+use tframe\common\components\alert\Sweetalert;
+use tframe\core\Application;
+
 ?>
 
 <!doctype html>
@@ -13,10 +17,11 @@
 
     <title><?= $this->title ?></title>
 
-    <link rel="stylesheet" href="/assets/adminlte/adminlte.css">
-    <link rel="stylesheet" href="/assets/fontawesome/all.css">
+    <link rel="stylesheet" href="/assets/modules/adminlte/adminlte.css">
+    <link rel="stylesheet" href="/assets/modules/fontawesome/all.css">
+    <link rel="stylesheet" href="/assets/modules/icheck-bootstrap.css">
 
-    <?= $this->css ?>
+    {{css}}
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -25,9 +30,14 @@
 
 </div>
 
-<script src="/assets/adminlte/adminlte.js"></script>
+<?php if (Application::$app->session->getFlash('success')): ?>
+    <?= Sweetalert::generateToastAlert('success', 'Login successful', 1000) ?>
+<?php endif; ?>
 
-<?= $this->js; ?>
+<script src="/assets/modules/adminlte/adminlte.js"></script>
+<script src="/assets/modules/adminlte/sweetalert2.js"></script>
+
+{{js}}
 
 </body>
 </html>

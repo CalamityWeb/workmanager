@@ -61,7 +61,7 @@ class Application {
             ]);
         }
 
-        $userId = Application::$app->session->get('userId');
+        $userId = Application::$app->session->get('sessionUser');
         if ($userId) {
             $this->user = User::findOne([User::primaryKey() => $userId]);
         }
@@ -74,22 +74,22 @@ class Application {
     public function login(User $user): true {
         $this->user = $user;
         $primaryKey = User::primaryKey();
-        Application::$app->session->set('userId', $user->{$primaryKey});
+        Application::$app->session->set('sessionUser', $user->{$primaryKey});
 
         return true;
     }
 
     public function logout(): void {
         $this->user = null;
-        self::$app->session->remove('userId');
+        self::$app->session->remove('sessionUser');
     }
 
-    public function run(): mixed {
+    public function run(): void {
         $this->triggerEvent(self::EVENT_BEFORE_REQUEST);
         try {
-            return $this->router->resolve();
+            echo $this->router->resolve();
         } catch (Exception $e) {
-            return $this->router->renderViewOnly('@common.error', [
+            echo $this->router->renderViewOnly('@common.error', [
                 'exception' => $e,
             ]);
         }

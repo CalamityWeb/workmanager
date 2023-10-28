@@ -31,5 +31,8 @@ $app = new Application(dirname(__DIR__), $config);
 $app->router->get('/', [SiteController::class, 'index']);
 
 $app->router->get('/auth/login', [AuthController::class, 'login']);
+$app->router->post('/auth/login', [AuthController::class, 'login']);
+$app->router->get('/auth/register', [AuthController::class, 'register']);
+$app->router->post('/auth/register', [AuthController::class, 'register']);
 
 $app->run();

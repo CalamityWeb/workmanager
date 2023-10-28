@@ -12,9 +12,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $this->title ?></title>
 
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/modules/bootstrap/css/bootstrap.css">
 
-    <?= $this->css ?>
+    {{css}}
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -44,7 +44,7 @@
 
 {{content}}
 
-<?= $this->js; ?>
+{{js}}
 
 </body>
 </html>
