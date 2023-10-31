@@ -23,7 +23,8 @@ $config = [
         'username' => $_ENV['EMAIL_USERNAME'],
         'password' => $_ENV['EMAIL_PASSWORD']
     ],
-    'maintenance' => $_ENV['MAINTENANCE']
+    'maintenance' => $_ENV['PUBLIC_MAINTENANCE'],
+    'language' => $_ENV['PUBLIC_LANGUAGE']
 ];
 
 $app = new Application(dirname(__DIR__), $config);
