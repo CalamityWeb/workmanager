@@ -114,7 +114,7 @@ class Application {
     }
 
     public static function t(string $type, string $message) {
-        $file = require (CoreHelper::getAlias('@common') . '/messages/' . Application::$app->language . '/' . $type . '.php');
+        $file = require (CoreHelper::getAlias('@common') . 'messages/' . Application::$app->language . '/' . $type . '.php');
         return (array_key_exists($message, $file)) ? $file[$message] : $message;
     }
 }

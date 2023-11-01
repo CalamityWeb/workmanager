@@ -3,6 +3,7 @@
 namespace tframe\core;
 
 class Model {
+    const RULE_REQUIRED = 'required';
     const RULE_EMAIL = 'email';
     const RULE_MIN = 'min';
     const RULE_MAX = 'max';
@@ -43,6 +44,9 @@ class Model {
                 $ruleName = $rule;
                 if (!is_string($rule)) {
                     $ruleName = $rule[0];
+                }
+                if ($ruleName === self::RULE_REQUIRED and !$value) {
+                    $this->addErrorByRule($attribute, self::RULE_REQUIRED);
                 }
                 if ($ruleName === self::RULE_EMAIL and !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->addErrorByRule($attribute, self::RULE_EMAIL);
@@ -85,14 +89,15 @@ class Model {
 
     public function errorMessages(): array {
         return [
-            self::RULE_EMAIL => 'The field has to be a valid email address',
-            self::RULE_MIN => 'The field has to contains at least {min} characters',
-            self::RULE_MAX => 'The field must contains a maximum of {max} characters',
-            self::RULE_MATCH =>  'The field has to match with {math}',
-            self::RULE_UNIQUE => 'This field\'s value is used',
-            self::RULE_DATE_BEFORE => 'The given date cannot be before {date_before}',
-            self::RULE_DATE_AFTER => 'The given date cannot be after {date_before}',
-            self::RULE_PASSWORD => 'Your password has to contain one uppercase, lowercase, number and special character',
+            self::RULE_REQUIRED => Application::t('attributes', 'The field is required'),
+            self::RULE_EMAIL => Application::t('attributes','The field has to be a valid email address'),
+            self::RULE_MIN => Application::t('attributes','The field has to contains at least {min} characters'),
+            self::RULE_MAX => Application::t('attributes','The field must contains a maximum of {max} characters'),
+            self::RULE_MATCH =>  Application::t('attributes','The field has to match with {match}'),
+            self::RULE_UNIQUE => Application::t('attributes','This field\'s value is used'),
+            self::RULE_DATE_BEFORE => Application::t('attributes','The given date cannot be before {date_before}'),
+            self::RULE_DATE_AFTER => Application::t('attributes','The given date cannot be after {date_before}'),
+            self::RULE_PASSWORD => Application::t('attributes','Your password has to contain one uppercase, lowercase, number and special character'),
         ];
     }
 
@@ -104,7 +109,7 @@ class Model {
         $params['field'] ??= $attribute;
         $errorMessage = $this->errorMessage($rule);
         foreach ($params as $key => $value) {
-            $errorMessage = str_replace("{{$key}}", $value, $errorMessage);
+            $errorMessage = str_replace("{{$key}}", $this->getLabel($value), $errorMessage);
         }
         $this->errors[$attribute][] = $errorMessage;
     }

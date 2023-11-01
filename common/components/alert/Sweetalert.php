@@ -3,7 +3,7 @@
 namespace tframe\common\components\alert;
 
 class Sweetalert {
-    public static function generateToastAlert(string $icon, string $title, int $timer = 2000, bool $showConfirmButton = false): string {
+    public static function generateToastAlert(string $icon, string $title, int $timer = 2000): string {
         return <<<JS
             <script>
                 setTimeout(function () {
@@ -13,7 +13,7 @@ class Sweetalert {
                         toast: true,
                         position: 'top-end',
                         timerProgressBar: true,
-                        showConfirmButton: $showConfirmButton,
+                        showConfirmButton: false,
                         timer: $timer
                     })
                 }, 100);

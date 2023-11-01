@@ -12,6 +12,7 @@ class RegisterForm extends Model {
     public ?string $lastName = null;
     public ?string $password = null;
     public ?string $passwordConfirmation = null;
+    public bool $agreeTerms = false;
 
     public function rules(): array {
         return [
@@ -34,10 +35,11 @@ class RegisterForm extends Model {
 
     public function register(): bool {
         $user = new User();
+        $user->id = null;
         $user->email = $this->email;
         $user->firstName = $this->firstName;
         $user->lastName = $this->lastName;
-        $user->password = $this->password;
+        $user->password = password_hash($this->password, PASSWORD_ARGON2ID, ['memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3]);
         $user->save();
 
         $user = User::findOne(['email' => $this->email]);

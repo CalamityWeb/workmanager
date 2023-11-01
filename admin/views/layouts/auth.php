@@ -30,14 +30,15 @@ use tframe\core\Application;
 
 </div>
 
-<?php if (Application::$app->session->getFlash('success')): ?>
-    <?= Sweetalert::generateToastAlert('success', 'Login successful', 1000) ?>
-<?php endif; ?>
-
 <script src="/assets/modules/adminlte/adminlte.js"></script>
-<script src="/assets/modules/adminlte/sweetalert2.js"></script>
+<script src="/assets/modules/sweetalert2.js"></script>
+<script src="/assets/site.js"></script>
 
 {{js}}
+
+<?php if (Application::$app->session->getFlash('success')): ?>
+    <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success'), 1500) ?>
+<?php endif; ?>
 
 </body>
 </html>
