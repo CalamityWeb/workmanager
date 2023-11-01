@@ -20,36 +20,25 @@ $this->title = 'Login to ' . Application::$GLOBALS['APP_NAME'];
 
         <?php $form = Form::begin('post') ?>
 
-        <?php echo $form->fieldWithIcon($loginForm, 'email', 'fa-solid fa-envelope')->required();?>
-        <?php echo $form->fieldWithIcon($loginForm, 'password', 'fa-solid fa-lock')->passwordField()->required();?>
+        <?= $form->fieldWithIcon($loginForm, 'email', 'fa-solid fa-envelope')->required();?>
+        <?= $form->fieldWithIcon($loginForm, 'password', 'fa-solid fa-lock')->passwordField()->required();?>
 
         <div class="row">
             <div class="col-8">
-                <div class="icheck-primary">
-                    <input type="checkbox" id="rememberMe" name="rememberMe">
-                    <label for="rememberMe">
-                        Remember Me
-                    </label>
-                </div>
+                <?= $form->icheckField($loginForm, 'rememberMe') ?>
             </div>
             <div class="col-4">
-                <?php echo $form->submitButton('Log in', 'btn-primary d-block w-100');?>
+                <?= $form->submitButton('Log in', 'btn-primary d-block w-100');?>
             </div>
         </div>
 
         <?php Form::end() ?>
 
-        <div class="social-auth-links text-center mt-2 mb-3">
-            <a href="#" class="btn btn-block btn-danger">
-                <i class="fa-brands fa-google mr-2"></i> Sign in using Google account
-            </a>
-        </div>
-
         <p class="mb-1">
             <a href=/auth/forgot-password>I forgot my password</a>
         </p>
         <p class="mb-0">
-            <a href="/auth/register" class="text-center">Register a new membership</a>
+            <a href="/auth/register">Register a new membership</a>
         </p>
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace tframe\core;
 
 use tframe\common\components\mailer\Mailer;
+use tframe\common\helpers\CoreHelper;
 use tframe\common\models\User;
 use tframe\core\database\Database;
 use Exception;
@@ -30,6 +31,7 @@ class Application {
     public static array $URL;
     public static array $GLOBALS;
     public bool $maintenance;
+    public string $language;
 
     public function __construct($rootDir, $config) {
         $this->user = null;
@@ -48,7 +50,9 @@ class Application {
 
         $this->maintenance = strtolower($config['maintenance']) == 'true';
 
-        foreach (require dirname(__DIR__) .  '/common/config/globals.php' as $key => $value) {
+        $this->language = $config['language'];
+
+        foreach (require CoreHelper::getAlias('@common') . '/config/globals.php' as $key => $value) {
            self::$GLOBALS[$key] = $value;
         }
 
@@ -63,7 +67,12 @@ class Application {
 
         $userId = Application::$app->session->get('sessionUser');
         if ($userId) {
-            $this->user = User::findOne([User::primaryKey() => $userId]);
+            $user = User::findOne([User::primaryKey() => $userId]);
+            if($user) {
+                $this->user = $user;
+            } else {
+                $this->logout();
+            }
         }
     }
 
@@ -73,9 +82,7 @@ class Application {
 
     public function login(User $user): true {
         $this->user = $user;
-        $primaryKey = User::primaryKey();
-        Application::$app->session->set('sessionUser', $user->{$primaryKey});
-
+        Application::$app->session->set('sessionUser', $user->{User::primaryKey()});
         return true;
     }
 
@@ -104,5 +111,10 @@ class Application {
 
     public function on($eventName, $callback): void {
         $this->eventListeners[$eventName][] = $callback;
+    }
+
+    public static function t(string $type, string $message) {
+        $file = require (CoreHelper::getAlias('@common') . '/messages/' . Application::$app->language . '/' . $type . '.php');
+        return (array_key_exists($message, $file)) ? $file[$message] : $message;
     }
 }

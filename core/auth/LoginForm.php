@@ -10,11 +10,13 @@ class LoginForm extends Model {
 
     public ?string $email = null;
     public ?string $password = null;
+    public bool $rememberMe = false;
 
     public function labels(): array {
         return [
-            'email' => "Email address",
-            'password' => "Password"
+            'email' => Application::t('attributes', 'Email address'),
+            'password' => Application::t('attributes','Password'),
+            'rememberMe' => Application::t('attributes','Remember me')
         ];
     }
 
@@ -22,13 +24,17 @@ class LoginForm extends Model {
         /** @var User $user */
         $user = User::findOne(['email' => $this->email]);
 
-        if(!$user) {
-            $this->addError('email', 'This email is not in our system!');
+        if (!$user) {
+            $this->addError('email', Application::t('auth', 'This email is not in our system!'));
             return false;
         }
-        if(!password_verify($this->password, $user->password)) {
-            $this->addError('password', 'The given email/password combination is not correct!');
+        if (!password_verify($this->password, $user->password)) {
+            $this->addError('password', Application::t('auth', 'The given email/password combination is not correct!'));
             return false;
+        }
+
+        if ($this->rememberMe) {
+            setcookie('rememberMe', $user->id, (time() + 86400), '/', Application::$URL['ADMIN']);
         }
 
         return Application::$app->login($user);

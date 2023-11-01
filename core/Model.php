@@ -10,6 +10,7 @@ class Model {
     const RULE_UNIQUE = 'unique';
     const RULE_DATE_AFTER = 'date_after';
     const RULE_DATE_BEFORE = 'date_before';
+    const RULE_PASSWORD = 'password';
 
     public array $errors = [];
 
@@ -61,6 +62,9 @@ class Model {
                 if ($ruleName === self::RULE_DATE_AFTER and $value > $rule["date_after"]) {
                     $this->addErrorByRule($attribute, self::RULE_DATE_BEFORE, ['date_after' => $rule['date_after']]);
                 }
+                if($ruleName === self::RULE_PASSWORD and !preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{8,})((?=.*[-+_!@#$%^&*.,?])|(?=.*_))^[^ ]+$/', $value)) {
+                    $this->addErrorByRule($attribute, self::RULE_PASSWORD);
+                }
                 if ($ruleName === self::RULE_UNIQUE) {
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
@@ -81,13 +85,14 @@ class Model {
 
     public function errorMessages(): array {
         return [
-            self::RULE_EMAIL => 'The field has to be a valid email adress',
+            self::RULE_EMAIL => 'The field has to be a valid email address',
             self::RULE_MIN => 'The field has to contains at least {min} characters',
             self::RULE_MAX => 'The field must contains a maximum of {max} characters',
             self::RULE_MATCH =>  'The field has to match with {math}',
             self::RULE_UNIQUE => 'This field\'s value is used',
-            self::RULE_DATE_BEFORE => 'A megadott dátum nem lehet {date_before} dátumnál korábbi',
-            self::RULE_DATE_AFTER => 'A megadott dátum nem lehet {date_before} dátumnál későbbi',
+            self::RULE_DATE_BEFORE => 'The given date cannot be before {date_before}',
+            self::RULE_DATE_AFTER => 'The given date cannot be after {date_before}',
+            self::RULE_PASSWORD => 'Your password has to contain one uppercase, lowercase, number and special character',
         ];
     }
 

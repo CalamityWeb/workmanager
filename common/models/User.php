@@ -2,6 +2,7 @@
 
 namespace tframe\common\models;
 
+use tframe\core\Application;
 use tframe\core\database\MagicRecord;
 
 /**
@@ -31,10 +32,10 @@ class User extends MagicRecord {
 
     public function labels(): array {
         return [
-            'email' => 'Email address',
-            'firstName' => 'Family name',
-            'lastName' => 'Given name',
-            'password' => 'Password'
+            'email' => Application::t('attributes','Email address'),
+            'firstName' => Application::t('attributes','Family name'),
+            'lastName' => Application::t('attributes','Given name'),
+            'password' => Application::t('attributes','Password')
         ];
     }
 

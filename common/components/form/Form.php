@@ -42,4 +42,24 @@ class Form {
         $disabled = in_array($attribute, $this->disabledFields);
         return new FieldWithIcon($model, $attribute, $icon, $options, $disabled);
     }
+
+    public function selectField(Model $model, $attribute, array $choices, bool $canBeNull = true, $options = []): SelectField {
+        $disabled = in_array($attribute, $this->disabledFields);
+        return new SelectField($model, $attribute, $options, $choices, $canBeNull, $disabled);
+    }
+
+    public function switchField(Model $model, $attribute, $options = []): SwitchField {
+        $disabled = in_array($attribute, $this->disabledFields);
+        return new SwitchField($model, $attribute, $options, $disabled);
+    }
+
+    public function textareaField(Model $model, $attribute, $options = []): TextareaField {
+        $disabled = in_array($attribute, $this->disabledFields);
+        return new TextareaField($model, $attribute, $options, $disabled);
+    }
+
+    public function icheckField(Model $model, $attribute, $options = []): IcheckField {
+        $disabled = in_array($attribute, $this->disabledFields);
+        return new IcheckField($model, $attribute, $options, $disabled);
+    }
 }
