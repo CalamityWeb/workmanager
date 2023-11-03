@@ -9,9 +9,10 @@ class Session {
         session_start();
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
         foreach ($flashMessages as $key => $flashMessage) {
-            $flashMessage['remove'] = true;
+            $flashMessages[$key]['remove'] = true;
         }
         $_SESSION[self::FLASH_KEY] = $flashMessages;
+        $this->removeFlashMessages();
     }
 
     public function setFlash($key, $message): void {
@@ -45,6 +46,7 @@ class Session {
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
         foreach ($flashMessages as $key => $flashMessage) {
             if ($flashMessage['remove']) {
+                unset($_SESSION[self::FLASH_KEY][$key]);
                 unset($flashMessages[$key]);
             }
         }
