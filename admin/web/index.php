@@ -19,6 +19,7 @@ $config = [
         'password' => $_ENV['DATABASE_PASSWORD']
     ],
     'mailer' => [
+        'system_address' => $_ENV['SYSTEM_EMAIL'],
         'host' => $_ENV['EMAIL_HOST'],
         'username' => $_ENV['EMAIL_USERNAME'],
         'password' => $_ENV['EMAIL_PASSWORD']
@@ -31,9 +32,14 @@ $app = new Application(dirname(__DIR__), $config);
 
 $app->router->get('/', [SiteController::class, 'index']);
 
-$app->router->get('/auth/login', [AuthController::class, 'login']);
-$app->router->post('/auth/login', [AuthController::class, 'login']);
-$app->router->get('/auth/register', [AuthController::class, 'register']);
-$app->router->post('/auth/register', [AuthController::class, 'register']);
+/* * Authentication routes  */
+// Login
+$app->router->getNpost('/auth/login', [AuthController::class, 'login']);
+//Register
+$app->router->getNpost('/auth/register', [AuthController::class, 'register']);
+// Logout
+$app->router->get('/auth/logout', [AuthController::class, 'logout']);
+// Forgot Password
+$app->router->getNpost('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 
 $app->run();

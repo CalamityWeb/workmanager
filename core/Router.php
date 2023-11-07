@@ -23,13 +23,18 @@ class Router {
         $this->routeMap['post'][$url] = $callback;
     }
 
+    public function getNpost(string $url, $callback):void {
+        $this->routeMap['get'][$url] = $callback;
+        $this->routeMap['post'][$url] = $callback;
+    }
+
     /**
      * @throws \tframe\core\exception\NotFoundException
      * @throws \tframe\core\exception\ServiceUnavailableException
      */
     public function resolve(): mixed {
         if(Application::$app->maintenance) {
-            throw new ServiceUnavailableException("Maintenance in progress");
+            throw new ServiceUnavailableException(Application::t('general', 'Maintenance in progress'));
         }
 
         $method = $this->request->getMethod();

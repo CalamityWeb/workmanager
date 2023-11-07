@@ -4,11 +4,14 @@ namespace tframe\common\components\mailer;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use tframe\common\helpers\CoreHelper;
 use tframe\core\Application;
 use tframe\core\exception\BadRequestException;
 
 class Mailer {
     public PHPMailer $mail;
+    public string $SYSTEM_ADDRESS;
 
     public function __construct(array $config = []) {
         $this->mail = new PHPMailer();
@@ -21,15 +24,20 @@ class Mailer {
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $this->mail->Port = 465;
         $this->mail->CharSet = PHPMailer::CHARSET_UTF8;
+
+        $this->SYSTEM_ADDRESS = $config['system_address'];
+
+        $this->mail->From = $this->SYSTEM_ADDRESS;
+        $this->mail->FromName = Application::$GLOBALS['APP_NAME'];
     }
 
 
     /**
      * @throws \tframe\core\exception\BadRequestException
      */
-    public function setFrom(string $address, $name = ''): static {
+    public function setFrom(string $address, string $name = '', bool $auto = false): static {
         try {
-            $this->mail->setFrom($address, $name);
+            $this->mail->setFrom($address, $name, $auto);
         } catch (Exception $e) {
             throw new BadRequestException();
         }
@@ -166,21 +174,37 @@ class Mailer {
         return $this;
     }
 
+    public function setSubject(string $subject): static {
+        $this->mail->Subject = $subject;
+        return $this;
+    }
+
     /**
      * @throws \tframe\core\exception\BadRequestException
      */
-    public function setTemplate(string $subject, string $templateName, array $args = []): static {
+    public function setTemplate(string $templateName, array $args = []): static {
         try {
-            $this->mail->Subject = $subject;
             $this->mail->isHTML(true);
-            $content = file_get_contents(Application::$ROOT_DIR . '/common/components/mailer/template/' . $templateName . '.html');
-            foreach ($args as $key => $value) {
-                $content = str_replace('['.$key.']', $value, $content);
+            if(str_contains($templateName, '.')) {
+                $templateName = str_replace('.', '/', $templateName);
             }
+            $content = file_get_contents(CoreHelper::getAlias('@common') . 'components/mailer/template/' . $templateName . '.html');
+            foreach ($args as $key => $value) {
+                $content = str_replace('{{'.$key.'}}', $value, $content);
+            }
+            $content = str_replace('{{copyright_year}}', date('Y'), $content);
+            $content = str_replace('{{app_name}}', Application::$GLOBALS['APP_NAME'], $content);
+            $content = str_replace('{{app_link}}', ((empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST']) , $content);
+            $content = str_replace('{{email_subject}}', $this->mail->Subject , $content);
             $this->mail->Body = $content;
         } catch (Exception $e) {
             throw new BadRequestException();
         }
+        return $this;
+    }
+
+    public function setBody(string $body): static {
+        $this->mail->Body = $body;
         return $this;
     }
 

@@ -15,15 +15,20 @@ class Session {
         $this->removeFlashMessages();
     }
 
-    public function setFlash($key, $message): void {
+    public function setFlash($key, $message, $url = null): void {
         $_SESSION[self::FLASH_KEY][$key] = [
             'remove' => false,
-            'value' => $message
+            'value' => $message,
+            'redirectUrl' => $url
         ];
     }
 
     public function getFlash($key): mixed {
         return $_SESSION[self::FLASH_KEY][$key]['value'] ?? false;
+    }
+
+    public function getFlashContent($key): mixed {
+        return $_SESSION[self::FLASH_KEY][$key] ?? false;
     }
 
     public function set($key, $value): void {

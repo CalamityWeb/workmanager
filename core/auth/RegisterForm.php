@@ -16,9 +16,12 @@ class RegisterForm extends Model {
 
     public function rules(): array {
         return [
-            'email' => [self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => User::class], 'attribute'],
-            'password' => [self::RULE_PASSWORD, [self::RULE_MIN, 'min' => 8], [self::RULE_MATCH, 'match' => 'passwordConfirmation']],
-            'passwordConfirmation' => [self::RULE_PASSWORD],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => User::class], 'attribute'],
+            'firstName' => [self::RULE_REQUIRED],
+            'lastName' => [self::RULE_REQUIRED],
+            'password' => [self::RULE_REQUIRED, self::RULE_PASSWORD, [self::RULE_MIN, 'min' => 8], [self::RULE_MATCH, 'match' => 'passwordConfirmation']],
+            'passwordConfirmation' => [self::RULE_REQUIRED, self::RULE_PASSWORD],
+            'agreeTerms' => [self::RULE_REQUIRED],
         ];
     }
 

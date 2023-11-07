@@ -15,5 +15,14 @@ return [
     'Register successful' => 'Register successful',
     'Register' => 'Register',
     'I already have a membership' => 'I already have a membership',
-    'Register a new membership' => 'Register a new membership'
+    'Register a new membership' => 'Register a new membership',
+
+    // ? Forgot password
+    'Give us your email to reset your password' => 'Give us your email to reset your password',
+    'Send me my new password!' => 'Send me my new password!',
+    'I log in instead' => 'I log in instead',
+    'Recover account password' => 'Recover account password',
+    'Recovery email sent successfully' => 'Recovery email sent successfully',
+
+    // ? Password reset
 ];

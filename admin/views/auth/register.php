@@ -7,7 +7,7 @@
 use tframe\common\components\form\Form;
 use tframe\core\Application;
 
-$this->title = 'Login to ' . Application::$GLOBALS['APP_NAME'];
+$this->title = 'Register to ' . Application::$GLOBALS['APP_NAME'];
 ?>
 
 <div class="card card-outline card-primary">

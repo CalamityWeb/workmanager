@@ -33,8 +33,8 @@ class User extends MagicRecord {
     public function labels(): array {
         return [
             'email' => Application::t('attributes','Email address'),
-            'firstName' => Application::t('attributes','Family name'),
-            'lastName' => Application::t('attributes','Given name'),
+            'firstName' => Application::t('attributes','Given name'),
+            'lastName' => Application::t('attributes','Family name'),
             'password' => Application::t('attributes','Password')
         ];
     }

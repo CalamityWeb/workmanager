@@ -3,7 +3,7 @@
 namespace tframe\common\components\alert;
 
 class Sweetalert {
-    public static function generateToastAlert(string $icon, string $title, int $timer = 2000): string {
+    public static function generateToastAlert(string $icon, string $title, int $timer = 2000, $redirectUrl = null): string {
         return <<<JS
             <script>
                 setTimeout(function () {
@@ -17,6 +17,12 @@ class Sweetalert {
                         timer: $timer
                     })
                 }, 100);
+                
+                if('$redirectUrl' != '') {
+                    setTimeout(function() {
+                        window.location.href = '$redirectUrl'
+                    }, ($timer + 500))
+                }
             </script>
         JS;
     }

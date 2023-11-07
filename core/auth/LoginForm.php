@@ -34,7 +34,7 @@ class LoginForm extends Model {
         }
 
         if ($this->rememberMe) {
-            setcookie('rememberMe', $user->id, (time() + 86400), '/', Application::$URL['ADMIN']);
+            setcookie('rememberMe', $user->id, (time() + (86400 * 7)), '/');
         }
 
         return Application::$app->login($user);
