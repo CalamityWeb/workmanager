@@ -30,4 +30,8 @@ class ResetToken extends MagicRecord {
             'userId' => "Felhasználó"
         ];
     }
+
+    public function rules(): array {
+        return [];
+    }
 }

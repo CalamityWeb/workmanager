@@ -39,7 +39,9 @@ $app->router->getNpost('/auth/login', [AuthController::class, 'login']);
 $app->router->getNpost('/auth/register', [AuthController::class, 'register']);
 // Logout
 $app->router->get('/auth/logout', [AuthController::class, 'logout']);
-// Forgot Password
+// Forgot password
 $app->router->getNpost('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
+// Reset password
+$app->router->getNpost('/auth/reset-password/{token}', [AuthController::class, 'resetPassword']);
 
 $app->run();

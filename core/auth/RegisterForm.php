@@ -14,17 +14,6 @@ class RegisterForm extends Model {
     public ?string $passwordConfirmation = null;
     public bool $agreeTerms = false;
 
-    public function rules(): array {
-        return [
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => User::class], 'attribute'],
-            'firstName' => [self::RULE_REQUIRED],
-            'lastName' => [self::RULE_REQUIRED],
-            'password' => [self::RULE_REQUIRED, self::RULE_PASSWORD, [self::RULE_MIN, 'min' => 8], [self::RULE_MATCH, 'match' => 'passwordConfirmation']],
-            'passwordConfirmation' => [self::RULE_REQUIRED, self::RULE_PASSWORD],
-            'agreeTerms' => [self::RULE_REQUIRED],
-        ];
-    }
-
     public function labels(): array {
         return [
             'email' => Application::t('attributes','Email address'),
@@ -33,6 +22,17 @@ class RegisterForm extends Model {
             'password' => Application::t('attributes','Password'),
             'passwordConfirmation' => Application::t('attributes','Password confirmation'),
             'agreeTerms' => Application::t('attributes','I agree to the terms')
+        ];
+    }
+
+    public function rules(): array {
+        return [
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => User::class], 'attribute'],
+            'firstName' => [self::RULE_REQUIRED],
+            'lastName' => [self::RULE_REQUIRED],
+            'password' => [self::RULE_REQUIRED, self::RULE_PASSWORD, [self::RULE_MIN, 'min' => 8], [self::RULE_MATCH, 'match' => 'passwordConfirmation']],
+            'passwordConfirmation' => [self::RULE_REQUIRED],
+            'agreeTerms' => [self::RULE_REQUIRED],
         ];
     }
 

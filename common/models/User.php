@@ -41,11 +41,14 @@ class User extends MagicRecord {
 
     public function rules(): array {
         return [
-            'email' => [self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class], 'attribute'],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class], 'attribute'],
+            'firstName' => [self::RULE_REQUIRED],
+            'lastName' => [self::RULE_REQUIRED],
+            'password' => [self::RULE_REQUIRED, self::RULE_PASSWORD],
         ];
     }
 
-    public function getDisplayName(): string {
+    public function getFullName(): string {
         return $this->firstName . ' ' . $this->lastName;
     }
 }

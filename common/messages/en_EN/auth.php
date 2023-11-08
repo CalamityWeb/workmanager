@@ -25,4 +25,9 @@ return [
     'Recovery email sent successfully' => 'Recovery email sent successfully',
 
     // ? Password reset
+    'New password' => 'New password',
+    'New password confirmation' => 'New password confirmation',
+    'Password updated successfully' => 'Password updated successfully',
+    'Create your new password' => 'Create your new password',
+    'Change my password!' => 'Change my password!'
 ];

@@ -10,19 +10,18 @@ use tframe\core\Model;
 class ForgotPasswordForm extends Model {
     public ?string $email = null;
 
-    public function rules(): array {
-        return [];
-    }
-
     public function labels(): array {
         return [
             'email' => Application::t('attributes', 'Email address'),
         ];
     }
 
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
+    public function rules(): array {
+        return [
+            'email' => [self::RULE_REQUIRED],
+        ];
+    }
+
     public function sendUpdateEmail(): bool {
         /** @var User $user */
         $user = User::findOne(['email' => $this->email]);
