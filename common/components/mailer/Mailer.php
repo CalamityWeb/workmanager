@@ -4,10 +4,9 @@ namespace tframe\common\components\mailer;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use tframe\common\helpers\CoreHelper;
 use tframe\core\Application;
-use tframe\core\exception\BadRequestException;
+use tframe\core\exception\InvalidArgumentException;
 
 class Mailer {
     public PHPMailer $mail;
@@ -31,144 +30,121 @@ class Mailer {
         $this->mail->FromName = Application::$GLOBALS['APP_NAME'];
     }
 
-
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
     public function setFrom(string $address, string $name = '', bool $auto = false): static {
         try {
             $this->mail->setFrom($address, $name, $auto);
         } catch (Exception $e) {
-            throw new BadRequestException();
+            throw new InvalidArgumentException();
         }
         return $this;
     }
 
-
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
     public function setReplyTo(string|array $addresses, $name = ''): static {
-        if(is_array($addresses)) {
+        if (is_array($addresses)) {
             foreach ($addresses as $address) {
                 try {
-                    if(is_array($address)) {
+                    if (is_array($address)) {
                         $this->mail->addReplyTo($address[0], $address[1]);
                     } else {
                         $this->mail->addReplyTo($address);
                     }
                 } catch (Exception $e) {
-                    throw new BadRequestException();
+                    throw new InvalidArgumentException();
                 }
             }
         } else {
             try {
                 $this->mail->addReplyTo($addresses);
             } catch (Exception $e) {
-                throw new BadRequestException();
+                throw new InvalidArgumentException();
             }
         }
         return $this;
     }
 
-
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
     public function setAddress(string|array $recipients): static {
-        if(is_array($recipients)) {
+        if (is_array($recipients)) {
             foreach ($recipients as $recipient) {
                 try {
-                    if(is_array($recipient)) {
+                    if (is_array($recipient)) {
                         $this->mail->addAddress($recipient[0], $recipient[1]);
                     } else {
                         $this->mail->addAddress($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new BadRequestException();
+                    throw new InvalidArgumentException();
                 }
             }
         } else {
             try {
                 $this->mail->addAddress($recipients);
             } catch (Exception $e) {
-                throw new BadRequestException();
+                throw new InvalidArgumentException();
             }
         }
         return $this;
     }
 
-
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
     public function setCC(string|array $recipients): static {
-        if(is_array($recipients)) {
+        if (is_array($recipients)) {
             foreach ($recipients as $recipient) {
                 try {
-                    if(is_array($recipient)) {
+                    if (is_array($recipient)) {
                         $this->mail->addCC($recipient[0], $recipient[1]);
                     } else {
                         $this->mail->addCC($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new BadRequestException();
+                    throw new InvalidArgumentException();
                 }
             }
         } else {
             try {
                 $this->mail->addCC($recipients);
             } catch (Exception $e) {
-                throw new BadRequestException();
+                throw new InvalidArgumentException();
             }
         }
         return $this;
     }
 
-
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
     public function setBCC(string|array $recipients): static {
-        if(is_array($recipients)) {
+        if (is_array($recipients)) {
             foreach ($recipients as $recipient) {
                 try {
-                    if(is_array($recipient)) {
+                    if (is_array($recipient)) {
                         $this->mail->addBCC($recipient[0], $recipient[1]);
                     } else {
                         $this->mail->addBCC($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new BadRequestException();
+                    throw new InvalidArgumentException();
                 }
             }
         } else {
             try {
                 $this->mail->addBCC($recipients);
             } catch (Exception $e) {
-                throw new BadRequestException();
+                throw new InvalidArgumentException();
             }
         }
         return $this;
     }
 
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
     public function addAttachment(string|array $attachments): static {
-        if(is_array($attachments)) {
+        if (is_array($attachments)) {
             foreach ($attachments as $attachment) {
                 try {
                     $this->mail->addAttachment($attachment);
                 } catch (Exception $e) {
-                    throw new BadRequestException();
+                    throw new InvalidArgumentException();
                 }
             }
         } else {
             try {
                 $this->mail->addAttachment($attachments);
             } catch (Exception $e) {
-                throw new BadRequestException();
+                throw new InvalidArgumentException();
             }
         }
         return $this;
@@ -179,26 +155,23 @@ class Mailer {
         return $this;
     }
 
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
     public function setTemplate(string $templateName, array $args = []): static {
         try {
             $this->mail->isHTML(true);
-            if(str_contains($templateName, '.')) {
+            if (str_contains($templateName, '.')) {
                 $templateName = str_replace('.', '/', $templateName);
             }
             $content = file_get_contents(CoreHelper::getAlias('@common') . 'components/mailer/template/' . $templateName . '.html');
             foreach ($args as $key => $value) {
-                $content = str_replace('{{'.$key.'}}', $value, $content);
+                $content = str_replace('{{' . $key . '}}', $value, $content);
             }
             $content = str_replace('{{copyright_year}}', date('Y'), $content);
             $content = str_replace('{{app_name}}', Application::$GLOBALS['APP_NAME'], $content);
-            $content = str_replace('{{app_link}}', ((empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST']) , $content);
-            $content = str_replace('{{email_subject}}', $this->mail->Subject , $content);
+            $content = str_replace('{{app_link}}', ((empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST']), $content);
+            $content = str_replace('{{email_subject}}', $this->mail->Subject, $content);
             $this->mail->Body = $content;
         } catch (Exception $e) {
-            throw new BadRequestException();
+            throw new InvalidArgumentException();
         }
         return $this;
     }
@@ -208,18 +181,15 @@ class Mailer {
         return $this;
     }
 
-    /**
-     * @throws \tframe\core\exception\BadRequestException
-     */
     public function send(): true {
         try {
-            if($this->mail->send()) {
+            if ($this->mail->send()) {
                 return true;
             } else {
-                throw new BadRequestException();
+                throw new InvalidArgumentException();
             }
         } catch (Exception $e) {
-            throw new BadRequestException();
+            throw new InvalidArgumentException();
         }
     }
 }
