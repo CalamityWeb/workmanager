@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 use tframe\admin\controllers\AuthController;
+use tframe\admin\controllers\RoutesManagement;
 use tframe\admin\controllers\SiteController;
 use tframe\core\Application;
 
@@ -43,5 +44,8 @@ $app->router->get('/auth/logout', [AuthController::class, 'logout']);
 $app->router->getNpost('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 // Reset password
 $app->router->getNpost('/auth/reset-password/{token}', [AuthController::class, 'resetPassword']);
+
+/* * Routes Management */
+$app->router->get('/routes-management/index', [RoutesManagement::class, 'index']);
 
 $app->run();

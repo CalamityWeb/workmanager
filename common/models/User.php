@@ -51,4 +51,8 @@ class User extends MagicRecord {
     public function getFullName(): string {
         return $this->firstName . ' ' . $this->lastName;
     }
+
+    public function getUserPicture(): string {
+        return file_exists('./assets/images/profile-pictures/' . $this->{$this->primaryKey()} . '.png') ? '/assets/images/profile-pictures/' . $this->{$this->primaryKey()} . '.png' : '/assets/images/user-dummy.png';
+    }
 }
