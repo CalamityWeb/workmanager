@@ -21,7 +21,6 @@
 		"ext-openssl": "*",
 		"ext-pdo": "*",
 		"phpmailer/phpmailer": "^6.8",
-		"almasaeed2010/adminlte": "~3.2",
 		"twbs/bootstrap": "v5.3.2",
 		"components/font-awesome": "6.4.2"
 	},
@@ -32,11 +31,6 @@
 
 			"del /q .\\admin\\web\\assets\\modules\\bootstrap",
 			"xcopy .\\vendor\\twbs\\bootstrap\\dist\\ .\\admin\\web\\assets\\modules\\bootstrap\\ /E/C/I/Y",
-
-			"if exist .\\admin\\web\\assets\\modules\\adminlte rmdir /s /q .\\admin\\web\\assets\\modules\\adminlte",
-			"mkdir .\\admin\\web\\assets\\modules\\adminlte",
-			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\css\\adminlte.css admin\\web\\assets\\modules\\adminlte\\ /Y",
-			"copy .\\vendor\\almasaeed2010\\adminlte\\dist\\js\\adminlte.js admin\\web\\assets\\modules\\adminlte\\ /Y",
 
 			"if exist .\\admin\\web\\assets\\modules\\fontawesome rmdir /s /q .\\admin\\web\\assets\\modules\\fontawesome",
 			"if exist .\\public\\web\\assets\\modules\\fontawesome rmdir /s /q .\\public\\web\\assets\\modules\\fontawesome",

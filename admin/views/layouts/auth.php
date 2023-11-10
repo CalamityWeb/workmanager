@@ -20,6 +20,7 @@ use tframe\core\Application;
     <link rel="stylesheet" href="/assets/modules/adminlte/adminlte.css">
     <link rel="stylesheet" href="/assets/modules/fontawesome/all.css">
     <link rel="stylesheet" href="/assets/modules/icheck-bootstrap.css">
+    <link rel="stylesheet" href="/assets/site.css?v=<?= time() ?>">
 
     {{css}}
 </head>

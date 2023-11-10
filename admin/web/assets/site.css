@@ -125,6 +125,21 @@
     --bsg-white: #ffffff;
 }
 
+/* *LOGIN OVERRIDE */
+.input-group-text {
+    background-color: var(--bs-gray-200) !important;
+    border-left: 1px solid var(--bs-gray-200) !important;
+}
+
+.is-invalid + .input-group-text {
+    border-color: var(--bs-danger) !important;
+}
+
+.form-control:focus + .input-group-text {
+    border-color: #86b7fe !important;
+    border-left: 1px solid var(--bs-gray-200) !important;
+}
+
 /* *NAVBAR OVERRIDE */
 .nav-header {
     text-transform: uppercase;
