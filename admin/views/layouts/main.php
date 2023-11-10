@@ -143,6 +143,39 @@ $user = User::findOne([User::primaryKey() => Application::$app->session->get('se
                             <p>Profile</p>
                         </a>
                     </li>
+                    <li class="nav-header">User Management</li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="/users/list-all">
+                            <i class="nav-icon fa-solid fa-users"></i>
+                            <p>Users</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">Roles Management</li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="/roles/list-all">
+                            <i class="nav-icon fa-solid fa-users-gear"></i>
+                            <p>Roles</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">Routes Management</li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="/routes-management/items/list-all">
+                            <i class="nav-icon fa-solid fa-right-from-bracket"></i>
+                            <p>Route Items</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="/routes-management/groups/list-all">
+                            <i class="nav-icon fa-solid fa-users-rays"></i>
+                            <p>Authentication Groups</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="/routes-management/assignments/list-all">
+                            <i class="nav-icon fa-solid fa-sitemap"></i>
+                            <p>Route Assignments</p>
+                        </a>
+                    </li>
                     <li class="nav-header">Miscellaneous</li>
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" href="/auth/logout">
