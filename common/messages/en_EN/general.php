@@ -7,4 +7,5 @@
 return [
     'Maintenance in progress' => 'Maintenance in progress',
     'Send' => 'Send',
+    'not set' => 'not set',
 ];

@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+use tframe\admin\controllers\ApiController;
 use tframe\admin\controllers\AuthController;
 use tframe\admin\controllers\RolesController;
 use tframe\admin\controllers\RoutesManagement;
@@ -35,6 +36,10 @@ $app = new Application(dirname(__DIR__), $config);
 
 $app->router->get('/', [SiteController::class, 'index']);
 
+/* * API routes */
+
+$app->router->get('/api/users/list', [ApiController::class, 'listUsers']);
+
 /* * Authentication routes  */
 $app->router->getNpost('/auth/login', [AuthController::class, 'login']);
 $app->router->getNpost('/auth/register', [AuthController::class, 'register']);
@@ -42,17 +47,17 @@ $app->router->get('/auth/logout', [AuthController::class, 'logout']);
 $app->router->getNpost('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 $app->router->getNpost('/auth/reset-password/{token}', [AuthController::class, 'resetPassword']);
 
-/* * Users Management */
+/* * Users Management routes */
 $app->router->get('/users/list-all', [UsersController::class, 'listUsers']);
 $app->router->getNpost('/users/create', [UsersController::class, 'createUser']);
 $app->router->getNpost('/users/manage/{id}', [UsersController::class, 'manageUser']);
 
-/* * Roles Management */
+/* * Roles Management routes */
 $app->router->get('/roles/list-all', [RolesController::class, 'listRoles']);
 $app->router->getNpost('/roles/create', [RolesController::class, 'createRole']);
 $app->router->getNpost('/roles/manage/{id}', [RolesController::class, 'manageRole']);
 
-/* * Routes Management */
+/* * Routes Management routes */
 $app->router->get('/routes-management/index', [RoutesManagement::class, 'index']);
 
 $app->router->get('/routes-management/items/list-all', [RoutesManagement::class, 'listItems']);
