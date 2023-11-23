@@ -64,9 +64,18 @@ pushmenu.addEventListener('click', function () {
     }
 })
 
+// Refresh fixer
 if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
 }
 
+// Bootstrap tooltip
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+// Select2 init
+$(document).ready(function() {
+    $('.select2').select2({
+        theme: 'bootstrap-5',
+    });
+});

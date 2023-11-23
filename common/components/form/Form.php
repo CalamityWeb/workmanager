@@ -27,9 +27,13 @@ class Form {
         return '<div class="mb-3">' . Button::generateButton('submit', $text, $class, $icon, $options) . '</div>';
     }
 
-    public function disabledFields(array $fields): void {
-        foreach ($fields as $field) {
-            $this->disabledFields[] = $field;
+    public function disabledFields(array|string $fields): void {
+        if(is_array($fields)) {
+            foreach ($fields as $field) {
+                $this->disabledFields[] = $field;
+            }
+        } else {
+            $this->disabledFields[] = $fields;
         }
     }
 

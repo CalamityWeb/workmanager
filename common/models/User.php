@@ -27,6 +27,7 @@ class User extends MagicRecord {
             'firstName',
             'lastName',
             'password',
+            'email_confirmed',
         ];
     }
 
@@ -35,7 +36,8 @@ class User extends MagicRecord {
             'email' => Application::t('attributes','Email address'),
             'firstName' => Application::t('attributes','Given name'),
             'lastName' => Application::t('attributes','Family name'),
-            'password' => Application::t('attributes','Password')
+            'password' => Application::t('attributes','Password'),
+            'email_confirmed' => Application::t('attributes','Email confirmed')
         ];
     }
 

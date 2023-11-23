@@ -6,8 +6,8 @@
 use tframe\common\models\User;
 use tframe\core\Application;
 
-/** @var \tframe\common\models\User $user */
-$user = User::findOne([User::primaryKey() => Application::$app->session->get('sessionUser')]);
+/** @var \tframe\common\models\User $sessionUser */
+$sessionUser = User::findOne([User::primaryKey() => Application::$app->session->get('sessionUser')]);
 
 ?>
 
@@ -46,17 +46,17 @@ $user = User::findOne([User::primaryKey() => Application::$app->session->get('se
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown user-menu">
                 <span class="nav-link dropdown-toggle cursor-pointer" data-bs-toggle="dropdown">
-                    <img src="<?= $user->getUserPicture() ?>" class="user-image img-circle shadow"
+                    <img src="<?= $sessionUser->getUserPicture() ?>" class="user-image img-circle shadow"
                          alt="User">
                     <span class="d-none d-md-inline">
-                        <?= $user->getFullName() ?>
+                        <?= $sessionUser->getFullName() ?>
                     </span>
                 </span>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                         <li class="user-header text-bg-primary">
-                            <img src="<?= $user->getUserPicture() ?>" class="img-circle shadow" alt="User">
+                            <img src="<?= $sessionUser->getUserPicture() ?>" class="img-circle shadow" alt="User">
                             <p>
-                                <?= $user->getFullName() ?>
+                                <?= $sessionUser->getFullName() ?>
                             </p>
                         </li>
                         <li class="user-footer">
@@ -125,11 +125,11 @@ $user = User::findOne([User::primaryKey() => Application::$app->session->get('se
                     data-accordion="false">
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src="<?= $user->getUserPicture() ?>" class="img-circle elevation-2"
+                            <img src="<?= $sessionUser->getUserPicture() ?>" class="img-circle elevation-2"
                                  alt="User" style="width: 2.1rem">
                         </div>
                         <div class="info">
-                            <span><?= $user->getFullName() ?></span>
+                            <span><?= $sessionUser->getFullName() ?></span>
                         </div>
                     </div>
                     <li class="nav-item">
@@ -205,6 +205,17 @@ $user = User::findOne([User::primaryKey() => Application::$app->session->get('se
             </div>
         </section>
     </main>
+    <footer class="main-footer">
+        <strong>
+            Copyright &copy; <?= date('Y') ?> |
+            <a href="<?= Application::$URL['PUBLIC'] ?>" ><?= Application::$GLOBALS['APP_NAME'] ?></a> |
+            All Rights Reserved.
+        </strong>
+
+        <div class="float-end d-none d-sm-inline-block">
+            <b>Version</b> DEV
+        </div>
+    </footer>
 </div>
 
 <script src="/assets/jQuery.js"></script>
@@ -212,9 +223,10 @@ $user = User::findOne([User::primaryKey() => Application::$app->session->get('se
 <script src="/assets/modules/adminlte/adminlte.js"></script>
 <script src="/assets/modules/DataTables/datatables.js"></script>
 <script src="/assets/modules/sweetalert2.js"></script>
-<script src="/assets/site.js"></script>
 
 {{js}}
+
+<script src="/assets/site.js"></script>
 
 </body>
 </html>

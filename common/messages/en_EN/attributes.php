@@ -5,6 +5,7 @@
  */
 
 return [
+    // ? User / Register / Login / Reset Password
     'Email address' => 'Email address',
     'Password' => 'Password',
     'Remember me' => 'Remember me',
@@ -12,6 +13,8 @@ return [
     'Family name' => 'Family name',
     'Password confirmation' => 'Password confirmation',
     'I agree to the terms' => 'I agree to the terms',
+    'Profile picture' => 'Profile picture',
+    'Email confirmed' => 'Email confirmed',
 
     // ? Validation error messages
     'The field is required' => 'The field is required',

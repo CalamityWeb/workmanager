@@ -33,9 +33,10 @@ use tframe\core\Application;
 
 <script src="/assets/modules/adminlte/adminlte.js"></script>
 <script src="/assets/modules/sweetalert2.js"></script>
-<script src="/assets/site.js"></script>
 
 {{js}}
+
+<script src="/assets/site.js"></script>
 
 <?php if (Application::$app->session->getFlash('success')): ?>
     <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success'), 1500,

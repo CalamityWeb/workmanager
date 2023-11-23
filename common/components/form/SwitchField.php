@@ -31,9 +31,9 @@ class SwitchField extends BaseField {
 
         $element .= ' type="checkbox" role="switch"';
 
-        if (!$_POST[$this->attribute] and $this->model->{$this->attribute} and Application::$app->request->isPost()) {
+        if (!isset($_POST[$this->attribute]) and $this->model->{$this->attribute} and Application::$app->request->isPost()) {
             $element .= '>';
-        } elseif ($_POST[$this->attribute] or $this->model->{$this->attribute}) {
+        } elseif (isset($_POST[$this->attribute]) or $this->model->{$this->attribute}) {
             $element .= 'checked>';
         } else {
             $element .= '>';

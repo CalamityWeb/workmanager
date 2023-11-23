@@ -5,25 +5,24 @@
 
 use tframe\common\components\button\Button;
 use tframe\common\components\text\Text;
-use tframe\core\Application;
 
 $this->title = 'Users';
 ?>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <?= Button::generateClickButton('/users/create', 'btn-primary', 'New User', 'fa-plus') ?>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered table-hover table-striped dataTable dtr-inline" id="dataTable">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <?= Button::generateClickButton('/users/create', 'btn-primary', 'New User', 'fa-plus') ?>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover table-striped dataTable dtr-inline" id="dataTable">
 
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <?php
 
@@ -54,10 +53,13 @@ $("#dataTable").DataTable({
         '<i class="fa-solid fa-circle-xmark text-danger"></i>' } },
         { title:"Created at", data:  'created_at' },
         { title:"Updated at", data:  function (data) { return (!data.updated_at) ? '$notset' : data.updated_at } },
-        { title:'<i class="fa-solid fa-gear"></i>', data: function (data) { return 'edit' } }
+        { title:'Modify', data: function (data) { return '<a data-bs-toggle="tooltip" data-bs-placement="top"'+
+        'data-bs-title="Edit" href="/users/manage/'+data.id+'"><i class="fa-solid fa-user-pen"></i></a>'
+         } }
     ],
 });
 
-JS);
+JS
+);
 
 ?>

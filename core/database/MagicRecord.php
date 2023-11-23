@@ -36,13 +36,8 @@ use tframe\core\Model;
             $attr = substr($attr, 0, -2);
 
             foreach ($attributes as $attribute) {
-                if ($this->{$attribute} == null) {
-                    $this->{$attribute} = 'null';
-                }
-                $attr = str_replace(":$attribute", $this->{$attribute}, $attr);
+                $attr = preg_replace('/:'.$attribute.'\b/', $this->{$attribute}, $attr);
             }
-
-            $attr = str_ireplace('"null"', 'null', $attr);
 
             $statement = self::prepare("UPDATE $tableName SET $attr WHERE " . $this->primaryKey() . " = '" . $this->{$this->primaryKey()} . "'");
         }

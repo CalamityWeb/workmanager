@@ -14,7 +14,6 @@ class Database {
         $password = $config['password'];
 
         $this->pdo = new PDO($host, $username, $password);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
 
