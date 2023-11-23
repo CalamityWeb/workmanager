@@ -23,6 +23,12 @@ use tframe\core\Model;
         $attributes = $this->attributes();
         $params = array_map(fn($attr) => ":$attr", $attributes);
 
+        foreach ($attributes as $attribute) {
+            if(is_bool($this->{$attribute})) {
+                $this->{$attribute} = ($this->{$attribute}) ? 1 : 0;
+            }
+        }
+
         if (!self::findOne([$this->primaryKey() => $this->{$this->primaryKey()}])) {
             $statement = self::prepare("INSERT INTO $tableName (" . implode(", ", $attributes) . ") VALUES (" . implode(",", $params) . ")");
             foreach ($attributes as $attribute) {

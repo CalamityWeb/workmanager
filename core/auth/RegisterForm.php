@@ -36,17 +36,16 @@ class RegisterForm extends Model {
         ];
     }
 
-    public function register(): bool {
+    public function register(): User {
         $user = new User();
         $user->id = null;
         $user->email = $this->email;
         $user->firstName = $this->firstName;
         $user->lastName = $this->lastName;
         $user->password = password_hash($this->password, PASSWORD_ARGON2ID, ['memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3]);
+        $user->email_confirmed = false;
         $user->save();
 
-        $user = User::findOne(['email' => $this->email]);
-
-        return Application::$app->login($user);
+        return User::findOne(['email' => $this->email]);
     }
 }

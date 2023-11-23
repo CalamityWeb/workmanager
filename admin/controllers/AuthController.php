@@ -45,7 +45,8 @@ class AuthController extends Controller {
         $registerForm = new RegisterForm();
         if ($request->isPost()) {
             $registerForm->loadData($request->getBody());
-            if ($registerForm->validate() and $registerForm->register()) {
+            if ($registerForm->validate() and $user = $registerForm->register()) {
+                Application::$app->login($user);
                 Application::$app->session->setFlash('success', Application::t('auth', 'Register successful'), '/site/dashboard');
             }
         }

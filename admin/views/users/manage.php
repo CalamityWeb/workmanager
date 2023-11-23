@@ -29,7 +29,7 @@ $this->title = 'Manage User';
             </div>
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>
-                <?php //if($user->id == Application::$app->user->id) $form->disabledFields('email_confirmed'); ?>
+                <?php if($user->id == Application::$app->user->id) $form->disabledFields('email_confirmed'); ?>
 
                 <?= $form->field($user, 'email')->required(); ?>
                 <?= $form->field($user, 'firstName')->required(); ?>

@@ -3,6 +3,7 @@
  * @var $this \tframe\core\View
  */
 
+use tframe\common\components\alert\Sweetalert;
 use tframe\common\models\User;
 use tframe\core\Application;
 
@@ -227,6 +228,10 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
 {{js}}
 
 <script src="/assets/site.js"></script>
+
+<?php if (Application::$app->session->getFlash('success')): ?>
+    <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success')) ?>
+<?php endif; ?>
 
 </body>
 </html>
