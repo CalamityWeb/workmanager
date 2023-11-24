@@ -8,6 +8,14 @@ use tframe\core\Application;
 use tframe\core\Model;
 
 #[AllowDynamicProperties] abstract class MagicRecord extends Model {
+    public function __construct() {
+        foreach ($this->attributes() as $attribute) {
+            if(!isset($this->{$attribute})) {
+                $this->{$attribute} = null;
+            }
+        }
+    }
+
     abstract public static function tableName(): string;
 
     public static function primaryKey(): string {
