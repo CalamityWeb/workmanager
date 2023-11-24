@@ -10,8 +10,9 @@ CREATE TABLE auth_groups
 
 CREATE TABLE auth_items
 (
-    item        VARCHAR(255)                       NOT NULL
+    id          INT AUTO_INCREMENT
         PRIMARY KEY,
+    item        VARCHAR(255)                       NOT NULL,
     description TEXT                               NULL,
     created_at  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at  DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP
@@ -20,20 +21,16 @@ CREATE TABLE auth_items
 CREATE TABLE auth_assignments
 (
     code       VARCHAR(255)                       NOT NULL,
-    item       VARCHAR(255)                       NOT NULL,
-    type       SET ('ADMIN', 'PUBLIC')            NOT NULL,
+    item       INT                                NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT auth_assignments_auth_groups_code_fk
         FOREIGN KEY (code) REFERENCES auth_groups (code)
             ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT auth_assignments_auth_items_item_fk
-        FOREIGN KEY (item) REFERENCES auth_items (item)
+    CONSTRAINT auth_assignments_auth_items_id_fk
+        FOREIGN KEY (item) REFERENCES auth_items (id)
             ON UPDATE CASCADE ON DELETE CASCADE
 );
-
-CREATE INDEX auth_assignments_type_index
-    ON auth_assignments (type);
 
 CREATE TABLE roles
 (
