@@ -38,7 +38,8 @@ $app->router->get('/', [SiteController::class, 'index']);
 
 /* * API routes */
 
-$app->router->get('/api/users/list', [ApiController::class, 'listUsers']);
+$app->router->get('/api/users/list', [ApiController::class, 'usersListUsers']);
+$app->router->get('/api/routes-management/items/list', [ApiController::class, 'routesManagementItemsListItems']);
 
 /* * Authentication routes  */
 $app->router->getNpost('/auth/login', [AuthController::class, 'login']);

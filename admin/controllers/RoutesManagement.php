@@ -2,6 +2,7 @@
 
 namespace tframe\admin\controllers;
 
+use tframe\core\auth\AuthItem;
 use tframe\core\Controller;
 
 class RoutesManagement extends Controller {
@@ -22,7 +23,9 @@ class RoutesManagement extends Controller {
     public function createItem(): string {
         $this->setLayout('main');
 
-        return $this->render('routes-management.items.create');
+        $routeItem = new AuthItem();
+
+        return $this->render('routes-management.items.create', ['routeItem' => $routeItem]);
     }
 
     public function manageItem(): string {

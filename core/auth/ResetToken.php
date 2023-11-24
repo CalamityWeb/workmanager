@@ -27,7 +27,7 @@ class ResetToken extends MagicRecord {
     public function labels(): array {
         return [
             'token' => "Token",
-            'userId' => "Felhasználó"
+            'userId' => "User"
         ];
     }
 
