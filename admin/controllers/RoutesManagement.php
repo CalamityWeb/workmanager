@@ -2,12 +2,15 @@
 
 namespace tframe\admin\controllers;
 
+use tframe\core\Application;
 use tframe\core\auth\AuthItem;
 use tframe\core\Controller;
+use tframe\core\Request;
+use tframe\core\Response;
 
 class RoutesManagement extends Controller {
 
-    public function index(): string {
+    public function index(Request $request, Response $response): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.index');
@@ -20,53 +23,71 @@ class RoutesManagement extends Controller {
         return $this->render('routes-management.items.list');
     }
 
-    public function createItem(): string {
+    public function createItem(Request $request, Response $response): string {
         $this->setLayout('main');
 
         $routeItem = new AuthItem();
+        if($request->isPost()) {
+            $routeItem->loadData($request->getBody());
+            if($routeItem->validate() and $routeItem->validateAliases()) {
+                $routeItem->save();
+                Application::$app->session->setFlash('success', Application::t('auth', 'Route creation successful'));
+            }
+        }
 
         return $this->render('routes-management.items.create', ['routeItem' => $routeItem]);
     }
 
-    public function manageItem(): string {
+    public function manageItem(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        return $this->render('routes-management.items.manage');
+        /** @var AuthItem $authItem */
+        $authItem = AuthItem::findOne(['id' => $request->getRouteParam('id')]);
+
+        if($request->isPost()) {
+            $authItem->loadData($request->getBody());
+            if($authItem->validate() and $authItem->validateAliases()) {
+                $authItem->save();
+                Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
+            }
+        }
+
+        return $this->render('routes-management.items.manage', ['authItem' => $authItem]);
     }
 
     /* * Groups */
-    public function listGroups(): string {
+    public function listGroups(Request $request, Response $response): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.groups.list');
     }
 
-    public function createGroup(): string {
+    public function createGroup(Request $request, Response $response): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.groups.create');
     }
 
-    public function manageGroup(): string {
+    public function manageGroup(Request $request, Response $response): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.groups.manage');
     }
 
     /* * Assignments */
-    public function listAssignments(): string {
+    public function listAssignments(Request $request, Response $response): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.assignments.list');
     }
 
-    public function createAssignment(): string {
+    public function createAssignment(Request $request, Response $response): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.assignments.create');
     }
 
-    public function manageAssignment(): string {
+    public function manageAssignment(Request $request, Response $response): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.assignments.manage');

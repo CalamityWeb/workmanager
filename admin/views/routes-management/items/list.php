@@ -46,7 +46,8 @@ $("#dataTable").DataTable({
         dataSrc:""
     },
     columns: [
-        { title:"Code", data: 'code' },
+        { title:"ID", data: 'id' },
+        { title:"Route (URL)", data: 'item' },
         { title:"Description", data: 'description' },
         { title:"Created at", data:  'created_at' },
         { title:"Updated at", data:  function (data) { return (!data.updated_at) ? '$notset' : data.updated_at } },

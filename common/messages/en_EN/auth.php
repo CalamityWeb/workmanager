@@ -29,5 +29,9 @@ return [
     'New password confirmation' => 'New password confirmation',
     'Password updated successfully' => 'Password updated successfully',
     'Create your new password' => 'Create your new password',
-    'Change my password!' => 'Change my password!'
+    'Change my password!' => 'Change my password!',
+
+    // ? Routes management
+    'Route creation successful' => 'Route creation successful',
+    'Route must contains the aliases of the sites. Please see below!', 'Route must contains the aliases of the sites. Please see below!',
 ];

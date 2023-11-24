@@ -2,7 +2,6 @@
 
 namespace tframe\common\components\form;
 
-use tframe\common\components\form\BaseField;
 use tframe\core\Model;
 
 class TextareaField extends BaseField {
@@ -21,12 +20,11 @@ class TextareaField extends BaseField {
         <textarea
             class="form-control ' . ($this->model->hasError($this->attribute) ? ' is-invalid' : '') . '"
             name="' . $this->attribute . '"
-            placeholder="' . $this->model->{$this->attribute} . '"
+            placeholder="' . $this->model->getLabel($this->attribute) . '"
             ' . implode(" ", $attributes) . '
             ' . (($this->required) ? 'required' : '') . '
             ' . (($this->disabled) ? 'disabled' : '') . '
-        >
-        </textarea>
+        >' . $this->model->{$this->attribute} . '</textarea>
         ';
     }
 
