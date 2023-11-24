@@ -21,7 +21,7 @@ $this->title = 'Manage Route';
                 <?php $form = Form::begin('post') ?>
 
                 <?= $form->field($authItem, 'item')->required(); ?>
-                <?= $form->textareaField($authItem, 'description')->required(); ?>
+                <?= $form->textareaField($authItem, 'description'); ?>
 
                 <?= $form->submitButton(Application::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 

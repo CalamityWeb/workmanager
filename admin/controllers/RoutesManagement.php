@@ -30,6 +30,7 @@ class RoutesManagement extends Controller {
         if($request->isPost()) {
             $routeItem->loadData($request->getBody());
             if($routeItem->validate() and $routeItem->validateAliases()) {
+                $routeItem->id = null;
                 $routeItem->save();
                 Application::$app->session->setFlash('success', Application::t('auth', 'Route creation successful'));
             }

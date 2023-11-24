@@ -6,6 +6,7 @@ use tframe\core\Application;
 use tframe\core\database\MagicRecord;
 
 /**
+ * @property int $id
  * @property string $item
  * @property string $description
  * @property string $created_at
