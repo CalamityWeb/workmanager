@@ -4,6 +4,7 @@ namespace tframe\admin\controllers;
 
 use tframe\common\models\User;
 use tframe\core\Application;
+use tframe\core\auth\AuthGroup;
 use tframe\core\auth\AuthItem;
 use tframe\core\Controller;
 use tframe\core\exception\UnauthorizedException;
@@ -24,7 +25,13 @@ class ApiController extends Controller {
 
     public function routesManagementItemsListItems(): false|string {
         $this->checkLogged();
-        $users = AuthItem::findMany();
-        return json_encode($users);
+        $authItems = AuthItem::findMany();
+        return json_encode($authItems);
+    }
+
+    public function routesManagementGroupsListGroups(): false|string {
+        $this->checkLogged();
+        $authGroups = AuthGroup::findMany();
+        return json_encode($authGroups);
     }
 }

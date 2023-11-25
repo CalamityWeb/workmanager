@@ -3,6 +3,7 @@
 namespace tframe\admin\controllers;
 
 use tframe\core\Application;
+use tframe\core\auth\AuthGroup;
 use tframe\core\auth\AuthItem;
 use tframe\core\Controller;
 use tframe\core\Request;
@@ -66,13 +67,33 @@ class RoutesManagement extends Controller {
     public function createGroup(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        return $this->render('routes-management.groups.create');
+        $groupItem = new AuthGroup();
+        if($request->isPost()) {
+            $groupItem->loadData($request->getBody());
+            if($groupItem->validate()) {
+                $groupItem->save();
+                Application::$app->session->setFlash('success', Application::t('auth', 'Group creation successful'));
+            }
+        }
+
+        return $this->render('routes-management.groups.create', ['groupItem' => $groupItem]);
     }
 
     public function manageGroup(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        return $this->render('routes-management.groups.manage');
+        /** @var AuthGroup $groupItem */
+        $groupItem = AuthGroup::findOne(['code' => $request->getRouteParam('code')]);
+
+        if($request->isPost()) {
+            $groupItem->loadData($request->getBody());
+            if($groupItem->validate()) {
+                $groupItem->save();
+                Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
+            }
+        }
+
+        return $this->render('routes-management.groups.manage', ['groupItem' => $groupItem]);
     }
 
     /* * Assignments */

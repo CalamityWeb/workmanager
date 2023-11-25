@@ -40,6 +40,7 @@ $app->router->get('/', [SiteController::class, 'index']);
 
 $app->router->get('/api/users/list', [ApiController::class, 'usersListUsers']);
 $app->router->get('/api/routes-management/items/list', [ApiController::class, 'routesManagementItemsListItems']);
+$app->router->get('/api/routes-management/groups/list', [ApiController::class, 'routesManagementGroupsListGroups']);
 
 /* * Authentication routes  */
 $app->router->getNpost('/auth/login', [AuthController::class, 'login']);
@@ -67,7 +68,7 @@ $app->router->getNpost('/routes-management/items/manage/{id}', [RoutesManagement
 
 $app->router->get('/routes-management/groups/list-all', [RoutesManagement::class, 'listGroups']);
 $app->router->getNpost('/routes-management/groups/create', [RoutesManagement::class, 'createGroup']);
-$app->router->getNpost('/routes-management/groups/manage/{id}', [RoutesManagement::class, 'manageGroup']);
+$app->router->getNpost('/routes-management/groups/manage/{code}', [RoutesManagement::class, 'manageGroup']);
 
 $app->router->get('/routes-management/assignments/list-all', [RoutesManagement::class, 'listAssignments']);
 $app->router->getNpost('/routes-management/assignments/create', [RoutesManagement::class, 'createAssignment']);
