@@ -2,7 +2,6 @@
 
 namespace tframe\common\components\form;
 
-use tframe\common\components\form\IconField;
 use tframe\core\Model;
 
 class FieldWithIcon extends IconField {

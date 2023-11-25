@@ -3,7 +3,6 @@
  * @var $this \tframe\core\View
  */
 
-use tframe\core\Application;
 
 $this->title = 'Dashboard';
 ?>

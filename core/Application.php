@@ -7,7 +7,6 @@ use tframe\common\helpers\CoreHelper;
 use tframe\common\models\User;
 use tframe\core\database\Database;
 use Exception;
-use tframe\core\exception\ServiceUnavailableException;
 
 class Application {
     const EVENT_BEFORE_REQUEST = 'beforeRequest';

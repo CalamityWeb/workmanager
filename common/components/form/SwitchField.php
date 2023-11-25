@@ -2,7 +2,6 @@
 
 namespace tframe\common\components\form;
 
-use tframe\common\components\form\BaseField;
 use tframe\core\Application;
 use tframe\core\Model;
 

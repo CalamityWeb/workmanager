@@ -72,8 +72,6 @@ class Router {
         // Get all routes for current request method
         $routes = $this->getRouteMap($method);
 
-        $routeParams = false;
-
         // Start iterating registered routes
         foreach ($routes as $route => $callback) {
             // Trim slashes
