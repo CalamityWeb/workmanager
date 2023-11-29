@@ -87,8 +87,10 @@ class Application {
 
     public function logout(): void {
         $this->user = null;
+        Application::$app->session->set('sessionUser', 0);
         unset($_COOKIE['rememberMe']);
-        setcookie('rememberMe', '', -1, '/');
+        setcookie('rememberMe', 'null', 0);
+        Application::$app->response->redirect('/');
     }
 
     public function run(): void {

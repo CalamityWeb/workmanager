@@ -56,7 +56,6 @@ class AuthController extends Controller {
 
     public function logout(Request $request, Response $response): void {
         Application::$app->logout();
-        $response->redirect('/');
     }
 
     public function forgotPassword(Request $request): string {
