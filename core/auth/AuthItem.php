@@ -12,8 +12,6 @@ use tframe\core\database\MagicRecord;
  * @property string $created_at
  * @property string $completed_at
  */
-
-
 class AuthItem extends MagicRecord {
 
     public static function tableName(): string { return 'auth_items'; }
@@ -21,7 +19,7 @@ class AuthItem extends MagicRecord {
     public static function primaryKey(): string { return 'id'; }
 
     public function attributes(): array {
-        return [ 'item', 'description' ];
+        return ['item', 'description'];
     }
 
     public function labels(): array {
@@ -38,7 +36,7 @@ class AuthItem extends MagicRecord {
     }
 
     public function validateAliases(): bool {
-        if(!str_contains($this->item, '@admin') and !str_contains($this->item, '@public')) {
+        if (!str_contains($this->item, '@admin') and !str_contains($this->item, '@public')) {
             $this->addError('item', Application::t('auth', 'Route must contains the aliases of the sites. Please see below!'));
             return false;
         } else {

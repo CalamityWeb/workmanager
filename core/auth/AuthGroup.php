@@ -4,6 +4,13 @@ namespace tframe\core\auth;
 
 use tframe\core\database\MagicRecord;
 
+/**
+ * @property string $code
+ * @property string $groupName
+ * @property string $description
+ * @property string $created_at
+ * @property string $completed_at
+ */
 class AuthGroup extends MagicRecord {
 
     public static function tableName(): string { return 'auth_groups'; }
@@ -11,7 +18,7 @@ class AuthGroup extends MagicRecord {
     public static function primaryKey(): string { return 'code'; }
 
     public function attributes(): array {
-        return [ 'code', 'groupName', 'description' ];
+        return ['code', 'groupName', 'description'];
     }
 
     public function labels(): array {
