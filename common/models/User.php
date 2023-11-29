@@ -20,6 +20,7 @@ class User extends MagicRecord {
     public static function tableName(): string {
         return "users";
     }
+    public static function primaryKey(): string|array { return 'id'; }
 
     public function attributes(): array {
         return [

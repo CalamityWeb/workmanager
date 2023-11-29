@@ -16,7 +16,7 @@ class AuthItem extends MagicRecord {
 
     public static function tableName(): string { return 'auth_items'; }
 
-    public static function primaryKey(): string { return 'id'; }
+    public static function primaryKey(): string|array { return 'id'; }
 
     public function attributes(): array {
         return ['item', 'description'];

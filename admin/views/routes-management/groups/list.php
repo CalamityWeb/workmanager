@@ -52,7 +52,7 @@ $("#dataTable").DataTable({
         { title:"Created at", data:  'created_at' },
         { title:"Updated at", data:  function (data) { return (!data.updated_at) ? '$notset' : data.updated_at } },
         { title:'Modify', data: function (data) { return '<a data-bs-toggle="tooltip" data-bs-placement="top"'+
-        'data-bs-title="Edit" href="/routes-management/groups/manage/'+data.code+'"><i class="fa-solid fa-user-pen"></i></a>'
+        'data-bs-title="Edit" href="/routes-management/groups/manage/'+data.code+'"><i class="fa-solid fa-gear"></i></a>'
          } }
     ],
 });

@@ -70,6 +70,7 @@ class RoutesManagement extends Controller {
         $groupItem = new AuthGroup();
         if($request->isPost()) {
             $groupItem->loadData($request->getBody());
+            $groupItem->code = strtoupper($groupItem->code);
             if($groupItem->validate()) {
                 $groupItem->save();
                 Application::$app->session->setFlash('success', Application::t('auth', 'Group creation successful'));
@@ -87,6 +88,7 @@ class RoutesManagement extends Controller {
 
         if($request->isPost()) {
             $groupItem->loadData($request->getBody());
+            $groupItem->code = strtoupper($groupItem->code);
             if($groupItem->validate()) {
                 $groupItem->save();
                 Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));

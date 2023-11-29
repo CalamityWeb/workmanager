@@ -26,4 +26,5 @@ return [
     'The given date cannot be before {date_before}' => 'The given date cannot be before {date_before}',
     'The given date cannot be after {date_before}' => 'The given date cannot be after {date_before}',
     'Your password has to contain one uppercase, lowercase, number and special character' => 'Your password has to contain one uppercase, lowercase, number and special character',
+    'Please provide a value that exists' => 'Please provide a value that exists',
 ];

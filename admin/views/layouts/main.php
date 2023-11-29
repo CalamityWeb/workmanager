@@ -28,6 +28,7 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
     <link rel="stylesheet" href="/assets/modules/Datatables/datatables.css">
     <link rel="stylesheet" href="/assets/modules/fontawesome/all.css">
     <link rel="stylesheet" href="/assets/modules/icheck-bootstrap.css">
+    <link rel="stylesheet" href="/assets/modules/select2/select2.css">
     <link rel="stylesheet" href="/assets/site.css?v=<?= time() ?>">
 
     {{css}}
@@ -223,6 +224,7 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
 <script src="/assets/modules/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="/assets/modules/adminlte/adminlte.js"></script>
 <script src="/assets/modules/DataTables/datatables.js"></script>
+<script src="/assets/modules/select2/select2.js"></script>
 <script src="/assets/modules/sweetalert2.js"></script>
 
 {{js}}

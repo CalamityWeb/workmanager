@@ -40,7 +40,9 @@ $app->router->get('/', [SiteController::class, 'index']);
 
 $app->router->get('/api/users/list', [ApiController::class, 'usersListUsers']);
 $app->router->get('/api/routes-management/items/list', [ApiController::class, 'routesManagementItemsListItems']);
+$app->router->get('/api/routes-management/get/item/{id}', [ApiController::class, 'routesManagementGetItemById']);
 $app->router->get('/api/routes-management/groups/list', [ApiController::class, 'routesManagementGroupsListGroups']);
+$app->router->get('/api/routes-management/assignments/list', [ApiController::class, 'routesManagementAssignmentsListAssignments']);
 
 /* * Authentication routes  */
 $app->router->getNpost('/auth/login', [AuthController::class, 'login']);

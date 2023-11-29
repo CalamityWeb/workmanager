@@ -18,9 +18,7 @@ use tframe\core\Model;
 
     abstract public static function tableName(): string;
 
-    public static function primaryKey(): string {
-        return 'id';
-    }
+    abstract public static function primaryKey(): string|array;
 
     public static function prepare($sql): PDOStatement {
         return Application::$app->db->prepare($sql);
@@ -37,7 +35,17 @@ use tframe\core\Model;
             }
         }
 
-        if (!self::findOne([$this->primaryKey() => $this->{$this->primaryKey()}])) {
+        if(!is_array($this->primaryKey())) {
+            $exists = self::findOne([$this->primaryKey() => $this->{$this->primaryKey()}]);
+        } else {
+            $where = [];
+            foreach ($this->primaryKey() as $value) {
+                $where[$value] = $this->{$value};
+            }
+            $exists = self::findOne($where);
+        }
+
+        if (!$exists) {
             $statement = self::prepare("INSERT INTO $tableName (" . implode(", ", $attributes) . ") VALUES (" . implode(",", $params) . ")");
             foreach ($attributes as $attribute) {
                 $statement->bindValue(":$attribute", $this->{$attribute});

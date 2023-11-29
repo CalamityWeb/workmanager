@@ -15,7 +15,7 @@ class AuthGroup extends MagicRecord {
 
     public static function tableName(): string { return 'auth_groups'; }
 
-    public static function primaryKey(): string { return 'code'; }
+    public static function primaryKey(): string|array { return 'code'; }
 
     public function attributes(): array {
         return ['code', 'groupName', 'description'];

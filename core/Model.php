@@ -12,6 +12,7 @@ class Model {
     const RULE_DATE_AFTER = 'date_after';
     const RULE_DATE_BEFORE = 'date_before';
     const RULE_PASSWORD = 'password';
+    const RULE_EXISTS = 'exists';
 
     public array $errors = [];
 
@@ -82,6 +83,19 @@ class Model {
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
                     }
                 }
+                if($ruleName === self::RULE_EXISTS) {
+                    $className = $rule['class'];
+                    $tableName = $className::tableName();
+                    $db = Application::$app->db;
+                    $uniqueAttr = $rule['attribute'] ?? $attribute;
+                    $statement = $db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :$uniqueAttr");
+                    $statement->bindValue(":$uniqueAttr", $value);
+                    $statement->execute();
+                    $record = $statement->fetchObject();
+                    if (!$record) {
+                        $this->addErrorByRule($attribute, self::RULE_EXISTS);
+                    }
+                }
             }
         }
         return empty($this->errors);
@@ -98,6 +112,7 @@ class Model {
             self::RULE_DATE_BEFORE => Application::t('attributes','The given date cannot be before {date_before}'),
             self::RULE_DATE_AFTER => Application::t('attributes','The given date cannot be after {date_before}'),
             self::RULE_PASSWORD => Application::t('attributes','Your password has to contain one uppercase, lowercase, number and special character'),
+            self::RULE_EXISTS => Application::t('attributes','Please provide a value that exists'),
         ];
     }
 

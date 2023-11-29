@@ -14,6 +14,7 @@ use tframe\core\database\MagicRecord;
 
 class Role extends MagicRecord {
     public static function tableName(): string { return 'roles'; }
+    public static function primaryKey(): string|array { return 'id'; }
 
     public function attributes(): array {
         return [
