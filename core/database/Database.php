@@ -20,4 +20,10 @@ class Database {
     public function prepare($sql): PDOStatement {
         return $this->pdo->prepare($sql);
     }
+
+    public function query(string $sql): false|array {
+        $statement = $this->prepare("$sql");
+        $statement->execute();
+        return $statement->fetchAll();
+    }
 }

@@ -79,7 +79,7 @@ class Model {
                     $statement->bindValue(":$uniqueAttr", $value);
                     $statement->execute();
                     $record = $statement->fetchObject();
-                    if ($record and ( $record->{$rule['class']::primaryKey()} != Application::$app->session->get('userId') and !in_array($record->{$rule['class']::primaryKey()}, Application::$app->request->getRouteParams() ))) {
+                    if ($record and $record->{$attribute} != $value) {
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
                     }
                 }
