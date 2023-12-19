@@ -1,7 +1,8 @@
 CREATE TABLE auth_groups
 (
-    code        VARCHAR(255)                       NOT NULL
+    id          INT AUTO_INCREMENT
         PRIMARY KEY,
+    code        VARCHAR(255)                       NOT NULL,
     groupName   VARCHAR(255)                       NOT NULL,
     description TEXT                               NULL,
     created_at  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -20,12 +21,12 @@ CREATE TABLE auth_items
 
 CREATE TABLE auth_assignments
 (
-    code       VARCHAR(255)                       NOT NULL,
+    code       INT                                NOT NULL,
     item       INT                                NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT auth_assignments_auth_groups_code_fk
-        FOREIGN KEY (code) REFERENCES auth_groups (code)
+    CONSTRAINT auth_assignments_auth_groups_id_fk
+        FOREIGN KEY (code) REFERENCES auth_groups (id)
             ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT auth_assignments_auth_items_id_fk
         FOREIGN KEY (item) REFERENCES auth_items (id)
@@ -45,11 +46,11 @@ CREATE TABLE roles
 CREATE TABLE role_groups
 (
     roleId     INT                                NOT NULL,
-    groupCode  VARCHAR(255)                       NOT NULL,
+    groupCode  INT                                NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT role_groups_auth_groups_code_fk
-        FOREIGN KEY (groupCode) REFERENCES auth_groups (code)
+    CONSTRAINT role_groups_auth_groups_id_fk
+        FOREIGN KEY (groupCode) REFERENCES auth_groups (id)
             ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT role_groups_roles_id_fk
         FOREIGN KEY (roleId) REFERENCES roles (id)
