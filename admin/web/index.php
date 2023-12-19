@@ -70,10 +70,6 @@ $app->router->getNpost('/routes-management/items/manage/{id}', [RoutesManagement
 
 $app->router->get('/routes-management/groups/list-all', [RoutesManagement::class, 'listGroups']);
 $app->router->getNpost('/routes-management/groups/create', [RoutesManagement::class, 'createGroup']);
-$app->router->getNpost('/routes-management/groups/manage/{code}', [RoutesManagement::class, 'manageGroup']);
-
-$app->router->get('/routes-management/assignments/list-all', [RoutesManagement::class, 'listAssignments']);
-$app->router->getNpost('/routes-management/assignments/create', [RoutesManagement::class, 'createAssignment']);
-$app->router->getNpost('/routes-management/assignments/manage/{id}', [RoutesManagement::class, 'manageAssignment']);
+$app->router->getNpost('/routes-management/groups/manage/{id}', [RoutesManagement::class, 'manageGroup']);
 
 $app->run();

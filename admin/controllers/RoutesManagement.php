@@ -3,9 +3,11 @@
 namespace tframe\admin\controllers;
 
 use tframe\core\Application;
+use tframe\core\auth\AuthAssignments;
 use tframe\core\auth\AuthGroup;
 use tframe\core\auth\AuthItem;
 use tframe\core\Controller;
+use tframe\core\exception\NotFoundException;
 use tframe\core\Request;
 use tframe\core\Response;
 
@@ -46,6 +48,10 @@ class RoutesManagement extends Controller {
         /** @var AuthItem $authItem */
         $authItem = AuthItem::findOne(['id' => $request->getRouteParam('id')]);
 
+        if(!$authItem) {
+            throw new NotFoundException();
+        }
+
         if($request->isPost()) {
             $authItem->loadData($request->getBody());
             if($authItem->validate() and $authItem->validateAliases()) {
@@ -84,36 +90,43 @@ class RoutesManagement extends Controller {
         $this->setLayout('main');
 
         /** @var AuthGroup $groupItem */
-        $groupItem = AuthGroup::findOne(['code' => $request->getRouteParam('code')]);
+        $groupItem = AuthGroup::findOne([AuthGroup::primaryKey() => $request->getRouteParam('id')]);
+
+        if(!$groupItem) {
+            throw new NotFoundException();
+        }
+
+        $authAssignments = AuthAssignments::findMany(['code' => $groupItem->id]);
+        $adminAuthItems = AuthItem::queryMany('item LIKE "@admin/%"', 'item');
+        $publicAuthItems = AuthItem::queryMany('item LIKE "@public/%"', 'item');
 
         if($request->isPost()) {
             $groupItem->loadData($request->getBody());
-            $groupItem->code = strtoupper($groupItem->code);
             if($groupItem->validate()) {
+                if(isset($request->getBody()["routes"])) {
+                    /** @var $assignment AuthAssignments */
+                    foreach (AuthAssignments::findMany(['code' => $groupItem->id]) as $assignment) {
+                        $assignment->delete();
+                    }
+                    foreach ($request->getBody()["routes"] as $id) {
+                        $assignment = new AuthAssignments();
+                        $assignment->code = $groupItem->id;
+                        $assignment->item = $id;
+                        $assignment->save();
+                    }
+                }
                 $groupItem->save();
                 Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
             }
         }
 
-        return $this->render('routes-management.groups.manage', ['groupItem' => $groupItem]);
-    }
-
-    /* * Assignments */
-    public function listAssignments(Request $request, Response $response): string {
-        $this->setLayout('main');
-
-        return $this->render('routes-management.assignments.list');
-    }
-
-    public function createAssignment(Request $request, Response $response): string {
-        $this->setLayout('main');
-
-        return $this->render('routes-management.assignments.create');
-    }
-
-    public function manageAssignment(Request $request, Response $response): string {
-        $this->setLayout('main');
-
-        return $this->render('routes-management.assignments.manage');
+        return $this->render('routes-management.groups.manage',
+            [
+                'groupItem' => $groupItem,
+                'authAssignments' => $authAssignments,
+                'adminAuthItems' => $adminAuthItems,
+                'publicAuthItems' => $publicAuthItems
+            ]
+        );
     }
 }

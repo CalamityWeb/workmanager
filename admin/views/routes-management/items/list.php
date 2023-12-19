@@ -55,6 +55,7 @@ $("#dataTable").DataTable({
         'data-bs-title="Edit" href="/routes-management/items/manage/'+data.id+'"><i class="fa-solid fa-gear"></i></a>'
          } }
     ],
+    order: [[1, 'asc']]
 });
 
 JS

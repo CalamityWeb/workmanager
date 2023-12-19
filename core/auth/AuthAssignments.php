@@ -5,7 +5,7 @@ namespace tframe\core\auth;
 use tframe\core\database\MagicRecord;
 
 /**
- * @property string $code
+ * @property int $code
  * @property integer $item
  * @property string $created_at
  * @property string $completed_at
@@ -29,7 +29,7 @@ class AuthAssignments extends MagicRecord {
 
     public function rules(): array {
         return [
-            'code' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => AuthGroup::class]],
+            'code' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => AuthGroup::class], ['attribute' => 'id']],
             'item' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => AuthItem::class], ['attribute' => 'id']]
         ];
     }

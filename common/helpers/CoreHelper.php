@@ -16,4 +16,12 @@ class CoreHelper {
 
         return $string;
     }
+
+    public static function listAliases(): array {
+        $return = [];
+        foreach (require dirname(__DIR__) .  '/config/aliases.php' as $alias => $dir) {
+            $return[] = $alias;
+        }
+        return $return;
+    }
 }

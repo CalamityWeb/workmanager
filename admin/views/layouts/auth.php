@@ -39,8 +39,13 @@ use tframe\core\Application;
 <script src="/assets/site.js"></script>
 
 <?php if (Application::$app->session->getFlash('success')): ?>
-    <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success'), 1500,
-        Application::$app->session->getFlashContent('success')['redirectUrl']) ?>
+    <?=
+    Sweetalert::generateToastAlert(
+            'success',
+            Application::$app->session->getFlash('success'),
+            1500,
+            Application::$app->session->getFlashContent('success')['redirectUrl'])
+    ?>
 <?php endif; ?>
 
 </body>

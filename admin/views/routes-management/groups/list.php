@@ -46,15 +46,17 @@ $("#dataTable").DataTable({
         dataSrc:""
     },
     columns: [
+        { title:"ID", data: 'id' },
         { title:"Group code", data: 'code' },
         { title:"Group name", data: 'groupName' },
         { title:"Description", data: function (data) { return (!data.description ) ? '$notset' : data.description} },
         { title:"Created at", data:  'created_at' },
         { title:"Updated at", data:  function (data) { return (!data.updated_at) ? '$notset' : data.updated_at } },
         { title:'Modify', data: function (data) { return '<a data-bs-toggle="tooltip" data-bs-placement="top"'+
-        'data-bs-title="Edit" href="/routes-management/groups/manage/'+data.code+'"><i class="fa-solid fa-gear"></i></a>'
+        'data-bs-title="Edit" href="/routes-management/groups/manage/'+data.id+'"><i class="fa-solid fa-gear"></i></a>'
          } }
     ],
+    order: [[1, 'asc']]
 });
 
 JS

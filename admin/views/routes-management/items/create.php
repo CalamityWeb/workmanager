@@ -21,7 +21,9 @@ $this->title = 'Create Route Item';
                 <?php $form = Form::begin('post') ?>
 
                 <?= $form->field($routeItem, 'item')->required(); ?>
-                <p>Please use <strong>@public</strong> and <strong>@admin</strong> aliases for the routes start</p>
+                <p>
+                    Please use <strong>@public</strong> or <strong>@admin</strong> aliases for the routes start
+                </p>
                 <?= $form->textareaField($routeItem, 'description') ?>
 
                 <?= $form->submitButton(Application::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>

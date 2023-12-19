@@ -57,6 +57,7 @@ $("#dataTable").DataTable({
         'data-bs-title="Edit" href="/users/manage/'+data.id+'"><i class="fa-solid fa-user-pen"></i></a>'
          } }
     ],
+    order: [[1, 'asc']]
 });
 
 JS

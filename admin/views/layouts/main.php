@@ -173,12 +173,6 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
                             <p>Authentication Groups</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link cursor-pointer" href="/routes-management/assignments/list-all">
-                            <i class="nav-icon fa-solid fa-sitemap"></i>
-                            <p>Route Assignments</p>
-                        </a>
-                    </li>
                     <li class="nav-header">Miscellaneous</li>
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" href="/auth/logout">
