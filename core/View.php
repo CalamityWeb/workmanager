@@ -47,7 +47,7 @@ class View {
     private function viewPathBuilder($view): string {
         if(CoreHelper::checkAlias($view)) {
             $view = CoreHelper::getAlias($view);
-            $view = substr_replace($view, 'views/', strpos($view, '/'), 1) . '.php';
+            $view = substr_replace($view, 'views/', strrpos($view, '/'), 1) . '.php';
         } else {
             $view = Application::$ROOT_DIR . "/views/$view.php";
         }

@@ -3,6 +3,7 @@
 namespace tframe\core\database;
 
 use AllowDynamicProperties;
+use PDO;
 use PDOStatement;
 use tframe\common\components\form\SelectField;
 use tframe\core\Application;
@@ -19,7 +20,7 @@ use tframe\core\Model;
 
     public static function findMany(array $where = [], array $order = []): false|array {
         $statement = self::getPrepare($where, $order);
-        return $statement->fetchAll();
+        return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
     private static function getPrepare(array $where, array $order): PDOStatement {
@@ -64,7 +65,7 @@ use tframe\core\Model;
         }
 
         $statement->execute();
-        return $statement->fetchAll();
+        return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
     public function save(): bool {
@@ -124,7 +125,7 @@ use tframe\core\Model;
     public function delete(): bool {
         if (is_array($this->primaryKey())) {
             $attributes = implode(" AND ", array_map(fn($key) => "$key = '" . $this->{$key} . "'", $this->primaryKey()));
-            $statement = self::prepare("SELECT FROM " . $this->tableName() . " WHERE " . $attributes);
+            $statement = self::prepare("DELETE FROM " . $this->tableName() . " WHERE " . $attributes);
         } else {
             $statement = self::prepare("DELETE FROM " . $this->tableName() . " WHERE " . $this->primaryKey() . " = '" . $this->{$this->primaryKey()} . "'");
         }
