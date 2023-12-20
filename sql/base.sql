@@ -1,19 +1,19 @@
-CREATE TABLE auth_groups
-(
-    id          INT AUTO_INCREMENT
-        PRIMARY KEY,
-    code        VARCHAR(255)                       NOT NULL,
-    groupName   VARCHAR(255)                       NOT NULL,
-    description TEXT                               NULL,
-    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at  DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP
-);
-
 CREATE TABLE auth_items
 (
     id          INT AUTO_INCREMENT
         PRIMARY KEY,
     item        VARCHAR(255)                       NOT NULL,
+    description TEXT                               NULL,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at  DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE roles
+(
+    id          INT AUTO_INCREMENT
+        PRIMARY KEY,
+    roleName    VARCHAR(255)                       NOT NULL,
+    roleIcon    VARCHAR(255)                       NULL,
     description TEXT                               NULL,
     created_at  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at  DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP
@@ -26,34 +26,10 @@ CREATE TABLE auth_assignments
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT auth_assignments_auth_groups_id_fk
-        FOREIGN KEY (code) REFERENCES auth_groups (id)
+        FOREIGN KEY (code) REFERENCES roles (id)
             ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT auth_assignments_auth_items_id_fk
         FOREIGN KEY (item) REFERENCES auth_items (id)
-            ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE roles
-(
-    id          INT AUTO_INCREMENT
-        PRIMARY KEY,
-    roleName    VARCHAR(255)                       NOT NULL,
-    description TEXT                               NULL,
-    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at  DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE role_groups
-(
-    roleId     INT                                NOT NULL,
-    groupCode  INT                                NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT role_groups_auth_groups_id_fk
-        FOREIGN KEY (groupCode) REFERENCES auth_groups (id)
-            ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT role_groups_roles_id_fk
-        FOREIGN KEY (roleId) REFERENCES roles (id)
             ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -95,3 +71,4 @@ CREATE TABLE user_roles
         FOREIGN KEY (userId) REFERENCES users (id)
             ON UPDATE CASCADE ON DELETE CASCADE
 );
+
