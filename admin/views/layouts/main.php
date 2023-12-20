@@ -168,9 +168,9 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link cursor-pointer" href="/routes-management/groups/list-all">
+                        <a class="nav-link cursor-pointer" href="/routes-management/roles/list-all">
                             <i class="nav-icon fa-solid fa-users-rays"></i>
-                            <p>Authentication Groups</p>
+                            <p>Roles</p>
                         </a>
                     </li>
                     <li class="nav-header">Miscellaneous</li>

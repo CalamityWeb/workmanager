@@ -41,7 +41,7 @@ $app->router->get('/', [SiteController::class, 'index']);
 $app->router->get('/api/users/list', [ApiController::class, 'usersListUsers']);
 $app->router->get('/api/routes-management/items/list', [ApiController::class, 'routesManagementItemsListItems']);
 $app->router->get('/api/routes-management/get/item/{id}', [ApiController::class, 'routesManagementGetItemById']);
-$app->router->get('/api/routes-management/groups/list', [ApiController::class, 'routesManagementGroupsListGroups']);
+$app->router->get('/api/routes-management/roles/list', [ApiController::class, 'routesManagementRolesListGroups']);
 $app->router->get('/api/routes-management/assignments/list', [ApiController::class, 'routesManagementAssignmentsListAssignments']);
 
 /* * Authentication routes  */
@@ -56,11 +56,6 @@ $app->router->get('/users/list-all', [UsersController::class, 'listUsers']);
 $app->router->getNpost('/users/create', [UsersController::class, 'createUser']);
 $app->router->getNpost('/users/manage/{id}', [UsersController::class, 'manageUser']);
 
-/* * Roles Management routes */
-$app->router->get('/roles/list-all', [RolesController::class, 'listRoles']);
-$app->router->getNpost('/roles/create', [RolesController::class, 'createRole']);
-$app->router->getNpost('/roles/manage/{id}', [RolesController::class, 'manageRole']);
-
 /* * Routes Management routes */
 $app->router->get('/routes-management/index', [RoutesManagement::class, 'index']);
 
@@ -68,8 +63,8 @@ $app->router->get('/routes-management/items/list-all', [RoutesManagement::class,
 $app->router->getNpost('/routes-management/items/create', [RoutesManagement::class, 'createItem']);
 $app->router->getNpost('/routes-management/items/manage/{id}', [RoutesManagement::class, 'manageItem']);
 
-$app->router->get('/routes-management/groups/list-all', [RoutesManagement::class, 'listGroups']);
-$app->router->getNpost('/routes-management/groups/create', [RoutesManagement::class, 'createGroup']);
-$app->router->getNpost('/routes-management/groups/manage/{id}', [RoutesManagement::class, 'manageGroup']);
+$app->router->get('/routes-management/roles/list-all', [RoutesManagement::class, 'listRoles']);
+$app->router->getNpost('/routes-management/roles/create', [RoutesManagement::class, 'createRole']);
+$app->router->getNpost('/routes-management/roles/manage/{id}', [RoutesManagement::class, 'manageRole']);
 
 $app->run();

@@ -34,4 +34,9 @@ return [
     // ? Routes management
     'Route creation successful' => 'Route creation successful',
     'Route must contains the aliases of the sites. Please see below!', 'Route must contains the aliases of the sites. Please see below!',
+
+    // ? Roles
+    'Role Name' => 'Role Name',
+    'Role Icon' => 'Role Icon',
+    'Description' => 'Description',
 ];

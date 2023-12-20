@@ -6,14 +6,14 @@
 use tframe\common\components\button\Button;
 use tframe\common\components\text\Text;
 
-$this->title = 'Authentication Groups';
+$this->title = 'Roles';
 ?>
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <?= Button::generateClickButton('/routes-management/groups/create', 'btn-primary', 'New Authentication Group', 'fa-plus') ?>
+                    <?= Button::generateClickButton('/routes-management/roles/create', 'btn-primary', 'New Role', 'fa-plus') ?>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover table-striped dataTable dtr-inline" id="dataTable">
@@ -42,18 +42,18 @@ $("#dataTable").DataTable({
     ],
     "processing": true,
     ajax: {
-        url: '/api/routes-management/groups/list',
+        url: '/api/routes-management/roles/list',
         dataSrc:""
     },
     columns: [
         { title:"ID", data: 'id' },
-        { title:"Group code", data: 'code' },
-        { title:"Group name", data: 'groupName' },
+        { title:"Role Name", data: 'roleName' },
+        { title:"Role Icon", data: function (data) { return (!data.roleIcon ) ? '$notset' : data.roleIcon} },
         { title:"Description", data: function (data) { return (!data.description ) ? '$notset' : data.description} },
         { title:"Created at", data:  'created_at' },
         { title:"Updated at", data:  function (data) { return (!data.updated_at) ? '$notset' : data.updated_at } },
         { title:'Modify', data: function (data) { return '<a data-bs-toggle="tooltip" data-bs-placement="top"'+
-        'data-bs-title="Edit" href="/routes-management/groups/manage/'+data.id+'"><i class="fa-solid fa-gear"></i></a>'
+        'data-bs-title="Edit" href="/routes-management/roles/manage/'+data.id+'"><i class="fa-solid fa-gear"></i></a>'
          } }
     ],
     order: [[1, 'asc']]

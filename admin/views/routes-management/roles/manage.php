@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $this \tframe\core\View
- * @var $groupItem \tframe\core\auth\AuthGroup
+ * @var $role \tframe\core\auth\Role
  * @var $authAssignments array
  * @var $adminAuthItems array
  * @var $publicAuthItems array
@@ -12,30 +12,30 @@ use tframe\common\components\text\Text;
 use tframe\core\Application;
 use tframe\core\auth\AuthItem;
 
-$this->title = 'Manage Authentication Group';
+$this->title = 'Manage Role';
 ?>
 
 <div class="row">
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Authentication Group</h3>
+                <h3 class="card-title">Role</h3>
             </div>
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>
 
-                <?= $form->field($groupItem, 'code')->required(); ?>
-                <?= $form->field($groupItem, 'groupName')->required(); ?>
-                <?= $form->textareaField($groupItem, 'description'); ?>
+                <?= $form->field($role, 'roleName')->required(); ?>
+                <?= $form->field($role, 'roleIcon') ?>
+                <?= $form->textareaField($role, 'description'); ?>
 
                 <?= $form->submitButton(Application::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 
 
                 <p class="fs-7 mb-0 mt-3 fst-italic text-end">
-                    <?= Application::t('general', 'Created') ?>: <?= $groupItem->created_at ?>
+                    <?= Application::t('general', 'Created') ?>: <?= $role->created_at ?>
                 </p>
                 <p class="fs-7 mb-0 fst-italic text-end">
-                    <?= Application::t('general', 'Edited') ?>: <?= ($groupItem->updated_at != null) ? $groupItem->updated_at : Text::notSetText() ?>
+                    <?= Application::t('general', 'Edited') ?>: <?= ($role->updated_at != null) ? $role->updated_at : Text::notSetText() ?>
                 </p>
             </div>
         </div>
@@ -50,7 +50,7 @@ $this->title = 'Manage Authentication Group';
                 <?php foreach ($publicAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \tframe\core\auth\AuthAssignments */
+                    /* @var $assignment \tframe\core\auth\AuthAssignment */
                     foreach ($authAssignments as $assignment) {
                         if($authItem->id == $assignment->code) {
                             $checked = true;
@@ -75,7 +75,7 @@ $this->title = 'Manage Authentication Group';
                 <?php foreach ($adminAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \tframe\core\auth\AuthAssignments */
+                    /* @var $assignment \tframe\core\auth\AuthAssignment */
                     foreach ($authAssignments as $assignment) {
                         if($authItem->id == $assignment->item) {
                             $checked = true;

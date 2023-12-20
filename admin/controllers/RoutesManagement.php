@@ -3,8 +3,8 @@
 namespace tframe\admin\controllers;
 
 use tframe\core\Application;
-use tframe\core\auth\AuthAssignments;
-use tframe\core\auth\AuthGroup;
+use tframe\core\auth\AuthAssignment;
+use tframe\core\auth\Role;
 use tframe\core\auth\AuthItem;
 use tframe\core\Controller;
 use tframe\core\exception\NotFoundException;
@@ -64,65 +64,64 @@ class RoutesManagement extends Controller {
     }
 
     /* * Groups */
-    public function listGroups(Request $request, Response $response): string {
+    public function listRoles(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        return $this->render('routes-management.groups.list');
+        return $this->render('routes-management.roles.list');
     }
 
-    public function createGroup(Request $request, Response $response): string {
+    public function createRole(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        $groupItem = new AuthGroup();
+        $role = new Role();
         if($request->isPost()) {
-            $groupItem->loadData($request->getBody());
-            $groupItem->code = strtoupper($groupItem->code);
-            if($groupItem->validate()) {
-                $groupItem->save();
+            $role->loadData($request->getBody());
+            if($role->validate()) {
+                $role->save();
                 Application::$app->session->setFlash('success', Application::t('auth', 'Group creation successful'));
             }
         }
 
-        return $this->render('routes-management.groups.create', ['groupItem' => $groupItem]);
+        return $this->render('routes-management.roles.create', ['role' => $role]);
     }
 
-    public function manageGroup(Request $request, Response $response): string {
+    public function manageRole(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        /** @var AuthGroup $groupItem */
-        $groupItem = AuthGroup::findOne([AuthGroup::primaryKey() => $request->getRouteParam('id')]);
+        /** @var Role $role */
+        $role = Role::findOne([Role::primaryKey() => $request->getRouteParam('id')]);
 
-        if(!$groupItem) {
+        if(!$role) {
             throw new NotFoundException();
         }
 
-        $authAssignments = AuthAssignments::findMany(['code' => $groupItem->id]);
+        $authAssignments = AuthAssignment::findMany(['code' => $role->id]);
         $adminAuthItems = AuthItem::queryMany('item LIKE "@admin/%"', 'item');
         $publicAuthItems = AuthItem::queryMany('item LIKE "@public/%"', 'item');
 
         if($request->isPost()) {
-            $groupItem->loadData($request->getBody());
-            if($groupItem->validate()) {
+            $role->loadData($request->getBody());
+            if($role->validate()) {
                 if(isset($request->getBody()["routes"])) {
-                    /** @var $assignment AuthAssignments */
-                    foreach (AuthAssignments::findMany(['code' => $groupItem->id]) as $assignment) {
+                    /** @var $assignment AuthAssignment */
+                    foreach (AuthAssignment::findMany(['code' => $role->id]) as $assignment) {
                         $assignment->delete();
                     }
                     foreach ($request->getBody()["routes"] as $id) {
-                        $assignment = new AuthAssignments();
-                        $assignment->code = $groupItem->id;
+                        $assignment = new AuthAssignment();
+                        $assignment->code = $role->id;
                         $assignment->item = $id;
                         $assignment->save();
                     }
                 }
-                $groupItem->save();
+                $role->save();
                 Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
             }
         }
 
-        return $this->render('routes-management.groups.manage',
+        return $this->render('routes-management.roles.manage',
             [
-                'groupItem' => $groupItem,
+                'role' => $role,
                 'authAssignments' => $authAssignments,
                 'adminAuthItems' => $adminAuthItems,
                 'publicAuthItems' => $publicAuthItems

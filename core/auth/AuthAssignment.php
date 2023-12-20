@@ -10,7 +10,7 @@ use tframe\core\database\MagicRecord;
  * @property string $created_at
  * @property string $completed_at
  */
-class AuthAssignments extends MagicRecord {
+class AuthAssignment extends MagicRecord {
 
     public static function tableName(): string { return 'auth_assignments'; }
 
@@ -29,7 +29,7 @@ class AuthAssignments extends MagicRecord {
 
     public function rules(): array {
         return [
-            'code' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => AuthGroup::class], ['attribute' => 'id']],
+            'code' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => Role::class], ['attribute' => 'id']],
             'item' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => AuthItem::class], ['attribute' => 'id']]
         ];
     }

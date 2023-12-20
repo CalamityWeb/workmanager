@@ -4,8 +4,8 @@ namespace tframe\admin\controllers;
 
 use tframe\common\models\User;
 use tframe\core\Application;
-use tframe\core\auth\AuthAssignments;
-use tframe\core\auth\AuthGroup;
+use tframe\core\auth\AuthAssignment;
+use tframe\core\auth\Role;
 use tframe\core\auth\AuthItem;
 use tframe\core\Controller;
 use tframe\core\exception\UnauthorizedException;
@@ -41,15 +41,15 @@ class ApiController extends Controller {
         return json_encode($authItems);
     }
 
-    public function routesManagementGroupsListGroups(): false|string {
+    public function routesManagementRolesListGroups(): false|string {
         $this->checkLogged();
-        $authGroups = AuthGroup::findMany();
-        return json_encode($authGroups);
+        $roles = Role::findMany();
+        return json_encode($roles);
     }
 
     public function routesManagementAssignmentsListAssignments(): false|string {
         $this->checkLogged();
-        $authAssignments = AuthAssignments::findMany();
+        $authAssignments = AuthAssignment::findMany();
         return json_encode($authAssignments);
     }
 }
