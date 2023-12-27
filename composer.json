@@ -21,27 +21,5 @@
 		"ext-openssl": "*",
 		"ext-pdo": "*",
 		"phpmailer/phpmailer": "^6.8",
-		"twbs/bootstrap": "v5.3.2",
-		"components/font-awesome": "6.4.2"
-	},
-	"scripts": {
-		"post-update-cmd": [
-			"del /q .\\public\\web\\assets\\modules\\bootstrap",
-			"xcopy .\\vendor\\twbs\\bootstrap\\dist\\ .\\public\\web\\assets\\modules\\bootstrap\\ /E/C/I/Y",
-
-			"del /q .\\admin\\web\\assets\\modules\\bootstrap",
-			"xcopy .\\vendor\\twbs\\bootstrap\\dist\\ .\\admin\\web\\assets\\modules\\bootstrap\\ /E/C/I/Y",
-
-			"if exist .\\admin\\web\\assets\\modules\\fontawesome rmdir /s /q .\\admin\\web\\assets\\modules\\fontawesome",
-			"if exist .\\public\\web\\assets\\modules\\fontawesome rmdir /s /q .\\public\\web\\assets\\modules\\fontawesome",
-			"mkdir .\\admin\\web\\assets\\modules\\fontawesome",
-			"mkdir .\\public\\web\\assets\\modules\\fontawesome",
-			"copy .\\vendor\\components\\font-awesome\\css\\all.css public\\web\\assets\\modules\\fontawesome\\ /Y",
-			"copy .\\vendor\\components\\font-awesome\\css\\all.css admin\\web\\assets\\modules\\fontawesome\\ /Y",
-			"del /q .\\admin\\web\\assets\\modules\\webfonts",
-			"del /q .\\public\\web\\assets\\modules\\webfonts",
-			"xcopy .\\vendor\\components\\font-awesome\\webfonts\\ .\\admin\\web\\assets\\modules\\webfonts\\ /E/C/I/Y",
-			"xcopy .\\vendor\\components\\font-awesome\\webfonts\\ .\\public\\web\\assets\\modules\\webfonts\\ /E/C/I/Y"
-		]
 	}
 }
