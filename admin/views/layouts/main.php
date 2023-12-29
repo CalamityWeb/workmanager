@@ -48,7 +48,7 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown user-menu">
                 <span class="nav-link dropdown-toggle cursor-pointer" data-bs-toggle="dropdown">
-                    <img src="<?= $sessionUser->getUserPicture() ?>" class="user-image img-circle shadow"
+                    <img src="<?= $sessionUser->getPicture() ?>" class="user-image img-circle shadow"
                          alt="User">
                     <span class="d-none d-md-inline">
                         <?= $sessionUser->getFullName() ?>
@@ -56,7 +56,7 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
                 </span>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                         <li class="user-header text-bg-primary">
-                            <img src="<?= $sessionUser->getUserPicture() ?>" class="img-circle shadow" alt="User">
+                            <img src="<?= $sessionUser->getPicture() ?>" class="img-circle shadow" alt="User">
                             <p>
                                 <?= $sessionUser->getFullName() ?>
                             </p>
@@ -127,7 +127,7 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
                     data-accordion="false">
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src="<?= $sessionUser->getUserPicture() ?>" class="img-circle elevation-2"
+                            <img src="<?= $sessionUser->getPicture() ?>" class="img-circle elevation-2"
                                  alt="User" style="width: 2.1rem">
                         </div>
                         <div class="info">
@@ -153,23 +153,16 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
                             <p>Users</p>
                         </a>
                     </li>
-                    <li class="nav-header">Roles Management</li>
-                    <li class="nav-item">
-                        <a class="nav-link cursor-pointer" href="/roles/list-all">
-                            <i class="nav-icon fa-solid fa-users-gear"></i>
-                            <p>Roles</p>
-                        </a>
-                    </li>
                     <li class="nav-header">Routes Management</li>
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" href="/routes-management/items/list-all">
-                            <i class="nav-icon fa-solid fa-right-from-bracket"></i>
+                            <i class="nav-icon fa-solid fa-route"></i>
                             <p>Route Items</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" href="/routes-management/roles/list-all">
-                            <i class="nav-icon fa-solid fa-users-rays"></i>
+                            <i class="nav-icon fa-solid fa-shield-halved"></i>
                             <p>Roles</p>
                         </a>
                     </li>

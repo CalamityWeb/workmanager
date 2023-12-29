@@ -12,4 +12,5 @@ return [
     'Edited' => 'Edited',
     'Save' => 'Save',
     'Update successful!' => 'Update successful!',
+    'Description' => 'Description',
 ];

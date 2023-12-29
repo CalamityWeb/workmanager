@@ -5,6 +5,8 @@ namespace tframe\admin\controllers;
 use tframe\common\models\User;
 use tframe\core\Application;
 use tframe\core\auth\RegisterForm;
+use tframe\core\auth\Roles;
+use tframe\core\auth\UserRoles;
 use tframe\core\Controller;
 use tframe\core\Request;
 
@@ -35,16 +37,38 @@ class UsersController extends Controller {
 
         /** @var User $user */
         $user = User::findOne(['id' => $request->getRouteParam('id')]);
+        $roles = Roles::findMany();
+        $userRoles = $user->getRoles();
 
         if($request->isPost()) {
             $user->loadData($request->getBody());
             if($user->validate()) {
                 $user->email_confirmed = isset($request->getBody()['email_confirmed']) ? true : $user->email_confirmed;
+
+                /** @var $assignment UserRoles */
+                foreach (UserRoles::findMany(['userId' => $user->id]) as $assignment) {
+                    $assignment->delete();
+                }
+                if(isset($request->getBody()["roles"])) {
+                    foreach ($request->getBody()["roles"] as $id) {
+                        $assignment = new UserRoles();
+                        $assignment->userId = $user->id;
+                        $assignment->roleId = $id;
+                        $assignment->save();
+                    }
+                }
+
                 $user->save();
                 Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
             }
         }
 
-        return $this->render('users.manage', ['user' => $user]);
+        return $this->render('users.manage',
+            [
+                'user' => $user,
+                'roles' => $roles,
+                'userRoles' => $userRoles,
+            ]
+        );
     }
 }

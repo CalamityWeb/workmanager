@@ -13,7 +13,7 @@ use tframe\core\database\MagicRecord;
  * @property string $created_at
  * @property string $completed_at
  */
-class Role extends MagicRecord {
+class Roles extends MagicRecord {
 
     public static function tableName(): string { return 'roles'; }
 

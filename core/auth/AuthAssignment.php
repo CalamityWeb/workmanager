@@ -2,10 +2,11 @@
 
 namespace tframe\core\auth;
 
+use tframe\core\Application;
 use tframe\core\database\MagicRecord;
 
 /**
- * @property int $code
+ * @property int $role
  * @property integer $item
  * @property string $created_at
  * @property string $completed_at
@@ -14,22 +15,22 @@ class AuthAssignment extends MagicRecord {
 
     public static function tableName(): string { return 'auth_assignments'; }
 
-    public static function primaryKey(): string|array { return ['code', 'item']; }
+    public static function primaryKey(): string|array { return ['role', 'item']; }
 
     public function attributes(): array {
-        return [ 'code', 'item' ];
+        return [ 'role', 'item' ];
     }
 
     public function labels(): array {
         return [
-            'code' => 'Group code',
-            'item' => 'Route (URL)'
+            'role' => Application::t('attribute', 'Role'),
+            'item' => Application::t('attribute', 'Route (URL)')
         ];
     }
 
     public function rules(): array {
         return [
-            'code' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => Role::class], ['attribute' => 'id']],
+            'role' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => Roles::class], ['attribute' => 'id']],
             'item' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => AuthItem::class], ['attribute' => 'id']]
         ];
     }

@@ -3,6 +3,7 @@
 namespace tframe\common\models;
 
 use tframe\core\Application;
+use tframe\core\auth\UserRoles;
 use tframe\core\database\MagicRecord;
 
 /**
@@ -55,7 +56,11 @@ class User extends MagicRecord {
         return $this->firstName . ' ' . $this->lastName;
     }
 
-    public function getUserPicture(): string {
+    public function getPicture(): string {
         return file_exists('./assets/images/profile-pictures/' . $this->{$this->primaryKey()} . '.png') ? '/assets/images/profile-pictures/' . $this->{$this->primaryKey()} . '.png' : '/assets/images/user-dummy.png';
+    }
+
+    public function getRoles(): array|false {
+        return UserRoles::findMany(['userId' => $this->id]);
     }
 }

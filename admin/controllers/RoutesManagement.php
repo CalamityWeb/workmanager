@@ -4,7 +4,7 @@ namespace tframe\admin\controllers;
 
 use tframe\core\Application;
 use tframe\core\auth\AuthAssignment;
-use tframe\core\auth\Role;
+use tframe\core\auth\Roles;
 use tframe\core\auth\AuthItem;
 use tframe\core\Controller;
 use tframe\core\exception\NotFoundException;
@@ -12,13 +12,6 @@ use tframe\core\Request;
 use tframe\core\Response;
 
 class RoutesManagement extends Controller {
-
-    public function index(Request $request, Response $response): string {
-        $this->setLayout('main');
-
-        return $this->render('routes-management.index');
-    }
-
     /* * Items */
     public function listItems(): string {
         $this->setLayout('main');
@@ -63,7 +56,7 @@ class RoutesManagement extends Controller {
         return $this->render('routes-management.items.manage', ['authItem' => $authItem]);
     }
 
-    /* * Groups */
+    /* * Roles */
     public function listRoles(Request $request, Response $response): string {
         $this->setLayout('main');
 
@@ -73,7 +66,7 @@ class RoutesManagement extends Controller {
     public function createRole(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        $role = new Role();
+        $role = new Roles();
         if($request->isPost()) {
             $role->loadData($request->getBody());
             if($role->validate()) {
@@ -88,28 +81,28 @@ class RoutesManagement extends Controller {
     public function manageRole(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        /** @var Role $role */
-        $role = Role::findOne([Role::primaryKey() => $request->getRouteParam('id')]);
+        /** @var Roles $role */
+        $role = Roles::findOne([Roles::primaryKey() => $request->getRouteParam('id')]);
 
         if(!$role) {
             throw new NotFoundException();
         }
 
-        $authAssignments = AuthAssignment::findMany(['code' => $role->id]);
+        $authAssignments = AuthAssignment::findMany(['role' => $role->id]);
         $adminAuthItems = AuthItem::queryMany('item LIKE "@admin/%"', 'item');
         $publicAuthItems = AuthItem::queryMany('item LIKE "@public/%"', 'item');
 
         if($request->isPost()) {
             $role->loadData($request->getBody());
             if($role->validate()) {
+                /** @var $assignment AuthAssignment */
+                foreach (AuthAssignment::findMany(['role' => $role->id]) as $assignment) {
+                    $assignment->delete();
+                }
                 if(isset($request->getBody()["routes"])) {
-                    /** @var $assignment AuthAssignment */
-                    foreach (AuthAssignment::findMany(['code' => $role->id]) as $assignment) {
-                        $assignment->delete();
-                    }
                     foreach ($request->getBody()["routes"] as $id) {
                         $assignment = new AuthAssignment();
-                        $assignment->code = $role->id;
+                        $assignment->role = $role->id;
                         $assignment->item = $id;
                         $assignment->save();
                     }

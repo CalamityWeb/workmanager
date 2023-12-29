@@ -37,11 +37,10 @@ $app = new Application(dirname(__DIR__), $config);
 $app->router->get('/', [SiteController::class, 'index']);
 
 /* * API routes */
-
 $app->router->get('/api/users/list', [ApiController::class, 'usersListUsers']);
 $app->router->get('/api/routes-management/items/list', [ApiController::class, 'routesManagementItemsListItems']);
 $app->router->get('/api/routes-management/get/item/{id}', [ApiController::class, 'routesManagementGetItemById']);
-$app->router->get('/api/routes-management/roles/list', [ApiController::class, 'routesManagementRolesListGroups']);
+$app->router->get('/api/routes-management/roles/list', [ApiController::class, 'routesManagementListRoles']);
 $app->router->get('/api/routes-management/assignments/list', [ApiController::class, 'routesManagementAssignmentsListAssignments']);
 
 /* * Authentication routes  */
@@ -57,8 +56,6 @@ $app->router->getNpost('/users/create', [UsersController::class, 'createUser']);
 $app->router->getNpost('/users/manage/{id}', [UsersController::class, 'manageUser']);
 
 /* * Routes Management routes */
-$app->router->get('/routes-management/index', [RoutesManagement::class, 'index']);
-
 $app->router->get('/routes-management/items/list-all', [RoutesManagement::class, 'listItems']);
 $app->router->getNpost('/routes-management/items/create', [RoutesManagement::class, 'createItem']);
 $app->router->getNpost('/routes-management/items/manage/{id}', [RoutesManagement::class, 'manageItem']);

@@ -69,15 +69,18 @@ use tframe\core\Model;
     }
 
     public function save(): bool {
-        $tableName = $this->tableName();
-        $attributes = $this->attributes();
-        $params = array_map(fn($attr) => ":$attr", $attributes);
-
-        foreach ($attributes as $attribute) {
+        foreach ($this->attributes() as $attribute) {
             if (is_bool($this->{$attribute})) {
                 $this->{$attribute} = ($this->{$attribute}) ? 1 : 0;
             }
+            if(empty($this->{$attribute})) {
+                $this->{$attribute} = null;
+            }
         }
+
+        $tableName = $this->tableName();
+        $attributes = $this->attributes();
+        $params = array_map(fn($attr) => ":$attr", $attributes);
 
         if (!is_array($this->primaryKey())) {
             $exists = self::findOne([$this->primaryKey() => $this->{$this->primaryKey()}]);
@@ -97,19 +100,19 @@ use tframe\core\Model;
         } else {
             $attr = '';
             for ($i = 0; $i < sizeof($attributes); $i++) {
-                $attr .= $attributes[$i] . '="' . $params[$i] . '", ';
+                $attr .= $attributes[$i] . '=:' . $attributes[$i] . ', ';
             }
             $attr = substr($attr, 0, -2);
-
-            foreach ($attributes as $attribute) {
-                $attr = preg_replace('/:' . $attribute . '\b/', $this->{$attribute}, $attr);
-            }
 
             if (is_array($this->primaryKey())) {
                 $attributes = implode(" AND ", array_map(fn($key) => "$key = '" . $this->{$key} . "'", $this->primaryKey()));
                 $statement = self::prepare("UPDATE " . $this->tableName() . " SET $attr WHERE " . $attributes);
             } else {
                 $statement = self::prepare("UPDATE $tableName SET $attr WHERE " . $this->primaryKey() . " = '" . $this->{$this->primaryKey()} . "'");
+            }
+
+            foreach ($attributes as $attribute) {
+                $statement->bindValue(":$attribute", $this->{$attribute});
             }
         }
         return $statement->execute();

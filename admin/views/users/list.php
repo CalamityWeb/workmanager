@@ -13,7 +13,7 @@ $this->title = 'Users';
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <?= Button::generateClickButton('/users/create', 'btn-primary', 'New User', 'fa-plus') ?>
+                    <?= Button::generateClickButton('/users/create', 'btn-primary', 'New User', 'fa-user-plus') ?>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover table-striped dataTable dtr-inline" id="dataTable">

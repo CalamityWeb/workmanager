@@ -16,6 +16,11 @@ return [
     'Profile picture' => 'Profile picture',
     'Email confirmed' => 'Email confirmed',
 
+    // ? Auth
+    'Route (URL)' => 'Route (URL)',
+    'Role' => 'Role',
+    'User' => 'User',
+
     // ? Validation error messages
     'The field is required' => 'The field is required',
     'The field has to be a valid email address' => 'The field has to be a valid email address',

@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $this \tframe\core\View
- * @var $role \tframe\core\auth\Role
+ * @var $role \tframe\core\auth\Roles
  * @var $authAssignments array
  * @var $adminAuthItems array
  * @var $publicAuthItems array
@@ -25,7 +25,7 @@ $this->title = 'Manage Role';
                 <?php $form = Form::begin('post') ?>
 
                 <?= $form->field($role, 'roleName')->required(); ?>
-                <?= $form->field($role, 'roleIcon') ?>
+                <?= $form->textareaField($role, 'roleIcon') ?>
                 <?= $form->textareaField($role, 'description'); ?>
 
                 <?= $form->submitButton(Application::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
@@ -52,7 +52,7 @@ $this->title = 'Manage Role';
                     $checked = false;
                     /* @var $assignment \tframe\core\auth\AuthAssignment */
                     foreach ($authAssignments as $assignment) {
-                        if($authItem->id == $assignment->code) {
+                        if($authItem->id == $assignment->role) {
                             $checked = true;
                         }
                     }

@@ -2,6 +2,8 @@
 /**
  * @var $this \tframe\core\View
  * @var $user \tframe\common\models\User
+ * @var $roles array
+ * @var $userRoles array
  */
 
 use tframe\common\components\form\Form;
@@ -16,7 +18,7 @@ $this->title = 'Manage User';
         <div class="card card-primary card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
-                    <img src="<?= $user->getUserPicture() ?>" id="profilePicture" alt="Your profile picture" class="profile-user-img img-fluid img-circle">
+                    <img src="<?= $user->getPicture() ?>" id="profilePicture" alt="Your profile picture" class="profile-user-img img-fluid img-circle">
                 </div>
                 <h3 class="profile-username text-center"><?= $user->getFullName() ?></h3>
             </div>
@@ -38,13 +40,38 @@ $this->title = 'Manage User';
 
                 <?= $form->submitButton(Application::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 
-                <?php Form::end() ?>
                 <p class="fs-7 mb-0 mt-3 fst-italic text-end">
                     <?= Application::t('general', 'Created') ?>: <?= $user->created_at ?>
                 </p>
                 <p class="fs-7 mb-0 fst-italic text-end">
                     <?= Application::t('general', 'Edited') ?>: <?= ($user->updated_at != null) ? $user->updated_at  : Text::notSetText() ?>
                 </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Roles</h3>
+            </div>
+            <div class="card-body">
+                <?php /* @var $role \tframe\core\auth\Roles */ ?>
+                <?php foreach ($roles as $role): ?>
+                    <?php
+                    $hasRole = false;
+                    /* @var $userRole \tframe\core\auth\UserRoles */
+                    foreach ($userRoles as $userRole) {
+                        if($role->id == $userRole->roleId) {
+                            $hasRole = true;
+                        }
+                    }
+                    ?>
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="<?= $role->id ?>" name="roles[]" value="<?= $role->id ?>" <?= ($hasRole) ? 'checked' : '' ?>>
+                        <label for="<?= $role->id ?>"><?= $role->roleName ?> <?= !empty($role->roleIcon) ? $role->roleIcon : '' ?></label>
+                    </div>
+                <?php endforeach; ?>
+                <?php Form::end() ?>
             </div>
         </div>
     </div>

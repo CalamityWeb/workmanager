@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $this \tframe\core\View
- * @var $role \tframe\core\auth\Role
+ * @var $role \tframe\core\auth\Roles
  */
 
 use tframe\common\components\form\Form;
