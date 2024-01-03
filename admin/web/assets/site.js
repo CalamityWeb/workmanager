@@ -79,3 +79,16 @@ $(document).ready(function() {
         theme: 'bootstrap-5',
     });
 });
+
+// Preloader
+$(document).ready(function() {
+    setTimeout(function(){
+        document.getElementById("preloader").classList.add("preloader-loaded");
+    }, 1000);
+});
+
+// Phone
+const input = document.querySelector("#phone");
+window.intlTelInput(input, {
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
