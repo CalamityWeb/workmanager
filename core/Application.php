@@ -4,7 +4,7 @@ namespace tframe\core;
 
 use tframe\common\components\mailer\Mailer;
 use tframe\common\helpers\CoreHelper;
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\database\Database;
 use Exception;
 
@@ -25,7 +25,7 @@ class Application {
     public Mailer $mailer;
     public Session $session;
     public View $view;
-    public ?User $user;
+    public ?Users $user;
 
     public static array $URL;
     public static array $GLOBALS;
@@ -67,7 +67,7 @@ class Application {
 
         $userId = Application::$app->session->get('sessionUser');
         if ($userId) {
-            $user = User::findOne([User::primaryKey() => $userId]);
+            $user = Users::findOne([Users::primaryKey() => $userId]);
             if($user) {
                 $this->user = $user;
             } else {
@@ -80,9 +80,9 @@ class Application {
         return !self::$app->user;
     }
 
-    public function login(User $user): true {
+    public function login(Users $user): true {
         $this->user = $user;
-        Application::$app->session->set('sessionUser', $user->{User::primaryKey()});
+        Application::$app->session->set('sessionUser', $user->{Users::primaryKey()});
         return true;
     }
 

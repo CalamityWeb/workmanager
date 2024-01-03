@@ -3,7 +3,7 @@
 namespace tframe\core\auth;
 
 use tframe\common\components\text\Generator;
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 use tframe\core\Model;
 
@@ -23,8 +23,8 @@ class ForgotPasswordForm extends Model {
     }
 
     public function sendUpdateEmail(): bool {
-        /** @var User $user */
-        $user = User::findOne(['email' => $this->email]);
+        /** @var Users $user */
+        $user = Users::findOne(['email' => $this->email]);
 
         if ($user == null) {
             $this->addError('email', Application::t('auth', 'This email is not in our system!'));

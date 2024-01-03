@@ -2,7 +2,7 @@
 
 namespace tframe\core\auth;
 
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 use tframe\core\Model;
 
@@ -28,8 +28,8 @@ class LoginForm extends Model {
     }
 
     public function login(): bool {
-        /** @var User $user */
-        $user = User::findOne(['email' => $this->email]);
+        /** @var Users $user */
+        $user = Users::findOne(['email' => $this->email]);
 
         if (!$user) {
             $this->addError('email', Application::t('auth', 'This email is not in our system!'));

@@ -3,7 +3,7 @@
 namespace tframe\common\models;
 
 use tframe\core\Application;
-use tframe\core\auth\AuthAssignment;
+use tframe\core\auth\AuthAssignments;
 use tframe\core\auth\AuthItem;
 use tframe\core\auth\Roles;
 use tframe\core\auth\UserRoles;
@@ -21,7 +21,7 @@ use tframe\core\database\MagicRecord;
  * @property string $updated_at
  */
 
-class User extends MagicRecord {
+class Users extends MagicRecord {
     public static function tableName(): string {
         return "users";
     }
@@ -68,7 +68,30 @@ class User extends MagicRecord {
     }
 
     public function getRoles(): array|false {
-        return UserRoles::findMany(['userId' => $this->id]);
+        $roles = [];
+        /** @var $ids UserRoles */
+        foreach (UserRoles::findMany(['userId' => $this->id]) as $ids) {
+            $roles[] = Roles::findOne([Roles::primaryKey() => $ids->roleId]);
+        }
+        return $roles;
+    }
+
+    public function getActveRole(): Roles|null {
+        if(empty($this->getRoles())) {
+            return null;
+        } else {
+            /** @var $role Roles */
+            $maxCount = 0;
+            $maxRole = null;
+            foreach ($this->getRoles() as $role) {
+                $assignments = AuthAssignments::findMany(['role' => $role->id]);
+                if(count($assignments) > $maxCount) {
+                    $maxCount = count($assignments);
+                    $maxRole = $role;
+                }
+            }
+            return $maxRole;
+        }
     }
 
     private static function isItemMatches(false|array $auths, string $route): bool {
@@ -85,11 +108,11 @@ class User extends MagicRecord {
         return $can;
     }
 
-    public static function canRoute(User|null $user, string $route): bool {
+    public static function canRoute(Users|null $user, string $route): bool {
         $can = false;
         if(is_null($user)) {
-            $auths = AuthAssignment::findMany(['role' => 2]);
-            /** @var $auth AuthAssignment */
+            $auths = AuthAssignments::findMany(['role' => 2]);
+            /** @var $auth AuthAssignments */
             $can = self::isItemMatches($auths, $route);
         } else {
             $roles = UserRoles::findMany(['userId' => $user->id]);
@@ -97,8 +120,8 @@ class User extends MagicRecord {
             foreach ($roles as $assignment) {
                 /** @var $role Roles */
                 $role = Roles::findOne([Roles::primaryKey() => $assignment->roleId]);
-                $auths = AuthAssignment::findMany(['role' => $role->id]);
-                /** @var $auth AuthAssignment */
+                $auths = AuthAssignments::findMany(['role' => $role->id]);
+                /** @var $auth AuthAssignments */
                 $can = self::isItemMatches($auths, $route);
             }
         }

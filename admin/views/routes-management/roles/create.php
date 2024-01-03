@@ -20,7 +20,7 @@ $this->title = 'Create Role';
                 <?php $form = Form::begin('post') ?>
 
                 <?= $form->field($role, 'roleName')->required() ?>
-                <?= $form->field($role, 'roleIcon') ?>
+                <?= $form->textareaField($role, 'roleIcon') ?>
                 <?= $form->textareaField($role, 'description') ?>
 
                 <?= $form->submitButton(Application::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>

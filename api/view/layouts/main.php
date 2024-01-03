@@ -4,11 +4,11 @@
  */
 
 use tframe\common\components\alert\Sweetalert;
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 
-/** @var \tframe\common\models\User $sessionUser */
-$sessionUser = User::findOne([User::primaryKey() => Application::$app->session->get('sessionUser')]);
+/** @var \tframe\common\models\Users $sessionUser */
+$sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
 
 ?>
 

@@ -2,7 +2,7 @@
 
 namespace tframe\admin\controllers;
 
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 use tframe\core\auth\ForgotPasswordForm;
 use tframe\core\auth\LoginForm;
@@ -19,8 +19,8 @@ class AuthController extends Controller {
         $this->setLayout('auth');
 
         if (isset($_COOKIE['sessionUser'])) {
-            /** @var User $user */
-            $user = User::findOne(['id' => $_COOKIE['sessionUser']]);
+            /** @var Users $user */
+            $user = Users::findOne(['id' => $_COOKIE['sessionUser']]);
 
             if ($user) {
                 Application::$app->login($user);
@@ -29,8 +29,8 @@ class AuthController extends Controller {
         }
 
         if (isset($_COOKIE['rememberMe'])) {
-            /** @var User $user */
-            $user = User::findOne(['id' => $_COOKIE['rememberMe']]);
+            /** @var Users $user */
+            $user = Users::findOne(['id' => $_COOKIE['rememberMe']]);
 
             if ($user) {
                 Application::$app->login($user);
@@ -100,8 +100,8 @@ class AuthController extends Controller {
         if($request->isPost()) {
             $resetPasswordForm->loadData($request->getBody());
             if($resetPasswordForm->validate()) {
-                /** @var User $user */
-                $user = User::findOne(['id' => $token->userId]);
+                /** @var Users $user */
+                $user = Users::findOne(['id' => $token->userId]);
                 $user->password = password_hash($resetPasswordForm->password, PASSWORD_ARGON2ID, ['memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3]);
                 $user->save();
 

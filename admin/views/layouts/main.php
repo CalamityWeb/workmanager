@@ -4,11 +4,11 @@
  */
 
 use tframe\common\components\alert\Sweetalert;
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 
-/** @var \tframe\common\models\User $sessionUser */
-$sessionUser = User::findOne([User::primaryKey() => Application::$app->session->get('sessionUser')]);
+/** @var \tframe\common\models\Users $sessionUser */
+$sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
 
 ?>
 
@@ -57,12 +57,18 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
                     <span class="d-none d-md-inline">
                         <?= $sessionUser->getFullName() ?>
                     </span>
+                    <?php if(!empty($sessionUser->getActveRole()->roleIcon)): ?>
+                    <span class="d-none d-md-inline">
+                        <?= $sessionUser->getActveRole()->roleIcon ?>
+                    </span>
+                    <?php endif; ?>
                 </span>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                         <li class="user-header text-bg-primary">
                             <img src="<?= $sessionUser->getPicture() ?>" class="img-circle shadow" alt="User">
                             <p>
                                 <?= $sessionUser->getFullName() ?>
+                                <small><?= $sessionUser->getActveRole()->roleIcon ?><?= $sessionUser->getActveRole()->roleName ?></small>
                             </p>
                         </li>
                         <li class="user-footer">
@@ -228,6 +234,9 @@ $sessionUser = User::findOne([User::primaryKey() => Application::$app->session->
 
 <?php if (Application::$app->session->getFlash('success')): ?>
     <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success')) ?>
+<?php endif; ?>
+<?php if (Application::$app->session->getFlash('error')): ?>
+    <?= Sweetalert::generateToastAlert('error', Application::$app->session->getFlash('error')) ?>
 <?php endif; ?>
 
 </body>

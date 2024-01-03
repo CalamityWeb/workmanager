@@ -32,7 +32,11 @@ $config = [
 
 $app = new Application(dirname(__DIR__), $config);
 
-$app->router->get('/', [SiteController::class, 'index']);
+$app->router->get('/', function (){Application::$app->response->redirect('/auth/login');});
+
+/* *Site routes */
+$app->router->getNpost('/site/dashboard', [SiteController::class, 'dashboard']);
+$app->router->getNpost('/site/profile', [SiteController::class, 'profile']);
 
 /* * Authentication routes  */
 $app->router->getNpost('/auth/login', [AuthController::class, 'login']);
@@ -44,15 +48,18 @@ $app->router->getNpost('/auth/reset-password/{token}', [AuthController::class, '
 /* * Users Management routes */
 $app->router->get('/users/list-all', [UsersController::class, 'listUsers']);
 $app->router->getNpost('/users/create', [UsersController::class, 'createUser']);
+$app->router->get('/users/delete/{id}', [UsersController::class, 'deleteUser']);
 $app->router->getNpost('/users/manage/{id}', [UsersController::class, 'manageUser']);
 
 /* * Routes Management routes */
 $app->router->get('/routes-management/items/list-all', [RoutesManagement::class, 'listItems']);
 $app->router->getNpost('/routes-management/items/create', [RoutesManagement::class, 'createItem']);
+$app->router->get('/routes-management/items/delete/{id}', [RoutesManagement::class, 'deleteItem']);
 $app->router->getNpost('/routes-management/items/manage/{id}', [RoutesManagement::class, 'manageItem']);
 
 $app->router->get('/routes-management/roles/list-all', [RoutesManagement::class, 'listRoles']);
 $app->router->getNpost('/routes-management/roles/create', [RoutesManagement::class, 'createRole']);
+$app->router->get('/routes-management/roles/delete/{id}', [RoutesManagement::class, 'deleteRole']);
 $app->router->getNpost('/routes-management/roles/manage/{id}', [RoutesManagement::class, 'manageRole']);
 
 $app->run();

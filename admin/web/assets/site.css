@@ -366,3 +366,20 @@ tr:last-child td:last-child {
     -webkit-animation: none !important;
     animation: none !important;
 }
+
+/* * */
+.disabled-link {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: var(--bs-btn-disabled-opacity);
+    color: var(--bs-btn-disabled-color);
+}
+
+.small-box {
+    margin-bottom: 0;
+}
+
+.small-box .icon > i {
+    top: 18px;
+    font-size: 65px;
+}

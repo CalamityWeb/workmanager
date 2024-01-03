@@ -3,11 +3,12 @@
 namespace tframe\admin\controllers;
 
 use tframe\common\components\text\Generator;
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
-use tframe\core\auth\AuthAssignment;
+use tframe\core\auth\AuthAssignments;
 use tframe\core\auth\Roles;
 use tframe\core\auth\AuthItem;
+use tframe\core\auth\UserRoles;
 use tframe\core\Controller;
 use tframe\core\exception\NotFoundException;
 use tframe\core\Request;
@@ -72,6 +73,7 @@ class RoutesManagement extends Controller {
         if($request->isPost()) {
             $role->loadData($request->getBody());
             if($role->validate()) {
+                $role->id = null;
                 $role->save();
                 Application::$app->session->setFlash('success', Application::t('auth', 'Role creation successful'));
             }
@@ -80,17 +82,42 @@ class RoutesManagement extends Controller {
         return $this->render('routes-management.roles.create', ['role' => $role]);
     }
 
+    public function deleteRole(Request $request, Response $response): void {
+        $flag = true;
+        /** @var Roles $role */
+        $role = Roles::findOne([Roles::primaryKey() => $request->getRouteParam('id')]);
+
+        /** @var \tframe\common\models\Users $sessionUser */
+        $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
+        /** @var Roles $userRole */
+        foreach ($sessionUser->getRoles() as $userRole) {
+            if($userRole->id == $role->id) {
+                $flag = false;
+            }
+        }
+
+        if($flag) {
+            $role->delete();
+        }
+        Application::$app->response->redirect('/routes-management/roles/list-all');
+    }
+
     public function manageRole(Request $request, Response $response): string {
         $this->setLayout('main');
 
         /** @var Roles $role */
         $role = Roles::findOne([Roles::primaryKey() => $request->getRouteParam('id')]);
+        $users = [];
+        /** @var UserRoles $assign */
+        foreach (UserRoles::findMany(['roleId' => $role->id]) as $assign) {
+            $users[] = Users::findOne([Users::primaryKey() => $assign->userId]);
+        }
 
         if(!$role) {
             throw new NotFoundException();
         }
 
-        $authAssignments = AuthAssignment::findMany(['role' => $role->id]);
+        $authAssignments = AuthAssignments::findMany(['role' => $role->id]);
         $adminAuthItems = AuthItem::queryMany('item LIKE "@admin/%"', 'item');
         $publicAuthItems = AuthItem::queryMany('item LIKE "@public/%"', 'item');
         $apiAuthItems = AuthItem::queryMany('item LIKE "@api/%"', 'item');
@@ -98,13 +125,13 @@ class RoutesManagement extends Controller {
         if($request->isPost()) {
             $role->loadData($request->getBody());
             if($role->validate()) {
-                /** @var $assignment AuthAssignment */
-                foreach (AuthAssignment::findMany(['role' => $role->id]) as $assignment) {
+                /** @var $assignment AuthAssignments */
+                foreach (AuthAssignments::findMany(['role' => $role->id]) as $assignment) {
                     $assignment->delete();
                 }
                 if(isset($request->getBody()["routes"])) {
                     foreach ($request->getBody()["routes"] as $id) {
-                        $assignment = new AuthAssignment();
+                        $assignment = new AuthAssignments();
                         $assignment->role = $role->id;
                         $assignment->item = $id;
                         $assignment->save();
@@ -118,6 +145,7 @@ class RoutesManagement extends Controller {
         return $this->render('routes-management.roles.manage',
             [
                 'role' => $role,
+                'users' => $users,
                 'authAssignments' => $authAssignments,
                 'adminAuthItems' => $adminAuthItems,
                 'publicAuthItems' => $publicAuthItems,

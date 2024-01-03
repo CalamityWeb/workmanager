@@ -3,7 +3,7 @@
 namespace tframe\core\auth;
 
 use tframe\common\components\text\Generator;
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 use tframe\core\Model;
 
@@ -28,7 +28,7 @@ class RegisterForm extends Model {
 
     public function rules(): array {
         return [
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => User::class], 'attribute'],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => Users::class], 'attribute'],
             'firstName' => [self::RULE_REQUIRED],
             'lastName' => [self::RULE_REQUIRED],
             'password' => [self::RULE_REQUIRED, self::RULE_PASSWORD, [self::RULE_MIN, 'min' => 8], [self::RULE_MATCH, 'match' => 'passwordConfirmation']],
@@ -37,17 +37,17 @@ class RegisterForm extends Model {
         ];
     }
 
-    public function register(): User {
-        $user = new User();
+    public function register(): Users {
+        $user = new Users();
         $user->id = null;
         $user->email = $this->email;
         $user->firstName = $this->firstName;
         $user->lastName = $this->lastName;
         $user->password = password_hash($this->password, PASSWORD_ARGON2ID, ['memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3]);
         $user->email_confirmed = false;
-        $user->token = Generator::randomString(User::class, 'token', 32);
+        $user->token = Generator::randomString(Users::class, 'token', 32);
         $user->save();
 
-        return User::findOne(['email' => $this->email]);
+        return Users::findOne(['email' => $this->email]);
     }
 }

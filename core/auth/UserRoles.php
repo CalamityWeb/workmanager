@@ -3,7 +3,7 @@
 namespace tframe\core\auth;
 
 use Override;
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 use tframe\core\database\MagicRecord;
 
@@ -33,7 +33,7 @@ class UserRoles extends MagicRecord {
 
     public function rules(): array {
         return [
-            'userId' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => User::class], ['attribute' => 'id']],
+            'userId' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => Users::class], ['attribute' => 'id']],
             'roleId' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => Roles::class], ['attribute' => 'id']]
         ];
     }

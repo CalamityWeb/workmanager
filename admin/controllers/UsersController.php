@@ -2,13 +2,14 @@
 
 namespace tframe\admin\controllers;
 
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 use tframe\core\auth\RegisterForm;
 use tframe\core\auth\Roles;
 use tframe\core\auth\UserRoles;
 use tframe\core\Controller;
 use tframe\core\Request;
+use tframe\core\Response;
 
 class UsersController extends Controller {
     public function listUsers(): string {
@@ -32,11 +33,11 @@ class UsersController extends Controller {
         return $this->render('users.create', ['registerForm' => $registerForm]);
     }
 
-    public function manageUser(Request $request): string {
+    public function manageUser(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        /** @var User $user */
-        $user = User::findOne(['id' => $request->getRouteParam('id')]);
+        /** @var Users $user */
+        $user = Users::findOne(['id' => $request->getRouteParam('id')]);
         $roles = Roles::findMany();
         $userRoles = $user->getRoles();
 

@@ -78,7 +78,7 @@ use tframe\core\Model;
         $tableName = $this->tableName();
         $attributes = $this->attributes();
         $params = array_map(fn($attr) => ":$attr", $attributes);
-
+        
         if (!is_array($this->primaryKey())) {
             $exists = self::findOne([$this->primaryKey() => $this->{$this->primaryKey()}]);
         } else {

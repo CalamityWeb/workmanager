@@ -11,7 +11,7 @@ use tframe\core\database\MagicRecord;
  * @property string $created_at
  * @property string $completed_at
  */
-class AuthAssignment extends MagicRecord {
+class AuthAssignments extends MagicRecord {
 
     public static function tableName(): string { return 'auth_assignments'; }
 

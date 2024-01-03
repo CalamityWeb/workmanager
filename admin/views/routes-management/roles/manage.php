@@ -2,6 +2,7 @@
 /**
  * @var $this \tframe\core\View
  * @var $role \tframe\core\auth\Roles
+ * @var $users array
  * @var $authAssignments array
  * @var $adminAuthItems array
  * @var $publicAuthItems array
@@ -47,7 +48,11 @@ $this->title = 'Manage Role';
                 <h3 class="card-title">Users with this role</h3>
             </div>
             <div class="card-body">
-
+                <?php if(count($users) > 0): ?>
+                <?= implode(' | ', array_map(function($item) { return '<a href="/users/manage/' . $item->id . '">' . $item->getFullName() . '</a>';}, $users)) ?>
+                <?php else: ?>
+                <p class="mb-0"><?= Application::t('general', 'No user has this role.') ?></p>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -63,7 +68,7 @@ $this->title = 'Manage Role';
                 <?php foreach ($publicAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \tframe\core\auth\AuthAssignment */
+                    /* @var $assignment \tframe\core\auth\AuthAssignments */
                     foreach ($authAssignments as $assignment) {
                         if($authItem->id == $assignment->item) {
                             $checked = true;
@@ -88,7 +93,7 @@ $this->title = 'Manage Role';
                 <?php foreach ($adminAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \tframe\core\auth\AuthAssignment */
+                    /* @var $assignment \tframe\core\auth\AuthAssignments */
                     foreach ($authAssignments as $assignment) {
                         if($authItem->id == $assignment->item) {
                             $checked = true;
@@ -113,7 +118,7 @@ $this->title = 'Manage Role';
                 <?php foreach ($apiAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \tframe\core\auth\AuthAssignment */
+                    /* @var $assignment \tframe\core\auth\AuthAssignments */
                     foreach ($authAssignments as $assignment) {
                         if($authItem->id == $assignment->item) {
                             $checked = true;

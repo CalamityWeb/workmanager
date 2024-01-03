@@ -2,7 +2,7 @@
 
 namespace tframe\core;
 
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\exception\ForbiddenException;
 use tframe\core\exception\NotFoundException;
 use tframe\core\exception\ServiceUnavailableException;
@@ -81,13 +81,13 @@ class Router {
             if(isset($header['Authorization']) and !empty($header['Authorization'])) {
                 if (preg_match('/Bearer\s(\S+)/', $header['Authorization'], $matches)) {
                     $modified = $this->getHost($url);
-                    if(!User::canRoute(User::findOne(['token' => $matches[1]]), $modified)) {
+                    if(!Users::canRoute(Users::findOne(['token' => $matches[1]]), $modified)) {
                         throw new ForbiddenException();
                     }
                 }
             } else {
                 $modified = $this->getHost($url);
-                if(!User::canRoute(Application::$app->user, $modified)) {
+                if(!Users::canRoute(Application::$app->user, $modified)) {
                     throw new ForbiddenException();
                 }
             }

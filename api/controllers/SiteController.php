@@ -2,8 +2,8 @@
 
 namespace tframe\api\controllers;
 
-use tframe\common\models\User;
-use tframe\core\auth\AuthAssignment;
+use tframe\common\models\Users;
+use tframe\core\auth\AuthAssignments;
 use tframe\core\auth\AuthItem;
 use tframe\core\auth\Roles;
 use tframe\core\Controller;
@@ -14,7 +14,7 @@ class SiteController extends Controller {
         return $this->renderViewOnly('@public.index');
     }
     public function usersListUsers(): false|string {
-        $users = User::findMany();
+        $users = Users::findMany();
         return json_encode($users);
     }
 

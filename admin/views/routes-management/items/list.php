@@ -5,11 +5,11 @@
 
 use tframe\common\components\button\Button;
 use tframe\common\components\text\Text;
-use tframe\common\models\User;
+use tframe\common\models\Users;
 use tframe\core\Application;
 
-/** @var \tframe\common\models\User $sessionUser */
-$sessionUser = User::findOne([User::primaryKey() => Application::$app->session->get('sessionUser')]);
+/** @var \tframe\common\models\Users $sessionUser */
+$sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
 
 $this->title = 'Route Items';
 ?>
@@ -34,8 +34,33 @@ $this->title = 'Route Items';
 $notset = Text::notSetText();
 $token = $sessionUser->token;
 $apiroute = Application::$URL['API'];
+$canManage = Users::canRoute($sessionUser, '@admin/routes-management/items/manage/0') ? 'true' : 'false';
+$canDelete = Users::canRoute($sessionUser, '@admin/routes-management/items/delete/0') ? 'true' : 'false';
 
 $this->registerJS(<<<JS
+
+function getButtons(data) {
+    let manage = '';
+    let del = '';
+    if(!$canManage) {
+        manage = 'disabled';
+    }
+    if(!$canDelete) {
+        del = 'disabled';
+    }
+    let buttons = '<div class="btn-group btn-group-sm" role="group">' +
+                    '<a class="btn btn-primary '+manage+'" data-bs-toggle="tooltip" data-bs-title="Edit"'+
+                        'href="/routes-management/items/manage/'+data.id+'">' +
+                            '<i class="fa-solid fa-gear"></i>' +
+                    '</a>' +
+                    '<a class="btn btn-danger '+del+'" data-bs-toggle="tooltip" data-bs-title="Delete"'+
+                        'href="/routes-management/items/delete/'+data.id+'">' +
+                            '<i class="fa-solid fa-trash"></i>' +
+                    '</a>' +
+                   '</div>';
+    return buttons;
+}
+
 
 $("#dataTable").DataTable({
     "paging": true,
@@ -62,11 +87,13 @@ $("#dataTable").DataTable({
         { title:"Description", data: function (data) { return (!data.description ) ? '$notset' : data.description} },
         { title:"Created at", data:  'created_at' },
         { title:"Updated at", data:  function (data) { return (!data.updated_at) ? '$notset' : data.updated_at } },
-        { title:'Modify', data: function (data) { return '<a data-bs-toggle="tooltip" data-bs-placement="top"'+
-        'data-bs-title="Edit" href="/routes-management/items/manage/'+data.id+'"><i class="fa-solid fa-gear"></i></a>'
-         } }
+        { title:'Modify', data: function (data) { return getButtons(data)} }
     ],
-    order: [[1, 'asc']]
+    order: [[1, 'asc']],
+    drawCallback: function () {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    }
 });
 
 JS
