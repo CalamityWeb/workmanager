@@ -18,6 +18,16 @@ class AuthController extends Controller {
     public function login(Request $request, Response $response): string {
         $this->setLayout('auth');
 
+        if (isset($_COOKIE['sessionUser'])) {
+            /** @var User $user */
+            $user = User::findOne(['id' => $_COOKIE['sessionUser']]);
+
+            if ($user) {
+                Application::$app->login($user);
+                $response->redirect('/site/dashboard');
+            }
+        }
+
         if (isset($_COOKIE['rememberMe'])) {
             /** @var User $user */
             $user = User::findOne(['id' => $_COOKIE['rememberMe']]);

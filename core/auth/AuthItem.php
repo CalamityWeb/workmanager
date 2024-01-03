@@ -36,7 +36,7 @@ class AuthItem extends MagicRecord {
     }
 
     public function validateAliases(): bool {
-        if (!str_contains($this->item, '@admin') and !str_contains($this->item, '@public')) {
+        if (!str_contains($this->item, '@admin') and !str_contains($this->item, '@public') and !str_contains($this->item, '@api')) {
             $this->addError('item', Application::t('auth', 'Route must contains the aliases of the sites. Please see below!'));
             return false;
         } else {

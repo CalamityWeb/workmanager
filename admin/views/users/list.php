@@ -5,6 +5,12 @@
 
 use tframe\common\components\button\Button;
 use tframe\common\components\text\Text;
+use tframe\common\models\User;
+use tframe\core\Application;
+
+/** @var \tframe\common\models\User $sessionUser */
+$sessionUser = User::findOne([User::primaryKey() => Application::$app->session->get('sessionUser')]);
+
 
 $this->title = 'Users';
 ?>
@@ -27,6 +33,8 @@ $this->title = 'Users';
 <?php
 
 $notset = Text::notSetText();
+$token = $sessionUser->token;
+$apiroute = Application::$URL['API'];
 
 $this->registerJS(<<<JS
 
@@ -42,8 +50,12 @@ $("#dataTable").DataTable({
     ],
     "processing": true,
     ajax: {
-        url: '/api/users/list',
-        dataSrc:""
+        url: '$apiroute/users/list',
+        dataSrc:"",
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer $token");
+        }
     },
     columns: [
         { title:"ID", data: 'id' },

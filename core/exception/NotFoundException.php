@@ -9,6 +9,7 @@ use Throwable;
 class NotFoundException extends Exception {
     public function __construct(string $message = "This page is not found", int $code = 404, ?Throwable $previous = null) {
         Application::$app->view->title = 'ERROR - ' .$code;
+        http_response_code($code);
         parent::__construct($message, $code, $previous);
     }
 }

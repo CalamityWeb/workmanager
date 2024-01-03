@@ -70,9 +70,6 @@ use tframe\core\Model;
 
     public function save(): bool {
         foreach ($this->attributes() as $attribute) {
-            if (is_bool($this->{$attribute})) {
-                $this->{$attribute} = ($this->{$attribute}) ? 1 : 0;
-            }
             if(empty($this->{$attribute})) {
                 $this->{$attribute} = null;
             }

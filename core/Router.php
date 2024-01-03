@@ -2,8 +2,11 @@
 
 namespace tframe\core;
 
+use tframe\common\models\User;
+use tframe\core\exception\ForbiddenException;
 use tframe\core\exception\NotFoundException;
 use tframe\core\exception\ServiceUnavailableException;
+use tframe\core\exception\UnauthorizedException;
 
 class Router {
     private Request $request;
@@ -28,9 +31,25 @@ class Router {
         $this->routeMap['post'][$url] = $callback;
     }
 
+    private function getHost(mixed $url): string {
+        $host = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+        if ($host == Application::$URL['ADMIN']) {
+            $modified = '@admin' . $url;
+        } elseif ($host == Application::$URL['PUBLIC']) {
+            $modified = '@public' . $url;
+        } elseif ($host == Application::$URL['API']) {
+            $modified = '@api' . $url;
+        } else {
+            $modified = '';
+        }
+        return $modified;
+    }
+
     /**
      * @throws \tframe\core\exception\NotFoundException
      * @throws \tframe\core\exception\ServiceUnavailableException
+     * @throws \tframe\core\exception\ForbiddenException
+     * @throws \tframe\core\exception\UnauthorizedException
      */
     public function resolve(): mixed {
         if(Application::$app->maintenance) {
@@ -57,7 +76,22 @@ class Router {
             $controller = new $callback[0];
             $controller->action = $callback[1];
             Application::$app->controller = $controller;
-            // TODO: permission check
+
+            $header = apache_request_headers();
+            if(isset($header['Authorization']) and !empty($header['Authorization'])) {
+                if (preg_match('/Bearer\s(\S+)/', $header['Authorization'], $matches)) {
+                    $modified = $this->getHost($url);
+                    if(!User::canRoute(User::findOne(['token' => $matches[1]]), $modified)) {
+                        throw new ForbiddenException();
+                    }
+                }
+            } else {
+                $modified = $this->getHost($url);
+                if(!User::canRoute(Application::$app->user, $modified)) {
+                    throw new ForbiddenException();
+                }
+            }
+
             $callback[0] = $controller;
         }
         return call_user_func($callback, $this->request, $this->response);

@@ -149,6 +149,8 @@
     <a class="back" href="/ ">GO BACK</a>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
 <script>
     particlesJS("particles-js", {
         "particles": {

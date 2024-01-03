@@ -22,7 +22,7 @@ $this->title = 'Create Route Item';
 
                 <?= $form->field($routeItem, 'item')->required(); ?>
                 <p>
-                    Please use <strong>@public</strong> or <strong>@admin</strong> aliases for the routes start
+                    Please use <strong>@public</strong>, <strong>@admin</strong> or <strong>@api</strong> aliases for the routes start
                 </p>
                 <?= $form->textareaField($routeItem, 'description') ?>
 

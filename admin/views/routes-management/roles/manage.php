@@ -5,6 +5,7 @@
  * @var $authAssignments array
  * @var $adminAuthItems array
  * @var $publicAuthItems array
+ * @var $apiAuthItems array
  */
 
 use tframe\common\components\form\Form;
@@ -43,6 +44,18 @@ $this->title = 'Manage Role';
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
+                <h3 class="card-title">Users with this role</h3>
+            </div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-4">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
                 <h3 class="card-title">Public routes</h3>
             </div>
             <div class="card-body">
@@ -52,7 +65,7 @@ $this->title = 'Manage Role';
                     $checked = false;
                     /* @var $assignment \tframe\core\auth\AuthAssignment */
                     foreach ($authAssignments as $assignment) {
-                        if($authItem->id == $assignment->role) {
+                        if($authItem->id == $assignment->item) {
                             $checked = true;
                         }
                     }
@@ -73,6 +86,31 @@ $this->title = 'Manage Role';
             <div class="card-body">
                 <?php /* @var $authItem \tframe\core\auth\AuthItem */ ?>
                 <?php foreach ($adminAuthItems as $authItem): ?>
+                    <?php
+                    $checked = false;
+                    /* @var $assignment \tframe\core\auth\AuthAssignment */
+                    foreach ($authAssignments as $assignment) {
+                        if($authItem->id == $assignment->item) {
+                            $checked = true;
+                        }
+                    }
+                    ?>
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="<?= $authItem->id ?>" name="routes[]" value="<?= $authItem->id ?>" <?= ($checked) ? 'checked' : '' ?>>
+                        <label for="<?= $authItem->id ?>"><?= $authItem->item ?></label>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">API Routes</h3>
+            </div>
+            <div class="card-body">
+                <?php /* @var $authItem \tframe\core\auth\AuthItem */ ?>
+                <?php foreach ($apiAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
                     /* @var $assignment \tframe\core\auth\AuthAssignment */

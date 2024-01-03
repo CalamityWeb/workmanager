@@ -13,7 +13,6 @@ class Form {
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
         }
-        echo sprintf('<form action="%s" method="%s" %s>', $action, $method, implode(" ", $attributes));
 
         echo "<form action=\"$action\" method=\"$method\" " . implode(" ", $attributes) . ">";
         return new Form();

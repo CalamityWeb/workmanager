@@ -2,9 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-use tframe\admin\controllers\ApiController;
 use tframe\admin\controllers\AuthController;
-use tframe\admin\controllers\RolesController;
 use tframe\admin\controllers\RoutesManagement;
 use tframe\admin\controllers\SiteController;
 use tframe\admin\controllers\UsersController;
@@ -35,13 +33,6 @@ $config = [
 $app = new Application(dirname(__DIR__), $config);
 
 $app->router->get('/', [SiteController::class, 'index']);
-
-/* * API routes */
-$app->router->get('/api/users/list', [ApiController::class, 'usersListUsers']);
-$app->router->get('/api/routes-management/items/list', [ApiController::class, 'routesManagementItemsListItems']);
-$app->router->get('/api/routes-management/get/item/{id}', [ApiController::class, 'routesManagementGetItemById']);
-$app->router->get('/api/routes-management/roles/list', [ApiController::class, 'routesManagementListRoles']);
-$app->router->get('/api/routes-management/assignments/list', [ApiController::class, 'routesManagementAssignmentsListAssignments']);
 
 /* * Authentication routes  */
 $app->router->getNpost('/auth/login', [AuthController::class, 'login']);

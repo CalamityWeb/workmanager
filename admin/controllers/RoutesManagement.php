@@ -2,6 +2,8 @@
 
 namespace tframe\admin\controllers;
 
+use tframe\common\components\text\Generator;
+use tframe\common\models\User;
 use tframe\core\Application;
 use tframe\core\auth\AuthAssignment;
 use tframe\core\auth\Roles;
@@ -71,7 +73,7 @@ class RoutesManagement extends Controller {
             $role->loadData($request->getBody());
             if($role->validate()) {
                 $role->save();
-                Application::$app->session->setFlash('success', Application::t('auth', 'Group creation successful'));
+                Application::$app->session->setFlash('success', Application::t('auth', 'Role creation successful'));
             }
         }
 
@@ -91,6 +93,7 @@ class RoutesManagement extends Controller {
         $authAssignments = AuthAssignment::findMany(['role' => $role->id]);
         $adminAuthItems = AuthItem::queryMany('item LIKE "@admin/%"', 'item');
         $publicAuthItems = AuthItem::queryMany('item LIKE "@public/%"', 'item');
+        $apiAuthItems = AuthItem::queryMany('item LIKE "@api/%"', 'item');
 
         if($request->isPost()) {
             $role->loadData($request->getBody());
@@ -117,7 +120,8 @@ class RoutesManagement extends Controller {
                 'role' => $role,
                 'authAssignments' => $authAssignments,
                 'adminAuthItems' => $adminAuthItems,
-                'publicAuthItems' => $publicAuthItems
+                'publicAuthItems' => $publicAuthItems,
+                'apiAuthItems' => $apiAuthItems
             ]
         );
     }
