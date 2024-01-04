@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  English language map for Authentication
+ *  English language map for Authentication pages
  */
 
 return [
@@ -10,6 +10,8 @@ return [
     'The given email/password combination is not correct!' => 'The given email/password combination is not correct!',
     'Login successful' => 'Login successful',
     'Login' => 'Login',
+    'Sign in to start your session' => 'Sign in to start your session',
+    'I forgot my password' => 'I forgot my password',
 
     // ? Register
     'Register successful' => 'Register successful',
@@ -18,6 +20,7 @@ return [
     'Register a new membership' => 'Register a new membership',
 
     // ? Forgot password
+    'Forgot password' => 'Forgot password',
     'Give us your email to reset your password' => 'Give us your email to reset your password',
     'Send me my new password!' => 'Send me my new password!',
     'I log in instead' => 'I log in instead',
@@ -25,8 +28,7 @@ return [
     'Recovery email sent successfully' => 'Recovery email sent successfully',
 
     // ? Password reset
-    'New password' => 'New password',
-    'New password confirmation' => 'New password confirmation',
+    'Reset password' => 'Reset password',
     'Password updated successfully' => 'Password updated successfully',
     'Create your new password' => 'Create your new password',
     'Change my password!' => 'Change my password!',
@@ -34,9 +36,4 @@ return [
     // ? Routes management
     'Route creation successful' => 'Route creation successful',
     'Route must contains the aliases of the sites. Please see below!', 'Route must contains the aliases of the sites. Please see below!',
-
-    // ? Roles
-    'Role Name' => 'Role Name',
-    'Role Icon' => 'Role Icon',
-    'Description' => 'Description',
 ];

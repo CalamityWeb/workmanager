@@ -10,7 +10,7 @@ use tframe\common\components\form\Form;
 use tframe\common\components\text\Text;
 use tframe\core\Application;
 
-$this->title = 'Manage User';
+$this->title = Application::t('general','Manage User');
 ?>
 
 <div class="row">
@@ -28,7 +28,7 @@ $this->title = 'Manage User';
     <div class="col-12 col-md-6 col-xl-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Profile Data</h3>
+                <h3 class="card-title"><?= Application::t('general','Profile Data') ?></h3>
             </div>
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>
@@ -53,7 +53,7 @@ $this->title = 'Manage User';
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Roles</h3>
+                <h3 class="card-title"><?= Application::t('general','Roles') ?></h3>
             </div>
             <div class="card-body">
                 <?php /* @var $role \tframe\core\auth\Roles */ ?>

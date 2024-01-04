@@ -1,1 +1,0 @@
-<a href="/auth/login">Log in</a>

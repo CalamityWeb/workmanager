@@ -14,14 +14,14 @@ use tframe\common\components\text\Text;
 use tframe\core\Application;
 use tframe\core\auth\AuthItem;
 
-$this->title = 'Manage Role';
+$this->title = Application::t('general','Create Role');
 ?>
 
 <div class="row">
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Role</h3>
+                <h3 class="card-title"><?= Application::t('general','Create Role') ?></h3>
             </div>
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>
@@ -45,7 +45,7 @@ $this->title = 'Manage Role';
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Users with this role</h3>
+                <h3 class="card-title"><?= Application::t('general','Users with this role') ?></h3>
             </div>
             <div class="card-body">
                 <?php if(count($users) > 0): ?>
@@ -61,7 +61,7 @@ $this->title = 'Manage Role';
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Public routes</h3>
+                <h3 class="card-title"><?= Application::t('general','Public routes') ?></h3>
             </div>
             <div class="card-body">
                 <?php /* @var $authItem \tframe\core\auth\AuthItem */ ?>
@@ -86,7 +86,7 @@ $this->title = 'Manage Role';
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Admin Routes</h3>
+                <h3 class="card-title"><?= Application::t('general','Admin Routes') ?></h3>
             </div>
             <div class="card-body">
                 <?php /* @var $authItem \tframe\core\auth\AuthItem */ ?>
@@ -111,7 +111,7 @@ $this->title = 'Manage Role';
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">API Routes</h3>
+                <h3 class="card-title"><?= Application::t('general','API Routes') ?></h3>
             </div>
             <div class="card-body">
                 <?php /* @var $authItem \tframe\core\auth\AuthItem */ ?>

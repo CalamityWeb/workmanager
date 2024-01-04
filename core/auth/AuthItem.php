@@ -25,7 +25,7 @@ class AuthItem extends MagicRecord {
     public function labels(): array {
         return [
             'item' => Application::t('attributes', 'Route (URL)'),
-            'description' => Application::t('general', 'Description'),
+            'description' => Application::t('attributes', 'Description'),
         ];
     }
 

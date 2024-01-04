@@ -7,7 +7,7 @@
 use tframe\common\components\form\Form;
 use tframe\core\Application;
 
-$this->title = 'Login to ' . Application::$GLOBALS['APP_NAME'];
+$this->title = Application::t('auth', 'Login') . ' | ' . Application::$GLOBALS['APP_NAME'];
 ?>
 
 <div class="card card-outline card-primary">
@@ -16,7 +16,7 @@ $this->title = 'Login to ' . Application::$GLOBALS['APP_NAME'];
         <span class="h3 mb-0 d-inline-block text-lefts align-middle"><?= Application::$GLOBALS['APP_NAME'] ?></span>
     </div>
     <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg"><?= Application::t('auth', 'Sign in to start your session') ?></p>
 
         <?php $form = Form::begin('post') ?>
 
@@ -35,10 +35,10 @@ $this->title = 'Login to ' . Application::$GLOBALS['APP_NAME'];
         <?php Form::end() ?>
 
         <p class="mb-1">
-            <a href=/auth/forgot-password>I forgot my password</a>
+            <a href=/auth/forgot-password><?= Application::t('auth', 'I forgot my password') ?></a>
         </p>
         <p class="mb-0">
-            <a href="/auth/register">Register a new membership</a>
+            <a href="/auth/register"><?= Application::t('auth','Register a new membership') ?></a>
         </p>
     </div>
 </div>

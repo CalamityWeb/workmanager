@@ -8,7 +8,7 @@ use tframe\common\components\form\Form;
 use tframe\common\components\text\Text;
 use tframe\core\Application;
 
-$this->title = 'Profile';
+$this->title = Application::t('general','Profile');
 ?>
 
 <div class="row">
@@ -26,7 +26,7 @@ $this->title = 'Profile';
     <div class="col-12 col-md-6 col-xl-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Profile</h3>
+                <h3 class="card-title"><?= Application::t('general','Profile') ?></h3>
             </div>
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>

@@ -23,8 +23,8 @@ class AuthAssignments extends MagicRecord {
 
     public function labels(): array {
         return [
-            'role' => Application::t('attribute', 'Role'),
-            'item' => Application::t('attribute', 'Route (URL)')
+            'role' => Application::t('attributes', 'Role'),
+            'item' => Application::t('attributes', 'Route (URL)')
         ];
     }
 

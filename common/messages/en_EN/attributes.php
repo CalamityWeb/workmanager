@@ -20,6 +20,11 @@ return [
     'Route (URL)' => 'Route (URL)',
     'Role' => 'Role',
     'User' => 'User',
+    'Role Name' => 'Role Name',
+    'Role Icon' => 'Role Icon',
+    'Description' => 'Description',
+    'New password' => 'New password',
+    'New password confirmation' => 'New password confirmation',
 
     // ? Validation error messages
     'The field is required' => 'The field is required',

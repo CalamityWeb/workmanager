@@ -25,9 +25,9 @@ class Roles extends MagicRecord {
 
     public function labels(): array {
         return [
-            'roleName' => Application::t('auth', 'Role Name'),
-            'roleIcon' => Application::t('auth', 'Role Icon'),
-            'description' => Application::t('auth', 'Description'),
+            'roleName' => Application::t('attributes', 'Role Name'),
+            'roleIcon' => Application::t('attributes', 'Role Icon'),
+            'description' => Application::t('attributes', 'Description'),
         ];
     }
 

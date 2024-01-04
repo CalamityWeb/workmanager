@@ -212,7 +212,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
         </strong>
 
         <div class="float-end d-none d-sm-inline-block">
-            <b>Version</b> DEV
+            <b>Version</b> v1.0
         </div>
     </footer>
 </div>

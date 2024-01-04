@@ -11,14 +11,14 @@ use tframe\core\Application;
 /** @var \tframe\common\models\Users $sessionUser */
 $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
 
-$this->title = 'Route Items';
+$this->title = Application::t('general', 'Route Items');
 ?>
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <?= Button::generateClickButton('/routes-management/items/create', 'btn-primary', 'New Route Item', 'fa-plus') ?>
+                    <?= Button::generateClickButton('/routes-management/items/create', 'btn-primary', Application::t('general', 'New Route Item'), 'fa-plus') ?>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover table-striped dataTable dtr-inline" id="dataTable">
@@ -36,6 +36,8 @@ $token = $sessionUser->token;
 $apiroute = Application::$URL['API'];
 $canManage = Users::canRoute($sessionUser, '@admin/routes-management/items/manage/0') ? 'true' : 'false';
 $canDelete = Users::canRoute($sessionUser, '@admin/routes-management/items/delete/0') ? 'true' : 'false';
+$edit = Application::t('general', 'Edit');
+$delete = Application::t('general', 'Delete');
 
 $this->registerJS(<<<JS
 
@@ -49,11 +51,11 @@ function getButtons(data) {
         del = 'disabled';
     }
     let buttons = '<div class="btn-group btn-group-sm" role="group">' +
-                    '<a class="btn btn-primary '+manage+'" data-bs-toggle="tooltip" data-bs-title="Edit"'+
+                    '<a class="btn btn-primary '+manage+'" data-bs-toggle="tooltip" data-bs-title="$edit"'+
                         'href="/routes-management/items/manage/'+data.id+'">' +
                             '<i class="fa-solid fa-gear"></i>' +
                     '</a>' +
-                    '<a class="btn btn-danger '+del+'" data-bs-toggle="tooltip" data-bs-title="Delete"'+
+                    '<a class="btn btn-danger '+del+'" data-bs-toggle="tooltip" data-bs-title="$delete"'+
                         'href="/routes-management/items/delete/'+data.id+'">' +
                             '<i class="fa-solid fa-trash"></i>' +
                     '</a>' +

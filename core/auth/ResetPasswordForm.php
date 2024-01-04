@@ -11,8 +11,8 @@ class ResetPasswordForm extends Model {
 
     public function labels(): array {
         return [
-            'password' => Application::t('auth', 'New password'),
-            'passwordConfirmation' => Application::t('auth', 'New password confirmation')
+            'password' => Application::t('attributes', 'New password'),
+            'passwordConfirmation' => Application::t('attributes', 'New password confirmation')
         ];
     }
 

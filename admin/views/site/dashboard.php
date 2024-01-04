@@ -5,11 +5,13 @@
  * @var $user \tframe\common\models\Users
  */
 
-$this->title = 'Dashboard';
+use tframe\core\Application;
+
+$this->title = Application::t('general','Dashboard');
 ?>
 <div class="row mb-2">
     <div class="col-12">
-        <h3>Welcome, <?= $user->firstName ?></h3>
+        <h3><?= Application::t('general','Welcome,') ?> <?= $user->firstName ?></h3>
     </div>
 </div>
 
@@ -18,12 +20,11 @@ $this->title = 'Dashboard';
         <div class="small-box bg-primary">
             <div class="inner">
                 <h3><?= $userCount ?></h3>
-                <p class="mb-0">Users</p>
+                <p class="mb-0"><?= Application::t('general','Users') ?></p>
             </div>
             <div class="icon">
                 <i class="fa-solid fa-users"></i>
             </div>
-
         </div>
     </div>
 </div>

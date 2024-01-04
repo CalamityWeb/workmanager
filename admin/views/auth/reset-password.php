@@ -7,7 +7,7 @@
 use tframe\common\components\form\Form;
 use tframe\core\Application;
 
-$this->title = 'Create new password to ' . Application::$GLOBALS['APP_NAME'];
+$this->title = Application::t('auth', 'Reset password') . ' | '  . Application::$GLOBALS['APP_NAME'];
 
 ?>
 

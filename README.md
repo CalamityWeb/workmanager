@@ -24,7 +24,12 @@ There is a pre-configured account `Superadmin`.
 ## Configuration
 
 Under `/common/config` you will find a `.env.example` file. Rename ti to just `.env`, and fill the fields in it.
-For the `_URL` paths include `http://` or `https://` otherwise your app could crash.
+For the `_URL` paths include `http://` or `https://` otherwise your app could crash. For the pages root set the `/web`
+folder under admin/public/api.
+
+> [!CAUTION]
+> Your app won't work until you set up the API. It is used for the DataTables queries, so it will report a problem
+> unless you install the api correctly.
 
 > [!TIP]
 > Look into the `aliases.php` and `globals.php` files too and modify/add variables you like.
@@ -37,4 +42,5 @@ For the `_URL` paths include `http://` or `https://` otherwise your app could cr
 |  v1.1   |  -  |    in progress    |        TBA         |
 
 ## Updates
+
 - [ ] https://github.com/tokrist/tframe/issues/1
