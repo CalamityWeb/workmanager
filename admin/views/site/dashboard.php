@@ -2,13 +2,14 @@
 /**
  * @var $this \tframe\core\View
  * @var $userCount integer
+ * @var $user \tframe\common\models\Users
  */
 
 $this->title = 'Dashboard';
 ?>
 <div class="row mb-2">
     <div class="col-12">
-        <h3>Welcome, Kristof</h3>
+        <h3>Welcome, <?= $user->firstName ?></h3>
     </div>
 </div>
 

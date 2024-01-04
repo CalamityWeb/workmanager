@@ -12,7 +12,7 @@ use tframe\core\Application;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TFRAME FRAMEWORK</title>
+    <title><?= Application::$GLOBALS['APP_NAME'] ?></title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -241,15 +241,12 @@ use tframe\core\Application;
     <div class="overlay__inner">
         <!-- Title -->
         <h1 class="overlay__title">
-            Welcome to, <span class="text-gradient">TFRAME</span> framework
+            Welcome to, <span class="text-gradient">TFRAME</span>
         </h1>
         <!-- Description -->
         <p class="overlay__description">
-            <!-- TODO: Description -->
-            In this tutorial we will be creating a generative “orb” animation
-            using pixi.js, picking some lovely random colors and pulling it all
-            together in a nice frosty UI.
-            <strong>We're gonna talk accessibility, too.</strong>
+            Tframe is a web application framework, for making your life simple and easy. <strong>Please note</strong>, that it is still in
+            progress. Tframe is based on PHP and MySQL or PostgreSQL (it uses PDO). It is free to use for any project you want.
         </p>
         <!-- Buttons -->
         <div class="overlay__btns">

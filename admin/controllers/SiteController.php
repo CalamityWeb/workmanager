@@ -11,8 +11,9 @@ use tframe\core\Response;
 class SiteController extends Controller {
     public function dashboard(): string {
         $this->setLayout('main');
+        $user = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
         $userCount = count(Users::findMany());
-        return $this->render('site.dashboard', ['userCount' => $userCount]);
+        return $this->render('site.dashboard', ['user' => $user, 'userCount' => $userCount]);
     }
 
     public function profile(Request $request, Response $response): string {

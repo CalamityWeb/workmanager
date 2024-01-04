@@ -48,7 +48,9 @@ class UsersController extends Controller {
 
                 /** @var $assignment UserRoles */
                 foreach (UserRoles::findMany(['userId' => $user->id]) as $assignment) {
-                    $assignment->delete();
+                    if($assignment->roleId != 1) {
+                        $assignment->delete();
+                    }
                 }
                 if(isset($request->getBody()["roles"])) {
                     foreach ($request->getBody()["roles"] as $id) {

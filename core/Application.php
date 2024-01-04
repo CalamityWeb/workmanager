@@ -85,12 +85,6 @@ class Application {
         Application::$app->session->set('sessionUser', $user->{Users::primaryKey()});
         return true;
     }
-
-    public function canRoute(string $url): bool {
-
-        return false;
-    }
-
     public function logout(): void {
         $this->user = null;
         Application::$app->session->set('sessionUser', 0);

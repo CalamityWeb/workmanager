@@ -70,7 +70,7 @@ use tframe\core\Model;
 
     public function save(): bool {
         foreach ($this->attributes() as $attribute) {
-            if(empty($this->{$attribute})) {
+            if($this->{$attribute} === "") {
                 $this->{$attribute} = null;
             }
         }
@@ -78,7 +78,7 @@ use tframe\core\Model;
         $tableName = $this->tableName();
         $attributes = $this->attributes();
         $params = array_map(fn($attr) => ":$attr", $attributes);
-        
+
         if (!is_array($this->primaryKey())) {
             $exists = self::findOne([$this->primaryKey() => $this->{$this->primaryKey()}]);
         } else {
