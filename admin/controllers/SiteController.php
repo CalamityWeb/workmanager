@@ -9,19 +9,19 @@ use tframe\core\Request;
 use tframe\core\Response;
 
 class SiteController extends Controller {
-    public function dashboard(): string {
+    public function dashboard (): string {
         $this->setLayout('main');
         $user = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
         $userCount = count(Users::findMany());
         return $this->render('site.dashboard', ['user' => $user, 'userCount' => $userCount]);
     }
 
-    public function profile(Request $request, Response $response): string {
+    public function profile (Request $request, Response $response): string {
         $this->setLayout('main');
         $user = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $user->loadData($request->getBody());
-            if($user->validate()) {
+            if ($user->validate()) {
                 $user->save();
                 Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
             }

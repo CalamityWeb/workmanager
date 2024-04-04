@@ -13,32 +13,19 @@ class Model {
     const RULE_DATE_BEFORE = 'date_before';
     const RULE_PASSWORD = 'password';
     const RULE_EXISTS = 'exists';
-
     public array $errors = [];
 
-    public function loadData($data): void {
+    public function loadData ($data): void {
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
         }
     }
 
-    public function attributes(): array {
+    public function attributes (): array {
         return [];
     }
 
-    public function labels(): array {
-        return [];
-    }
-
-    public function getLabel($attribute) {
-        return $this->labels()[$attribute] ?? $attribute;
-    }
-
-    public function rules(): array {
-        return [];
-    }
-
-    public function validate(): bool {
+    public function validate (): bool {
         foreach ($this->rules() as $attribute => $rules) {
             $value = $this->{$attribute};
             foreach ($rules as $rule) {
@@ -67,7 +54,7 @@ class Model {
                 if ($ruleName === self::RULE_DATE_AFTER and $value > $rule["date_after"]) {
                     $this->addErrorByRule($attribute, self::RULE_DATE_BEFORE, ['date_after' => $rule['date_after']]);
                 }
-                if($ruleName === self::RULE_PASSWORD and !preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{8,})((?=.*[-+_!@#$%^&*.,?])|(?=.*_))^[^ ]+$/', $value)) {
+                if ($ruleName === self::RULE_PASSWORD and !preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{8,})((?=.*[-+_!@#$%^&*.,?])|(?=.*_))^[^ ]+$/', $value)) {
                     $this->addErrorByRule($attribute, self::RULE_PASSWORD);
                 }
                 if ($ruleName === self::RULE_UNIQUE) {
@@ -83,7 +70,7 @@ class Model {
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
                     }
                 }
-                if($ruleName === self::RULE_EXISTS) {
+                if ($ruleName === self::RULE_EXISTS) {
                     $className = $rule['class'];
                     $tableName = $className::tableName();
                     $db = Application::$app->db;
@@ -101,26 +88,11 @@ class Model {
         return empty($this->errors);
     }
 
-    public function errorMessages(): array {
-        return [
-            self::RULE_REQUIRED => Application::t('attributes', 'The field is required'),
-            self::RULE_EMAIL => Application::t('attributes','The field has to be a valid email address'),
-            self::RULE_MIN => Application::t('attributes','The field has to contains at least {min} characters'),
-            self::RULE_MAX => Application::t('attributes','The field must contains a maximum of {max} characters'),
-            self::RULE_MATCH =>  Application::t('attributes','The field has to match with {match}'),
-            self::RULE_UNIQUE => Application::t('attributes','This field\'s value is used'),
-            self::RULE_DATE_BEFORE => Application::t('attributes','The given date cannot be before {date_before}'),
-            self::RULE_DATE_AFTER => Application::t('attributes','The given date cannot be after {date_before}'),
-            self::RULE_PASSWORD => Application::t('attributes','Your password has to contain one uppercase, lowercase, number and special character'),
-            self::RULE_EXISTS => Application::t('attributes','Please provide a value that exists'),
-        ];
+    public function rules (): array {
+        return [];
     }
 
-    public function errorMessage($rule): string {
-        return $this->errorMessages()[$rule];
-    }
-
-    protected function addErrorByRule(string $attribute, string $rule, $params = []): void {
+    protected function addErrorByRule (string $attribute, string $rule, $params = []): void {
         $params['field'] ??= $attribute;
         $errorMessage = $this->errorMessage($rule);
         foreach ($params as $key => $value) {
@@ -129,15 +101,42 @@ class Model {
         $this->errors[$attribute][] = $errorMessage;
     }
 
-    public function addError(string $attribute, string $message): void {
+    public function errorMessage ($rule): string {
+        return $this->errorMessages()[$rule];
+    }
+
+    public function errorMessages (): array {
+        return [
+            self::RULE_REQUIRED => Application::t('attributes', 'The field is required'),
+            self::RULE_EMAIL => Application::t('attributes', 'The field has to be a valid email address'),
+            self::RULE_MIN => Application::t('attributes', 'The field has to contains at least {min} characters'),
+            self::RULE_MAX => Application::t('attributes', 'The field must contains a maximum of {max} characters'),
+            self::RULE_MATCH => Application::t('attributes', 'The field has to match with {match}'),
+            self::RULE_UNIQUE => Application::t('attributes', 'This field\'s value is used'),
+            self::RULE_DATE_BEFORE => Application::t('attributes', 'The given date cannot be before {date_before}'),
+            self::RULE_DATE_AFTER => Application::t('attributes', 'The given date cannot be after {date_before}'),
+            self::RULE_PASSWORD => Application::t('attributes', 'Your password has to contain one uppercase, lowercase, number and special character'),
+            self::RULE_EXISTS => Application::t('attributes', 'Please provide a value that exists'),
+        ];
+    }
+
+    public function getLabel ($attribute) {
+        return $this->labels()[$attribute] ?? $attribute;
+    }
+
+    public function labels (): array {
+        return [];
+    }
+
+    public function addError (string $attribute, string $message): void {
         $this->errors[$attribute][] = $message;
     }
 
-    public function hasError($attribute): mixed {
+    public function hasError ($attribute): mixed {
         return $this->errors[$attribute] ?? false;
     }
 
-    public function getFirstError($attribute): mixed {
+    public function getFirstError ($attribute): mixed {
         $errors = $this->errors[$attribute] ?? [];
         return $errors[0] ?? '';
     }

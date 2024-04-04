@@ -6,13 +6,12 @@ use tframe\core\Application;
 use tframe\core\Model;
 
 class SwitchField extends BaseField {
-
-    public function __construct(Model $model, string $attribute, array $options, $disabled) {
+    public function __construct (Model $model, string $attribute, array $options, $disabled) {
         $this->disabled = $disabled;
         parent::__construct($model, $attribute, $options);
     }
 
-    public function renderInput(array $options): string {
+    public function renderInput (array $options): string {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
@@ -43,7 +42,7 @@ class SwitchField extends BaseField {
         return $element;
     }
 
-    public function disabled(): static {
+    public function disabled (): static {
         $this->disabled = true;
         return $this;
     }

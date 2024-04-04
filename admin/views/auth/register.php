@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $registerForm \tframe\core\auth\RegisterForm
- * @var $this \tframe\core\View
+ * @var $this         \tframe\core\View
  */
 
 use tframe\common\components\form\Form;
@@ -16,7 +16,7 @@ $this->title = Application::t('auth', 'Register') . ' | ' . Application::$GLOBAL
         <span class="h3 mb-0 d-inline-block text-lefts align-middle"><?= Application::$GLOBALS['APP_NAME'] ?></span>
     </div>
     <div class="card-body register-card-body">
-        <p class="login-box-msg"><?= Application::t('auth','Register a new membership') ?></p>
+        <p class="login-box-msg"><?= Application::t('auth', 'Register a new membership') ?></p>
 
         <?php $form = Form::begin('post') ?>
 

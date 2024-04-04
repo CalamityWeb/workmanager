@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $forgotPasswordForm \tframe\core\auth\ForgotPasswordForm
- * @var $this \tframe\core\View
+ * @var $this               \tframe\core\View
  */
 
 use tframe\common\components\form\Form;

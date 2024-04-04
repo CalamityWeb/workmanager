@@ -3,7 +3,7 @@
 namespace tframe\common\components\button;
 
 class Button {
-    public static function generateButton(string $type, string $text, string $class, string $icon = null, array $options = []): string {
+    public static function generateButton (string $type, string $text, string $class, string $icon = null, array $options = []): string {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
@@ -12,7 +12,7 @@ class Button {
         return '<button type="' . $type . '" class="btn ' . $class . '" ' . implode(" ", $attributes) . '>' . $icon . $text . '</button>';
     }
 
-    public static function generateClickButton(string $url, string $class, string $text, string $icon = null, array $options = []): string {
+    public static function generateClickButton (string $url, string $class, string $text, string $icon = null, array $options = []): string {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";

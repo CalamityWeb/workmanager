@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
@@ -18,21 +19,21 @@ $config = [
         'host' => $_ENV['DATABASE_HOST'],
         'dbname' => $_ENV['DATABASE_DBNAME'],
         'username' => $_ENV['DATABASE_USERNAME'],
-        'password' => $_ENV['DATABASE_PASSWORD']
+        'password' => $_ENV['DATABASE_PASSWORD'],
     ],
     'mailer' => [
         'system_address' => $_ENV['SYSTEM_EMAIL'],
         'host' => $_ENV['EMAIL_HOST'],
         'username' => $_ENV['EMAIL_USERNAME'],
-        'password' => $_ENV['EMAIL_PASSWORD']
+        'password' => $_ENV['EMAIL_PASSWORD'],
     ],
     'maintenance' => $_ENV['ADMIN_MAINTENANCE'],
-    'language' => $_ENV['ADMIN_LANGUAGE']
+    'language' => $_ENV['ADMIN_LANGUAGE'],
 ];
 
 $app = new Application(dirname(__DIR__), $config);
 
-$app->router->get('/', function (){Application::$app->response->redirect('/auth/login');});
+$app->router->get('/', function() { Application::$app->response->redirect('/auth/login'); });
 
 /* *Site routes */
 $app->router->getNpost('/site/dashboard', [SiteController::class, 'dashboard']);

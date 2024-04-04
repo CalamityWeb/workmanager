@@ -1,8 +1,9 @@
 <?php
 /**
  * @var $exception \Exception
- * @var $this \tframe\core\View
+ * @var $this      \tframe\core\View
  */
+
 ?>
 
 <!doctype html>
@@ -32,7 +33,7 @@
             justify-content: center;
             text-align: center;
             height: 100%;
-            font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
         }
 
         .error-page h1 {
@@ -110,6 +111,7 @@
             .error-page h1 {
                 font-size: 32vw;
             }
+
             .error-page h1 + p {
                 font-size: 8vw;
                 line-height: 10vw;
@@ -132,6 +134,7 @@
             text-decoration: none;
             transition: 0.25s all ease-in-out;
         }
+
         a.back:hover {
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }

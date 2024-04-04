@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this \tframe\core\View
+ * @var $this     \tframe\core\View
  * @var $authItem \tframe\core\auth\AuthItem
  */
 
@@ -30,7 +30,7 @@ $this->title = Application::t('general', 'Manage Route');
                     <?= Application::t('general', 'Created') ?>: <?= $authItem->created_at ?>
                 </p>
                 <p class="fs-7 mb-0 fst-italic text-end">
-                    <?= Application::t('general', 'Edited') ?>: <?= ($authItem->updated_at != null) ? $authItem->updated_at  : Text::notSetText() ?>
+                    <?= Application::t('general', 'Edited') ?>: <?= ($authItem->updated_at != null) ? $authItem->updated_at : Text::notSetText() ?>
                 </p>
             </div>
         </div>

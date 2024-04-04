@@ -24,7 +24,7 @@ OR REPLACE TABLE roles
 CREATE
 OR REPLACE TABLE auth_assignments
 (
-    role       INT                                  NOT NULL,
+    ROLE       INT                                  NOT NULL,
     item       INT                                  NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
     updated_at DATETIME                             NULL ON UPDATE CURRENT_TIMESTAMP(),
@@ -152,7 +152,8 @@ VALUES (1, 1, '2000-01-01 00:00:00', NULL),
        (2, 2, '2000-01-01 00:00:00', NULL),
        (2, 3, '2000-01-01 00:00:00', NULL),
        (2, 4, '2000-01-01 00:00:00', NULL);
-       (2, 5, '2000-01-01 00:00:00', NULL),
+    (2, 5, '2000-01-01 00:00:00', NULL)
+    ,
        (2, 6, '2000-01-01 00:00:00', NULL),
        (2, 21, '2000-01-01 00:00:00', NULL),
        (2, 25, '2000-01-01 00:00:00', NULL),

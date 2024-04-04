@@ -5,12 +5,11 @@ namespace tframe\core\database;
 use AllowDynamicProperties;
 use PDO;
 use PDOStatement;
-use tframe\common\components\form\SelectField;
 use tframe\core\Application;
 use tframe\core\Model;
 
 #[AllowDynamicProperties] abstract class MagicRecord extends Model {
-    public function __construct() {
+    public function __construct () {
         foreach ($this->attributes() as $attribute) {
             if (!isset($this->{$attribute})) {
                 $this->{$attribute} = null;
@@ -18,12 +17,12 @@ use tframe\core\Model;
         }
     }
 
-    public static function findMany(array $where = [], array $order = []): false|array {
+    public static function findMany (array $where = [], array $order = []): false|array {
         $statement = self::getPrepare($where, $order);
         return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    private static function getPrepare(array $where, array $order): PDOStatement {
+    private static function getPrepare (array $where, array $order): PDOStatement {
         $tableName = static::tableName();
         $attributes = array_keys($where);
         $sql = implode(" AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
@@ -45,19 +44,19 @@ use tframe\core\Model;
         return $statement;
     }
 
-    abstract public static function tableName(): string;
+    abstract public static function tableName (): string;
 
-    public static function prepare($sql): PDOStatement {
+    public static function prepare ($sql): PDOStatement {
         return Application::$app->db->prepare($sql);
     }
 
-    public static function queryOne(string $tableName, string $query) {
+    public static function queryOne (string $tableName, string $query) {
         $statement = self::prepare("SELECT * FROM $tableName WHERE $query");
         $statement->execute();
         return $statement->fetchObject(static::class);
     }
 
-    public static function queryMany(string $where, string $order): false|array {
+    public static function queryMany (string $where, string $order): false|array {
         if (empty($where)) {
             $statement = empty($order) ? self::prepare("SELECT * FROM " . static::tableName()) : self::prepare("SELECT * FROM " . static::tableName() . " ORDER BY $order");
         } else {
@@ -68,9 +67,9 @@ use tframe\core\Model;
         return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    public function save(): bool {
+    public function save (): bool {
         foreach ($this->attributes() as $attribute) {
-            if($this->{$attribute} === "") {
+            if ($this->{$attribute} === "") {
                 $this->{$attribute} = null;
             }
         }
@@ -115,14 +114,14 @@ use tframe\core\Model;
         return $statement->execute();
     }
 
-    abstract public static function primaryKey(): string|array;
+    abstract public static function primaryKey (): string|array;
 
-    public static function findOne(array $where = [], array $order = []) {
+    public static function findOne (array $where = [], array $order = []) {
         $statement = self::getPrepare($where, $order);
         return $statement->fetchObject(static::class);
     }
 
-    public function delete(): bool {
+    public function delete (): bool {
         if (is_array($this->primaryKey())) {
             $attributes = implode(" AND ", array_map(fn($key) => "$key = '" . $this->{$key} . "'", $this->primaryKey()));
             $statement = self::prepare("DELETE FROM " . $this->tableName() . " WHERE " . $attributes);

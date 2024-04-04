@@ -32,18 +32,18 @@ $columns = <<<JS
 JS;
 ?>
 
-	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-header">
-					<?= Button::generateClickButton('/users/create', 'btn-primary', Application::t('general', 'New User'), 'fa-user-plus') ?>
-				</div>
-				<div class="card-body">
-					<?= DataTable::init(['data' => $users, 'columns' => $columns]) ?>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <?= Button::generateClickButton('/users/create', 'btn-primary', Application::t('general', 'New User'), 'fa-user-plus') ?>
+                </div>
+                <div class="card-body">
+                    <?= DataTable::init(['data' => $users, 'columns' => $columns]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <?php
 

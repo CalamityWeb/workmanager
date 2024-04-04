@@ -1,13 +1,13 @@
 <?php
 /**
  * @var $resetPasswordForm \tframe\core\auth\ResetPasswordForm
- * @var $this \tframe\core\View
+ * @var $this              \tframe\core\View
  */
 
 use tframe\common\components\form\Form;
 use tframe\core\Application;
 
-$this->title = Application::t('auth', 'Reset password') . ' | '  . Application::$GLOBALS['APP_NAME'];
+$this->title = Application::t('auth', 'Reset password') . ' | ' . Application::$GLOBALS['APP_NAME'];
 
 ?>
 

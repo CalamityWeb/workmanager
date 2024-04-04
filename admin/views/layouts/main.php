@@ -68,7 +68,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
                         <li class="user-header text-bg-primary">
                             <img src="<?= $sessionUser->getPicture() ?>" class="img-circle shadow" alt="User">
                             <p>
-								<?= $sessionUser->getFullName() ?>
+                                <?= $sessionUser->getFullName() ?>
                                 <small><?= $sessionUser->getActveRole()->roleIcon ?><?= $sessionUser->getActveRole()->roleName ?></small>
                             </p>
                         </li>
@@ -234,10 +234,10 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
 <script src="/assets/site.js?v=<?= time() ?>"></script>
 
 <?php if (Application::$app->session->getFlash('success')): ?>
-	<?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success')) ?>
+    <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success')) ?>
 <?php endif; ?>
 <?php if (Application::$app->session->getFlash('error')): ?>
-	<?= Sweetalert::generateToastAlert('error', Application::$app->session->getFlash('error')) ?>
+    <?= Sweetalert::generateToastAlert('error', Application::$app->session->getFlash('error')) ?>
 <?php endif; ?>
 
 </body>

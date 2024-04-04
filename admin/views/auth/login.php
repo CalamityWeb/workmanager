@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $loginForm \tframe\core\auth\LoginForm
- * @var $this \tframe\core\View
+ * @var $this      \tframe\core\View
  */
 
 use tframe\common\components\form\Form;
@@ -20,15 +20,15 @@ $this->title = Application::t('auth', 'Login') . ' | ' . Application::$GLOBALS['
 
         <?php $form = Form::begin('post') ?>
 
-        <?= $form->fieldWithIcon($loginForm, 'email', 'fa-solid fa-envelope')->required();?>
-        <?= $form->fieldWithIcon($loginForm, 'password', 'fa-solid fa-lock')->passwordField()->required();?>
+        <?= $form->fieldWithIcon($loginForm, 'email', 'fa-solid fa-envelope')->required(); ?>
+        <?= $form->fieldWithIcon($loginForm, 'password', 'fa-solid fa-lock')->passwordField()->required(); ?>
 
         <div class="row">
             <div class="col-8">
                 <?= $form->icheckField($loginForm, 'rememberMe') ?>
             </div>
             <div class="col-4">
-                <?= $form->submitButton('Log in', 'btn-primary d-block w-100');?>
+                <?= $form->submitButton('Log in', 'btn-primary d-block w-100'); ?>
             </div>
         </div>
 
@@ -38,7 +38,7 @@ $this->title = Application::t('auth', 'Login') . ' | ' . Application::$GLOBALS['
             <a href=/auth/forgot-password><?= Application::t('auth', 'I forgot my password') ?></a>
         </p>
         <p class="mb-0">
-            <a href="/auth/register"><?= Application::t('auth','Register a new membership') ?></a>
+            <a href="/auth/register"><?= Application::t('auth', 'Register a new membership') ?></a>
         </p>
     </div>
 </div>

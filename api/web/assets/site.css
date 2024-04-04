@@ -137,7 +137,7 @@
 
 .form-control:focus + .input-group-text {
     border-color: #86b7fe !important;
-    border-left: 1px solid var(--bs-body-bg)!important;
+    border-left: 1px solid var(--bs-body-bg) !important;
 }
 
 /* *NAVBAR OVERRIDE */
@@ -278,10 +278,14 @@ tr:last-child td:last-child {
     width: 100%;
 }
 
-.iti__flag {background-image: url("/assets/images/flags.png");}
+.iti__flag {
+    background-image: url("/assets/images/flags.png");
+}
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .iti__flag {background-image: url("/assets/images/flags@2x.png");}
+    .iti__flag {
+        background-image: url("/assets/images/flags@2x.png");
+    }
 }
 
 /*.content {

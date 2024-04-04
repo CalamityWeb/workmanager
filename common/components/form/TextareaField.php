@@ -5,13 +5,12 @@ namespace tframe\common\components\form;
 use tframe\core\Model;
 
 class TextareaField extends BaseField {
-
-    public function __construct(Model $model, string $attribute, array $options, bool $disabled) {
+    public function __construct (Model $model, string $attribute, array $options, bool $disabled) {
         $this->disabled = $disabled;
         parent::__construct($model, $attribute, $options);
     }
 
-    public function renderInput(array $options): string {
+    public function renderInput (array $options): string {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
@@ -28,12 +27,12 @@ class TextareaField extends BaseField {
         ';
     }
 
-    public function required(): static {
+    public function required (): static {
         $this->required = true;
         return $this;
     }
 
-    public function disabled(): static {
+    public function disabled (): static {
         $this->disabled = true;
         return $this;
     }

@@ -1,11 +1,10 @@
 <?php
 /**
- * @var $this \tframe\core\View
+ * @var $this      \tframe\core\View
  * @var $routeItem \tframe\core\auth\AuthItem
  */
 
 use tframe\common\components\form\Form;
-use tframe\common\components\text\Text;
 use tframe\core\Application;
 
 $this->title = Application::t('general', 'Create Route Item');

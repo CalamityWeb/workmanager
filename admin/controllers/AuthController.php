@@ -15,7 +15,22 @@ use tframe\core\Request;
 use tframe\core\Response;
 
 class AuthController extends Controller {
-    public function login(Request $request, Response $response): string {
+    public function register (Request $request): string {
+        $this->setLayout('auth');
+
+        $registerForm = new RegisterForm();
+        if ($request->isPost()) {
+            $registerForm->loadData($request->getBody());
+            if ($registerForm->validate() and $user = $registerForm->register()) {
+                Application::$app->login($user);
+                Application::$app->session->setFlash('success', Application::t('auth', 'Register successful'), '/site/dashboard');
+            }
+        }
+
+        return $this->render('auth.register', ['registerForm' => $registerForm]);
+    }
+
+    public function login (Request $request, Response $response): string {
         $this->setLayout('auth');
 
         if (isset($_COOKIE['sessionUser'])) {
@@ -49,33 +64,18 @@ class AuthController extends Controller {
         return $this->render('auth.login', ['loginForm' => $loginForm]);
     }
 
-    public function register(Request $request): string {
-        $this->setLayout('auth');
-
-        $registerForm = new RegisterForm();
-        if ($request->isPost()) {
-            $registerForm->loadData($request->getBody());
-            if ($registerForm->validate() and $user = $registerForm->register()) {
-                Application::$app->login($user);
-                Application::$app->session->setFlash('success', Application::t('auth', 'Register successful'), '/site/dashboard');
-            }
-        }
-
-        return $this->render('auth.register', ['registerForm' => $registerForm]);
-    }
-
-    public function logout(Request $request, Response $response): void {
+    public function logout (Request $request, Response $response): void {
         Application::$app->logout();
     }
 
-    public function forgotPassword(Request $request): string {
+    public function forgotPassword (Request $request): string {
         $this->setLayout('auth');
 
         $forgotPasswordForm = new ForgotPasswordForm();
 
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $forgotPasswordForm->loadData($request->getBody());
-            if($forgotPasswordForm->validate() and $forgotPasswordForm->sendUpdateEmail()) {
+            if ($forgotPasswordForm->validate() and $forgotPasswordForm->sendUpdateEmail()) {
                 Application::$app->session->setFlash('success', Application::t('auth', 'Recovery email sent successfully'));
             }
         }
@@ -83,23 +83,23 @@ class AuthController extends Controller {
         return $this->render('auth.forgot-password', ['forgotPasswordForm' => $forgotPasswordForm]);
     }
 
-    public function resetPassword(Request $request): string {
+    public function resetPassword (Request $request): string {
         $this->setLayout('auth');
 
         /** @var ResetToken $token */
         $token = ResetToken::findOne(['token' => $request->getRouteParam('token')]);
-        if(!$token) {
+        if (!$token) {
             throw new NotFoundException();
         }
-        if($token->completed_at != null or date('Y-m-d H:i:s') > date('Y-m-d H:i:s', strtotime('+1 day', strtotime($token->created_at)))) {
+        if ($token->completed_at != null or date('Y-m-d H:i:s') > date('Y-m-d H:i:s', strtotime('+1 day', strtotime($token->created_at)))) {
             throw new NotFoundException();
         }
 
         $resetPasswordForm = new ResetPasswordForm();
 
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $resetPasswordForm->loadData($request->getBody());
-            if($resetPasswordForm->validate()) {
+            if ($resetPasswordForm->validate()) {
                 /** @var Users $user */
                 $user = Users::findOne(['id' => $token->userId]);
                 $user->password = password_hash($resetPasswordForm->password, PASSWORD_ARGON2ID, ['memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3]);

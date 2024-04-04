@@ -74,7 +74,7 @@ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 // Select2 init
-$(document).ready(function() {
+$(document).ready(function () {
     $('.select2').select2({
         theme: 'bootstrap-5',
     });

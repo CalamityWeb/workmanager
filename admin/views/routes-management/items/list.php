@@ -29,18 +29,18 @@ JS;
 
 ?>
 
-	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-header">
-					<?= Button::generateClickButton('/routes-management/items/create', 'btn-primary', Application::t('general', 'New Route Item'), 'fa-plus') ?>
-				</div>
-				<div class="card-body">
-					<?= DataTable::init(['data' => $items, 'columns' => $columns]) ?>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <?= Button::generateClickButton('/routes-management/items/create', 'btn-primary', Application::t('general', 'New Route Item'), 'fa-plus') ?>
+                </div>
+                <div class="card-body">
+                    <?= DataTable::init(['data' => $items, 'columns' => $columns]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <?php
 $token = $sessionUser->token;

@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
@@ -15,16 +16,16 @@ $config = [
         'host' => $_ENV['DATABASE_HOST'],
         'dbname' => $_ENV['DATABASE_DBNAME'],
         'username' => $_ENV['DATABASE_USERNAME'],
-        'password' => $_ENV['DATABASE_PASSWORD']
+        'password' => $_ENV['DATABASE_PASSWORD'],
     ],
     'mailer' => [
         'system_address' => $_ENV['SYSTEM_EMAIL'],
         'host' => $_ENV['EMAIL_HOST'],
         'username' => $_ENV['EMAIL_USERNAME'],
-        'password' => $_ENV['EMAIL_PASSWORD']
+        'password' => $_ENV['EMAIL_PASSWORD'],
     ],
     'maintenance' => $_ENV['API_MAINTENANCE'],
-    'language' => $_ENV['API_LANGUAGE']
+    'language' => $_ENV['API_LANGUAGE'],
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {

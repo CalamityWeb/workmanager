@@ -15,18 +15,18 @@ class RegisterForm extends Model {
     public ?string $passwordConfirmation = null;
     public bool $agreeTerms = false;
 
-    public function labels(): array {
+    public function labels (): array {
         return [
-            'email' => Application::t('attributes','Email address'),
-            'firstName' => Application::t('attributes','Given name'),
-            'lastName' => Application::t('attributes','Family name'),
-            'password' => Application::t('attributes','Password'),
-            'passwordConfirmation' => Application::t('attributes','Password confirmation'),
-            'agreeTerms' => Application::t('attributes','I agree to the terms')
+            'email' => Application::t('attributes', 'Email address'),
+            'firstName' => Application::t('attributes', 'Given name'),
+            'lastName' => Application::t('attributes', 'Family name'),
+            'password' => Application::t('attributes', 'Password'),
+            'passwordConfirmation' => Application::t('attributes', 'Password confirmation'),
+            'agreeTerms' => Application::t('attributes', 'I agree to the terms'),
         ];
     }
 
-    public function rules(): array {
+    public function rules (): array {
         return [
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => Users::class], 'attribute'],
             'firstName' => [self::RULE_REQUIRED],
@@ -37,7 +37,7 @@ class RegisterForm extends Model {
         ];
     }
 
-    public function register(): Users {
+    public function register (): Users {
         $user = new Users();
         $user->id = null;
         $user->email = $this->email;

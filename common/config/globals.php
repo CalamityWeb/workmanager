@@ -1,4 +1,5 @@
 <?php
+
 return [
-    'APP_NAME' => 'TFRAME'
+    'APP_NAME' => 'TFRAME',
 ];

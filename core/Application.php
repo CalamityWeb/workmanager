@@ -2,20 +2,19 @@
 
 namespace tframe\core;
 
+use Exception;
 use tframe\common\components\mailer\Mailer;
 use tframe\common\helpers\CoreHelper;
 use tframe\common\models\Users;
 use tframe\core\database\Database;
-use Exception;
 
 class Application {
     const EVENT_BEFORE_REQUEST = 'beforeRequest';
     const EVENT_AFTER_REQUEST = 'afterRequest';
-
-    protected array $eventListeners = [];
-
     public static Application $app;
     public static string $ROOT_DIR;
+    public static array $URL;
+    public static array $GLOBALS;
     public string $layout = 'main';
     public Router $router;
     public Request $request;
@@ -26,13 +25,11 @@ class Application {
     public Session $session;
     public View $view;
     public ?Users $user;
-
-    public static array $URL;
-    public static array $GLOBALS;
     public bool $maintenance;
     public string $language;
+    protected array $eventListeners = [];
 
-    public function __construct($rootDir, $config) {
+    public function __construct ($rootDir, $config) {
         $this->user = null;
         self::$ROOT_DIR = $rootDir;
         self::$app = $this;
@@ -45,7 +42,7 @@ class Application {
         self::$URL = [
             '@public' => $_ENV['PUBLIC_URL'],
             '@admin' => $_ENV['ADMIN_URL'],
-            '@api' => $_ENV['API_URL']
+            '@api' => $_ENV['API_URL'],
         ];
 
         $this->maintenance = strtolower($config['maintenance']) == 'true';
@@ -53,7 +50,7 @@ class Application {
         $this->language = $config['language'];
 
         foreach (require CoreHelper::getAlias('@common') . '/config/globals.php' as $key => $value) {
-           self::$GLOBALS[$key] = $value;
+            self::$GLOBALS[$key] = $value;
         }
 
         try {
@@ -68,7 +65,7 @@ class Application {
         $userId = Application::$app->session->get('sessionUser');
         if ($userId) {
             $user = Users::findOne([Users::primaryKey() => $userId]);
-            if($user) {
+            if ($user) {
                 $this->user = $user;
             } else {
                 $this->logout();
@@ -76,16 +73,7 @@ class Application {
         }
     }
 
-    public static function isGuest(): bool {
-        return !self::$app->user;
-    }
-
-    public function login(Users $user): true {
-        $this->user = $user;
-        Application::$app->session->set('sessionUser', $user->{Users::primaryKey()});
-        return true;
-    }
-    public function logout(): void {
+    public function logout (): void {
         $this->user = null;
         Application::$app->session->set('sessionUser', 0);
         unset($_COOKIE['rememberMe']);
@@ -93,7 +81,22 @@ class Application {
         Application::$app->response->redirect('/');
     }
 
-    public function run(): void {
+    public static function isGuest (): bool {
+        return !self::$app->user;
+    }
+
+    public static function t (string $type, string $message) {
+        $file = require(CoreHelper::getAlias('@common') . 'messages/' . Application::$app->language . '/' . $type . '.php');
+        return (array_key_exists($message, $file)) ? $file[$message] : $message;
+    }
+
+    public function login (Users $user): true {
+        $this->user = $user;
+        Application::$app->session->set('sessionUser', $user->{Users::primaryKey()});
+        return true;
+    }
+
+    public function run (): void {
         $this->triggerEvent(self::EVENT_BEFORE_REQUEST);
         try {
             echo $this->router->resolve();
@@ -104,19 +107,14 @@ class Application {
         }
     }
 
-    public function triggerEvent($eventName): void {
+    public function triggerEvent ($eventName): void {
         $callbacks = $this->eventListeners[$eventName] ?? [];
         foreach ($callbacks as $callback) {
             call_user_func($callback);
         }
     }
 
-    public function on($eventName, $callback): void {
+    public function on ($eventName, $callback): void {
         $this->eventListeners[$eventName][] = $callback;
-    }
-
-    public static function t(string $type, string $message) {
-        $file = require (CoreHelper::getAlias('@common') . 'messages/' . Application::$app->language . '/' . $type . '.php');
-        return (array_key_exists($message, $file)) ? $file[$message] : $message;
     }
 }

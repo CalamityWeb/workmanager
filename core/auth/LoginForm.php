@@ -7,27 +7,26 @@ use tframe\core\Application;
 use tframe\core\Model;
 
 class LoginForm extends Model {
-
     public ?string $email = null;
     public ?string $password = null;
     public bool $rememberMe = false;
 
-    public function labels(): array {
+    public function labels (): array {
         return [
             'email' => Application::t('attributes', 'Email address'),
-            'password' => Application::t('attributes','Password'),
-            'rememberMe' => Application::t('attributes','Remember me')
+            'password' => Application::t('attributes', 'Password'),
+            'rememberMe' => Application::t('attributes', 'Remember me'),
         ];
     }
 
-    public function rules(): array {
+    public function rules (): array {
         return [
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'password' => [self::RULE_REQUIRED],
         ];
     }
 
-    public function login(): bool {
+    public function login (): bool {
         /** @var Users $user */
         $user = Users::findOne(['email' => $this->email]);
 
@@ -46,5 +45,4 @@ class LoginForm extends Model {
 
         return Application::$app->login($user);
     }
-
 }

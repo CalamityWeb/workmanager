@@ -74,15 +74,15 @@ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 // Select2 init
-$(document).ready(function() {
+$(document).ready(function () {
     $('.select2').select2({
         theme: 'bootstrap-5',
     });
 });
 
 // Preloader
-$(document).ready(function() {
-    setTimeout(function(){
+$(document).ready(function () {
+    setTimeout(function () {
         document.getElementById("preloader").classList.add("preloader-loaded");
     }, 1000);
 });

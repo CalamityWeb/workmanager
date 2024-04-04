@@ -12,7 +12,7 @@ class Mailer {
     public PHPMailer $mail;
     public string $SYSTEM_ADDRESS;
 
-    public function __construct(array $config = []) {
+    public function __construct (array $config = []) {
         $this->mail = new PHPMailer();
 
         $this->mail->isSMTP();
@@ -30,7 +30,7 @@ class Mailer {
         $this->mail->FromName = Application::$GLOBALS['APP_NAME'];
     }
 
-    public function setFrom(string $address, string $name = '', bool $auto = false): static {
+    public function setFrom (string $address, string $name = '', bool $auto = false): static {
         try {
             $this->mail->setFrom($address, $name, $auto);
         } catch (Exception $e) {
@@ -39,7 +39,7 @@ class Mailer {
         return $this;
     }
 
-    public function setReplyTo(string|array $addresses, $name = ''): static {
+    public function setReplyTo (string|array $addresses, $name = ''): static {
         if (is_array($addresses)) {
             foreach ($addresses as $address) {
                 try {
@@ -62,7 +62,7 @@ class Mailer {
         return $this;
     }
 
-    public function setAddress(string|array $recipients): static {
+    public function setAddress (string|array $recipients): static {
         if (is_array($recipients)) {
             foreach ($recipients as $recipient) {
                 try {
@@ -85,7 +85,7 @@ class Mailer {
         return $this;
     }
 
-    public function setCC(string|array $recipients): static {
+    public function setCC (string|array $recipients): static {
         if (is_array($recipients)) {
             foreach ($recipients as $recipient) {
                 try {
@@ -108,7 +108,7 @@ class Mailer {
         return $this;
     }
 
-    public function setBCC(string|array $recipients): static {
+    public function setBCC (string|array $recipients): static {
         if (is_array($recipients)) {
             foreach ($recipients as $recipient) {
                 try {
@@ -131,7 +131,7 @@ class Mailer {
         return $this;
     }
 
-    public function addAttachment(string|array $attachments): static {
+    public function addAttachment (string|array $attachments): static {
         if (is_array($attachments)) {
             foreach ($attachments as $attachment) {
                 try {
@@ -150,12 +150,12 @@ class Mailer {
         return $this;
     }
 
-    public function setSubject(string $subject): static {
+    public function setSubject (string $subject): static {
         $this->mail->Subject = $subject;
         return $this;
     }
 
-    public function setTemplate(string $templateName, array $args = []): static {
+    public function setTemplate (string $templateName, array $args = []): static {
         try {
             $this->mail->isHTML(true);
             if (str_contains($templateName, '.')) {
@@ -176,12 +176,12 @@ class Mailer {
         return $this;
     }
 
-    public function setBody(string $body): static {
+    public function setBody (string $body): static {
         $this->mail->Body = $body;
         return $this;
     }
 
-    public function send(): true {
+    public function send (): true {
         try {
             if ($this->mail->send()) {
                 return true;
