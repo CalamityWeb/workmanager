@@ -24,7 +24,7 @@ OR REPLACE TABLE roles
 CREATE
 OR REPLACE TABLE auth_assignments
 (
-    ROLE       INT                                  NOT NULL,
+    role       INT                                  NOT NULL,
     item       INT                                  NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
     updated_at DATETIME                             NULL ON UPDATE CURRENT_TIMESTAMP(),
