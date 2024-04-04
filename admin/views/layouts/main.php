@@ -23,12 +23,13 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
 
     <title><?= $this->title ?></title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/modules/adminlte/adminlte.css">
-    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fh-3.4.0/r-2.5.0/sc-2.3.0/sb-1.6.0/sp-2.2.0/datatables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/af-2.7.0/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/date-1.5.2/fh-4.0.1/r-3.0.1/sc-2.4.1/sb-1.7.0/sp-2.3.0/datatables.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
     <link rel="stylesheet" href="/assets/site.css?v=<?= time() ?>">
 
@@ -57,8 +58,8 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
                     <span class="d-none d-md-inline">
                         <?= $sessionUser->getFullName() ?>
                     </span>
-                    <?php if(!empty($sessionUser->getActveRole()->roleIcon)): ?>
-                    <span class="d-none d-md-inline">
+                    <?php if (!empty($sessionUser->getActveRole()->roleIcon)): ?>
+                        <span class="d-none d-md-inline">
                         <?= $sessionUser->getActveRole()->roleIcon ?>
                     </span>
                     <?php endif; ?>
@@ -67,7 +68,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
                         <li class="user-header text-bg-primary">
                             <img src="<?= $sessionUser->getPicture() ?>" class="img-circle shadow" alt="User">
                             <p>
-                                <?= $sessionUser->getFullName() ?>
+								<?= $sessionUser->getFullName() ?>
                                 <small><?= $sessionUser->getActveRole()->roleIcon ?><?= $sessionUser->getActveRole()->roleName ?></small>
                             </p>
                         </li>
@@ -207,7 +208,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
     <footer class="main-footer">
         <strong>
             Copyright &copy; <?= date('Y') ?> |
-            <a href="<?= Application::$URL['PUBLIC'] ?>" ><?= Application::$GLOBALS['APP_NAME'] ?></a> |
+            <a href="<?= Application::$URL['@public'] ?>"><?= Application::$GLOBALS['APP_NAME'] ?></a> |
             All Rights Reserved.
         </strong>
 
@@ -217,13 +218,13 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
     </footer>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 <script src="/assets/modules/adminlte/adminlte.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fh-3.4.0/r-2.5.0/sc-2.3.0/sb-1.6.0/sp-2.2.0/datatables.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/af-2.7.0/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/date-1.5.2/fh-4.0.1/r-3.0.1/sc-2.4.1/sb-1.7.0/sp-2.3.0/datatables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
@@ -233,10 +234,10 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
 <script src="/assets/site.js?v=<?= time() ?>"></script>
 
 <?php if (Application::$app->session->getFlash('success')): ?>
-    <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success')) ?>
+	<?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success')) ?>
 <?php endif; ?>
 <?php if (Application::$app->session->getFlash('error')): ?>
-    <?= Sweetalert::generateToastAlert('error', Application::$app->session->getFlash('error')) ?>
+	<?= Sweetalert::generateToastAlert('error', Application::$app->session->getFlash('error')) ?>
 <?php endif; ?>
 
 </body>
