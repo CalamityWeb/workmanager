@@ -24,14 +24,14 @@ class Generator {
         if ($key != null and $model != null) {
             do {
                 for ($i = 0; $i < $length; $i++) {
-                    $value .= $characters[rand(0, $charactersLength - 1)];
+                    $value .= $characters[random_int(0, $charactersLength - 1)];
                 }
 
                 $found = $model::findOne([$key => $value]);
             } while ($found);
         } else {
             for ($i = 0; $i < $length; $i++) {
-                $value .= $characters[rand(0, $charactersLength - 1)];
+                $value .= $characters[random_int(0, $charactersLength - 1)];
             }
         }
 

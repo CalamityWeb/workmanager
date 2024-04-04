@@ -62,19 +62,9 @@ class Router {
             $controller->action = $callback[1];
             Application::$app->controller = $controller;
 
-            $header = apache_request_headers();
-            if (isset($header['Authorization']) and !empty($header['Authorization'])) {
-                if (preg_match('/Bearer\s(\S+)/', $header['Authorization'], $matches)) {
-                    $modified = $this->getHost($url);
-                    if (!Users::canRoute(Users::findOne(['token' => $matches[1]]), $modified)) {
-                        throw new ForbiddenException();
-                    }
-                }
-            } else {
-                $modified = $this->getHost($url);
-                if (!Users::canRoute(Application::$app->user, $modified)) {
-                    throw new ForbiddenException();
-                }
+            $modified = $this->getHost($url);
+            if (!Users::canRoute(Application::$app->user, $modified)) {
+                throw new ForbiddenException();
             }
 
             $callback[0] = $controller;
@@ -139,8 +129,6 @@ class Router {
             $modified = '@admin' . $url;
         } elseif ($host == Application::$URL['@public']) {
             $modified = '@public' . $url;
-        } elseif ($host == Application::$URL['@api']) {
-            $modified = '@api' . $url;
         } else {
             $modified = '';
         }

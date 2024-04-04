@@ -18,10 +18,7 @@ class View {
     }
 
     public function renderView ($view, array $params): string {
-        $layoutName = Application::$app->layout;
-        if (Application::$app->controller) {
-            $layoutName = Application::$app->controller->layout;
-        }
+        $layoutName = Application::$app->controller->layout ?? Application::$app->layout;
         if (str_contains($layoutName, '.')) {
             $layoutName = str_replace('.', '/', $layoutName);
         }

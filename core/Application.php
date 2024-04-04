@@ -42,10 +42,9 @@ class Application {
         self::$URL = [
             '@public' => $_ENV['PUBLIC_URL'],
             '@admin' => $_ENV['ADMIN_URL'],
-            '@api' => $_ENV['API_URL'],
         ];
 
-        $this->maintenance = strtolower($config['maintenance']) == 'true';
+        $this->maintenance = strtolower($config['maintenance']) === 'true';
 
         $this->language = $config['language'];
 
@@ -62,7 +61,7 @@ class Application {
             ]);
         }
 
-        $userId = Application::$app->session->get('sessionUser');
+        $userId = self::$app->session->get('sessionUser');
         if ($userId) {
             $user = Users::findOne([Users::primaryKey() => $userId]);
             if ($user) {
@@ -75,10 +74,10 @@ class Application {
 
     public function logout (): void {
         $this->user = null;
-        Application::$app->session->set('sessionUser', 0);
+        self::$app->session->set('sessionUser', 0);
         unset($_COOKIE['rememberMe']);
         setcookie('rememberMe', 'null', 0);
-        Application::$app->response->redirect('/');
+        self::$app->response->redirect('/');
     }
 
     public static function isGuest (): bool {
@@ -86,13 +85,13 @@ class Application {
     }
 
     public static function t (string $type, string $message) {
-        $file = require(CoreHelper::getAlias('@common') . 'messages/' . Application::$app->language . '/' . $type . '.php');
+        $file = require(CoreHelper::getAlias('@common') . 'messages/' . self::$app->language . '/' . $type . '.php');
         return (array_key_exists($message, $file)) ? $file[$message] : $message;
     }
 
     public function login (Users $user): true {
         $this->user = $user;
-        Application::$app->session->set('sessionUser', $user->{Users::primaryKey()});
+        self::$app->session->set('sessionUser', $user->{Users::primaryKey()});
         return true;
     }
 
@@ -110,7 +109,7 @@ class Application {
     public function triggerEvent ($eventName): void {
         $callbacks = $this->eventListeners[$eventName] ?? [];
         foreach ($callbacks as $callback) {
-            call_user_func($callback);
+            $callback();
         }
     }
 

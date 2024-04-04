@@ -18,14 +18,13 @@ use tframe\core\Model;
     }
 
     public static function findMany (array $where = [], array $order = []): false|array {
-        $statement = self::getPrepare($where, $order);
-        return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
+        return self::getPrepare($where, $order)->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
     private static function getPrepare (array $where, array $order): PDOStatement {
         $tableName = static::tableName();
         $attributes = array_keys($where);
-        $sql = implode(" AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
+        $sql = implode(" AND ", array_map(static fn($attr) => "$attr = :$attr", $attributes));
 
         $orderBy = '';
         foreach ($order as $key => $value) {
@@ -74,15 +73,15 @@ use tframe\core\Model;
             }
         }
 
-        $tableName = $this->tableName();
+        $tableName = self::tableName();
         $attributes = $this->attributes();
-        $params = array_map(fn($attr) => ":$attr", $attributes);
+        $params = array_map(static fn($attr) => ":$attr", $attributes);
 
-        if (!is_array($this->primaryKey())) {
-            $exists = self::findOne([$this->primaryKey() => $this->{$this->primaryKey()}]);
+        if (!is_array(self::primaryKey())) {
+            $exists = self::findOne([self::primaryKey() => $this->{self::primaryKey()}]);
         } else {
             $where = [];
-            foreach ($this->primaryKey() as $value) {
+            foreach (self::primaryKey() as $value) {
                 $where[$value] = $this->{$value};
             }
             $exists = self::findOne($where);
@@ -100,11 +99,11 @@ use tframe\core\Model;
             }
             $attr = substr($attr, 0, -2);
 
-            if (is_array($this->primaryKey())) {
-                $attributes = implode(" AND ", array_map(fn($key) => "$key = '" . $this->{$key} . "'", $this->primaryKey()));
-                $statement = self::prepare("UPDATE " . $this->tableName() . " SET $attr WHERE " . $attributes);
+            if (is_array(self::primaryKey())) {
+                $attributes = implode(" AND ", array_map(fn($key) => "$key = '" . $this->{$key} . "'", self::primaryKey()));
+                $statement = self::prepare("UPDATE " . self::tableName() . " SET $attr WHERE " . $attributes);
             } else {
-                $statement = self::prepare("UPDATE $tableName SET $attr WHERE " . $this->primaryKey() . " = '" . $this->{$this->primaryKey()} . "'");
+                $statement = self::prepare("UPDATE $tableName SET $attr WHERE " . self::primaryKey() . " = '" . $this->{self::primaryKey()} . "'");
             }
 
             foreach ($attributes as $attribute) {
@@ -117,16 +116,15 @@ use tframe\core\Model;
     abstract public static function primaryKey (): string|array;
 
     public static function findOne (array $where = [], array $order = []) {
-        $statement = self::getPrepare($where, $order);
-        return $statement->fetchObject(static::class);
+        return self::getPrepare($where, $order)->fetchObject(static::class);
     }
 
     public function delete (): bool {
-        if (is_array($this->primaryKey())) {
-            $attributes = implode(" AND ", array_map(fn($key) => "$key = '" . $this->{$key} . "'", $this->primaryKey()));
-            $statement = self::prepare("DELETE FROM " . $this->tableName() . " WHERE " . $attributes);
+        if (is_array(self::primaryKey())) {
+            $attributes = implode(" AND ", array_map(fn($key) => "$key = '" . $this->{$key} . "'", self::primaryKey()));
+            $statement = self::prepare("DELETE FROM " . self::tableName() . " WHERE " . $attributes);
         } else {
-            $statement = self::prepare("DELETE FROM " . $this->tableName() . " WHERE " . $this->primaryKey() . " = '" . $this->{$this->primaryKey()} . "'");
+            $statement = self::prepare("DELETE FROM " . self::tableName() . " WHERE " . self::primaryKey() . " = '" . $this->{self::primaryKey()} . "'");
         }
         return $statement->execute();
     }

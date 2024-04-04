@@ -3,16 +3,16 @@
 namespace tframe\core;
 
 class Model {
-    const RULE_REQUIRED = 'required';
-    const RULE_EMAIL = 'email';
-    const RULE_MIN = 'min';
-    const RULE_MAX = 'max';
-    const RULE_MATCH = 'match';
-    const RULE_UNIQUE = 'unique';
-    const RULE_DATE_AFTER = 'date_after';
-    const RULE_DATE_BEFORE = 'date_before';
-    const RULE_PASSWORD = 'password';
-    const RULE_EXISTS = 'exists';
+    public const RULE_REQUIRED = 'required';
+    public const RULE_EMAIL = 'email';
+    public const RULE_MIN = 'min';
+    public const RULE_MAX = 'max';
+    public const RULE_MATCH = 'match';
+    public const RULE_UNIQUE = 'unique';
+    public const RULE_DATE_AFTER = 'date_after';
+    public const RULE_DATE_BEFORE = 'date_before';
+    public const RULE_PASSWORD = 'password';
+    public const RULE_EXISTS = 'exists';
     public array $errors = [];
 
     public function loadData ($data): void {
@@ -66,7 +66,7 @@ class Model {
                     $statement->bindValue(":$uniqueAttr", $value);
                     $statement->execute();
                     $record = $statement->fetchObject();
-                    if ($record and $record->{$attribute} != $value) {
+                    if ($record and $record->{$attribute} !== $value) {
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
                     }
                 }

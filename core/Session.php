@@ -19,8 +19,7 @@ class Session {
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
         foreach ($flashMessages as $key => $flashMessage) {
             if ($flashMessage['remove']) {
-                unset($_SESSION[self::FLASH_KEY][$key]);
-                unset($flashMessages[$key]);
+                unset($_SESSION[self::FLASH_KEY][$key], $flashMessages[$key]);
             }
         }
         $_SESSION[self::FLASH_KEY] = $flashMessages;

@@ -5,14 +5,14 @@ namespace tframe\common\components\form;
 use tframe\core\Model;
 
 class FieldWithIcon extends IconField {
-    const TYPE_TEXT = 'text';
-    const TYPE_PASSWORD = 'password';
-    const TYPE_FILE = 'file';
-    const TYPE_EMAIL = 'email';
-    const TYPE_TEL = 'tel';
-    const TYPE_URL = 'url';
-    const TYPE_DATE = 'date';
-    const TYPE_SELECT = 'select';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_PASSWORD = 'password';
+    public const TYPE_FILE = 'file';
+    public const TYPE_EMAIL = 'email';
+    public const TYPE_TEL = 'tel';
+    public const TYPE_URL = 'url';
+    public const TYPE_DATE = 'date';
+    public const TYPE_SELECT = 'select';
 
     public function __construct (Model $model, string $attribute, string $icon, array $options, bool $disabled) {
         $this->type = self::TYPE_TEXT;

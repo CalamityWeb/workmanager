@@ -84,7 +84,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     setTimeout(function () {
         document.getElementById("preloader").classList.add("preloader-loaded");
-    }, 1000);
+    }, 500);
 });
 
 // Phone
