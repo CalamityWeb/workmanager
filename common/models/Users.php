@@ -84,7 +84,7 @@ class Users extends MagicRecord {
             $maxCount = 0;
             $maxRole = null;
             foreach ($this->getRoles() as $role) {
-                $assignments = AuthAssignments::findMany(['role' => $role->id]);
+                $assignments = AuthAssignments::findMany(['code' => $role->id]);
                 if(count($assignments) > $maxCount) {
                     $maxCount = count($assignments);
                     $maxRole = $role;
@@ -111,7 +111,7 @@ class Users extends MagicRecord {
     public static function canRoute(Users|null $user, string $route): bool {
         $can = false;
         if(is_null($user)) {
-            $auths = AuthAssignments::findMany(['role' => 2]);
+            $auths = AuthAssignments::findMany(['code' => 2]);
             /** @var $auth AuthAssignments */
             $can = self::isItemMatches($auths, $route);
         } else {
@@ -120,7 +120,7 @@ class Users extends MagicRecord {
             foreach ($roles as $assignment) {
                 /** @var $role Roles */
                 $role = Roles::findOne([Roles::primaryKey() => $assignment->roleId]);
-                $auths = AuthAssignments::findMany(['role' => $role->id]);
+                $auths = AuthAssignments::findMany(['code' => $role->id]);
                 /** @var $auth AuthAssignments */
                 $can = self::isItemMatches($auths, $route);
             }

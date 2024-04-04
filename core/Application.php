@@ -43,9 +43,9 @@ class Application {
         $this->view = new View();
 
         self::$URL = [
-            'PUBLIC' => $_ENV['PUBLIC_URL'],
-            'ADMIN' => $_ENV['ADMIN_URL'],
-            'API' => $_ENV['API_URL']
+            '@public' => $_ENV['PUBLIC_URL'],
+            '@admin' => $_ENV['ADMIN_URL'],
+            '@api' => $_ENV['API_URL']
         ];
 
         $this->maintenance = strtolower($config['maintenance']) == 'true';

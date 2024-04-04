@@ -117,7 +117,7 @@ class RoutesManagement extends Controller {
             throw new NotFoundException();
         }
 
-        $authAssignments = AuthAssignments::findMany(['role' => $role->id]);
+        $authAssignments = AuthAssignments::findMany(['code' => $role->id]);
         $adminAuthItems = AuthItem::queryMany('item LIKE "@admin/%"', 'item');
         $publicAuthItems = AuthItem::queryMany('item LIKE "@public/%"', 'item');
         $apiAuthItems = AuthItem::queryMany('item LIKE "@api/%"', 'item');
@@ -126,7 +126,7 @@ class RoutesManagement extends Controller {
             $role->loadData($request->getBody());
             if($role->validate()) {
                 /** @var $assignment AuthAssignments */
-                foreach (AuthAssignments::findMany(['role' => $role->id]) as $assignment) {
+                foreach (AuthAssignments::findMany(['code' => $role->id]) as $assignment) {
                     $assignment->delete();
                 }
                 if(isset($request->getBody()["routes"])) {

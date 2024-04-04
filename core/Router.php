@@ -33,11 +33,11 @@ class Router {
 
     private function getHost(mixed $url): string {
         $host = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-        if ($host == Application::$URL['ADMIN']) {
+        if ($host == Application::$URL['@admin']) {
             $modified = '@admin' . $url;
-        } elseif ($host == Application::$URL['PUBLIC']) {
+        } elseif ($host == Application::$URL['@public']) {
             $modified = '@public' . $url;
-        } elseif ($host == Application::$URL['API']) {
+        } elseif ($host == Application::$URL['@api']) {
             $modified = '@api' . $url;
         } else {
             $modified = '';
@@ -94,7 +94,7 @@ class Router {
 
             $callback[0] = $controller;
         }
-        return call_user_func($callback, $this->request, $this->response);
+        return $callback($this->request, $this->response);
     }
 
     public function getCallback(): mixed {
@@ -122,7 +122,7 @@ class Router {
             }
 
             // Convert route name into regex pattern
-            $routeRegex = "@^" . preg_replace_callback('/\{\w+(:([^}]+))?}/', fn($m) => isset($m[2]) ? "({$m[2]})" : '(\w+)', $route) . "$@";
+            $routeRegex = "@^" . preg_replace_callback('/\{\w+(:([^}]+))?}/', static fn($m) => isset($m[2]) ? "({$m[2]})" : '(\w+)', $route) . "$@";
 
             // Test and match current route against $routeRegex
             if (preg_match_all($routeRegex, $url, $valueMatches)) {

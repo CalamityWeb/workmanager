@@ -15,7 +15,13 @@ class UsersController extends Controller {
     public function listUsers(): string {
         $this->setLayout('main');
 
-        return $this->render('users.list');
+        $users = Users::findMany();
+        foreach ($users as $user) {
+            unset($user->password, $user->token, $user->errors);
+        }
+        $users = json_encode($users);
+
+        return $this->render('users.list', ['users' => $users]);
     }
 
     public function createUser(Request $request): string {
