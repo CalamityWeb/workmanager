@@ -251,7 +251,7 @@ use tframe\core\Application;
         <!-- Buttons -->
         <div class="overlay__btns">
 
-            <a class="overlay__btn overlay__btn--transparent" target="_blank" href="<?= Application::$URL['ADMIN'] . '/auth/login' ?>">
+            <a class="overlay__btn overlay__btn--transparent" target="_blank" href="<?= Application::$URL['@admin'] . '/auth/login' ?>">
                 Go to the admin page
             </a>
 
