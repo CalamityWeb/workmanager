@@ -62,6 +62,15 @@ class Router {
             $controller->action = $callback[1];
             Application::$app->controller = $controller;
 
+            if (isset($_COOKIE['rememberMe'])) {
+                /** @var Users $user */
+                $user = Users::findOne(['id' => $_COOKIE['rememberMe']]);
+
+                if ($user) {
+                    Application::$app->login($user);
+                }
+            }
+
             $modified = $this->getHost($url);
             if (!Users::canRoute(Application::$app->user, $modified)) {
                 throw new ForbiddenException();
