@@ -14,15 +14,15 @@ use tframe\core\database\MagicRecord;
  * @property string $completed_at
  */
 class Roles extends MagicRecord {
-    public static function tableName (): string { return 'roles'; }
+    public static function tableName(): string { return 'roles'; }
 
-    public static function primaryKey (): string|array { return 'id'; }
+    public static function primaryKey(): string|array { return 'id'; }
 
-    public function attributes (): array {
+    public static function attributes(): array {
         return ['roleName', 'roleIcon', 'description'];
     }
 
-    public function labels (): array {
+    public static function labels(): array {
         return [
             'roleName' => Application::t('attributes', 'Role Name'),
             'roleIcon' => Application::t('attributes', 'Role Icon'),
@@ -30,7 +30,7 @@ class Roles extends MagicRecord {
         ];
     }
 
-    public function rules (): array {
+    public function rules(): array {
         return [
             'roleName' => [self::RULE_REQUIRED],
         ];

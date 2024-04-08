@@ -12,22 +12,22 @@ use tframe\core\database\MagicRecord;
  * @property string  $completed_at
  */
 class AuthAssignments extends MagicRecord {
-    public static function tableName (): string { return 'auth_assignments'; }
+    public static function tableName(): string { return 'auth_assignments'; }
 
-    public static function primaryKey (): string|array { return ['role', 'item']; }
+    public static function primaryKey(): string|array { return ['role', 'item']; }
 
-    public function attributes (): array {
+    public static function attributes(): array {
         return ['role', 'item'];
     }
 
-    public function labels (): array {
+    public static function labels(): array {
         return [
             'role' => Application::t('attributes', 'Role'),
             'item' => Application::t('attributes', 'Route (URL)'),
         ];
     }
 
-    public function rules (): array {
+    public function rules(): array {
         return [
             'role' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => Roles::class], ['attribute' => 'id']],
             'item' => [self::RULE_REQUIRED, [self::RULE_EXISTS, 'class' => AuthItem::class], ['attribute' => 'id']],

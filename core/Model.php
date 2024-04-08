@@ -15,17 +15,17 @@ class Model {
     public const RULE_EXISTS = 'exists';
     public array $errors = [];
 
-    public function loadData ($data): void {
+    public function loadData($data): void {
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
         }
     }
 
-    public function attributes (): array {
+    public static function attributes(): array {
         return [];
     }
 
-    public function validate (): bool {
+    public function validate(): bool {
         foreach ($this->rules() as $attribute => $rules) {
             $value = $this->{$attribute};
             foreach ($rules as $rule) {
@@ -88,11 +88,11 @@ class Model {
         return empty($this->errors);
     }
 
-    public function rules (): array {
+    public function rules(): array {
         return [];
     }
 
-    protected function addErrorByRule (string $attribute, string $rule, $params = []): void {
+    protected function addErrorByRule(string $attribute, string $rule, $params = []): void {
         $params['field'] ??= $attribute;
         $errorMessage = $this->errorMessage($rule);
         foreach ($params as $key => $value) {
@@ -101,11 +101,11 @@ class Model {
         $this->errors[$attribute][] = $errorMessage;
     }
 
-    public function errorMessage ($rule): string {
+    public function errorMessage($rule): string {
         return $this->errorMessages()[$rule];
     }
 
-    public function errorMessages (): array {
+    public function errorMessages(): array {
         return [
             self::RULE_REQUIRED => Application::t('attributes', 'The field is required'),
             self::RULE_EMAIL => Application::t('attributes', 'The field has to be a valid email address'),
@@ -120,23 +120,23 @@ class Model {
         ];
     }
 
-    public function getLabel ($attribute) {
-        return $this->labels()[$attribute] ?? $attribute;
+    public function getLabel($attribute) {
+        return static::labels()[$attribute] ?? $attribute;
     }
 
-    public function labels (): array {
+    public static function labels(): array {
         return [];
     }
 
-    public function addError (string $attribute, string $message): void {
+    public function addError(string $attribute, string $message): void {
         $this->errors[$attribute][] = $message;
     }
 
-    public function hasError ($attribute): mixed {
+    public function hasError($attribute): mixed {
         return $this->errors[$attribute] ?? false;
     }
 
-    public function getFirstError ($attribute): mixed {
+    public function getFirstError($attribute): mixed {
         $errors = $this->errors[$attribute] ?? [];
         return $errors[0] ?? '';
     }

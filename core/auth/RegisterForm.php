@@ -15,7 +15,7 @@ class RegisterForm extends Model {
     public ?string $passwordConfirmation = null;
     public bool $agreeTerms = false;
 
-    public function labels (): array {
+    public static function labels(): array {
         return [
             'email' => Application::t('attributes', 'Email address'),
             'firstName' => Application::t('attributes', 'Given name'),
@@ -26,7 +26,7 @@ class RegisterForm extends Model {
         ];
     }
 
-    public function rules (): array {
+    public function rules(): array {
         return [
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => Users::class], 'attribute'],
             'firstName' => [self::RULE_REQUIRED],
@@ -37,7 +37,7 @@ class RegisterForm extends Model {
         ];
     }
 
-    public function register (): Users {
+    public function register(): Users {
         $user = new Users();
         $user->id = null;
         $user->email = $this->email;
@@ -45,7 +45,6 @@ class RegisterForm extends Model {
         $user->lastName = $this->lastName;
         $user->password = password_hash($this->password, PASSWORD_ARGON2ID, ['memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3]);
         $user->email_confirmed = false;
-        $user->token = Generator::randomString(Users::class, 'token', 32);
         $user->save();
 
         return Users::findOne(['email' => $this->email]);

@@ -6,27 +6,28 @@
 
 use tframe\common\components\button\Button;
 use tframe\common\components\table\DataTable;
+use tframe\common\components\table\GenerateTableData;
 use tframe\common\components\text\Text;
 use tframe\common\models\Users;
 use tframe\core\Application;
+use tframe\core\auth\Roles;
 
 /** @var \tframe\common\models\Users $sessionUser */
 $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
 
 $this->title = Application::t('general', 'Roles');
 
-$notset = Text::notSetText();
-$columns = <<<JS
-[
-    { title:"ID", data: 'id' },
-    { title:"Role Name", data: 'roleName' },
-    { title:"Role Icon", data: function (data) { return (!data.roleIcon ) ? '$notset' : data.roleIcon} },
-    { title:"Description", data: function (data) { return (!data.description ) ? '$notset' : data.description} },
-    { title:"Created at", data:  'created_at' },
-    { title:"Updated at", data:  function (data) { return (!data.updated_at) ? '$notset' : data.updated_at } },
-    { title:'Modify', data: function (data) { return getButtons(data)} }
-]
-JS;
+$columns = GenerateTableData::generateColumns(Roles::class,
+    [
+        'columns' =>
+            [
+                'ID' => ['place' => 1, 'data' => '"id"'],
+                'roleIcon' => ['data' => 'function (data) { return (!data.roleIcon ) ? \'' . Text::notSetText() . '\' : data.roleIcon}'],
+                'description' => ['data' => 'function (data) { return (!data.description ) ? \'' . Text::notSetText() . '\' : data.description}'],
+                'Modify' => ['place' => 'latest', 'data' => 'function (data) { return getButtons(data)}'],
+            ],
+    ],
+);
 
 ?>
 
@@ -44,7 +45,6 @@ JS;
     </div>
 
 <?php
-$token = $sessionUser->token;
 $canManage = Users::canRoute($sessionUser, '@admin/routes-management/roles/manage/0') ? 'true' : 'false';
 $canDelete = Users::canRoute($sessionUser, '@admin/routes-management/roles/delete/0') ? 'true' : 'false';
 $edit = Application::t('general', 'Edit');

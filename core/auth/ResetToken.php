@@ -11,26 +11,26 @@ use tframe\core\database\MagicRecord;
  * @property string  $completed_at
  */
 class ResetToken extends MagicRecord {
-    public static function tableName (): string {
+    public static function tableName(): string {
         return 'reset_tokens';
     }
 
-    public static function primaryKey (): string {
+    public static function primaryKey(): string {
         return 'token';
     }
 
-    public function attributes (): array {
+    public static function attributes(): array {
         return ['token', 'userId', 'completed_at'];
     }
 
-    public function labels (): array {
+    public static function labels(): array {
         return [
             'token' => "Token",
             'userId' => "User",
         ];
     }
 
-    public function rules (): array {
+    public function rules(): array {
         return [];
     }
 }

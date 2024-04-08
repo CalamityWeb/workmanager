@@ -6,30 +6,27 @@
 
 use tframe\common\components\button\Button;
 use tframe\common\components\table\DataTable;
+use tframe\common\components\table\GenerateTableData;
 use tframe\common\components\text\Text;
 use tframe\common\models\Users;
 use tframe\core\Application;
 
-/** @var \tframe\common\models\Users $sessionUser */
-$sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
+$sessionUser = Application::$app->user;
 
 $this->title = Application::t('general', 'Users');
 
-$notset = Text::notSetText();
-$columns = <<<JS
-[
-    { title:"ID", data: 'id' },
-    { title:"Email", data: 'email' },
-    { title:"Name", data: function (data) { return data.firstName + ' ' + data.lastName } },
-    { title:"Email confirmed", data:  function (data) { 
-        return (data.email_confirmed) ? '<i class="fa-solid fa-circle-check text-success"></i>' : 
-        '<i class="fa-solid fa-circle-xmark text-danger"></i>' } 
-    },
-    { title:"Created at", data:  'created_at' },
-    { title:"Updated at", data:  function (data) { return (!data.updated_at) ? '$notset' : data.updated_at } },
-    { title:'Modify', data: function (data) { return getButtons(data)} }
-]
-JS;
+$columns = GenerateTableData::generateColumns(Users::class,
+    [
+        'columns' =>
+            [
+                'ID' => ['place' => 1, 'data' => '"id"'],
+                'name' => ['title' => 'Name', 'place' => 3, 'data' => 'function (data) { return data.firstName + " " + data.lastName }'],
+                'email_confirmed' => ['data' => 'function (data) { return (data.email_confirmed) ? \'<i class="fa-solid fa-circle-check text-success"></i>\' : \'<i class="fa-solid fa-circle-xmark text-danger"></i>\' }'],
+                'Modify' => ['place' => 'latest', 'data' => 'function (data) { return getButtons(data)}'],
+            ],
+        'remove' => ['firstName', 'lastName'],
+    ],
+);
 ?>
 
     <div class="row">
@@ -39,7 +36,7 @@ JS;
                     <?= Button::generateClickButton('/users/create', 'btn-primary', Application::t('general', 'New User'), 'fa-user-plus') ?>
                 </div>
                 <div class="card-body">
-                    <?= DataTable::init(['data' => $users, 'columns' => $columns]) ?>
+                    <?= DataTable::init(['data' => $users, 'columns' => $columns, 'order' => [1 => 'asc'],]) ?>
                 </div>
             </div>
         </div>

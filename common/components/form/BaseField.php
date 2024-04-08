@@ -12,13 +12,13 @@ abstract class BaseField {
     protected bool $required = false;
     protected bool $disabled = false;
 
-    public function __construct (Model $model, string $attribute, array $options) {
+    public function __construct(Model $model, string $attribute, array $options) {
         $this->model = $model;
         $this->attribute = $attribute;
         $this->options = $options;
     }
 
-    public function __toString () {
+    public function __toString() {
         return '
         <div class="form-group mb-3">
             <label>' . $this->model->getLabel($this->attribute) . '</label>
@@ -30,5 +30,5 @@ abstract class BaseField {
         ';
     }
 
-    abstract public function renderInput (array $options);
+    abstract public function renderInput(array $options);
 }

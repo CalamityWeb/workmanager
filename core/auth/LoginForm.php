@@ -11,7 +11,7 @@ class LoginForm extends Model {
     public ?string $password = null;
     public bool $rememberMe = false;
 
-    public function labels (): array {
+    public static function labels(): array {
         return [
             'email' => Application::t('attributes', 'Email address'),
             'password' => Application::t('attributes', 'Password'),
@@ -19,14 +19,14 @@ class LoginForm extends Model {
         ];
     }
 
-    public function rules (): array {
+    public function rules(): array {
         return [
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'password' => [self::RULE_REQUIRED],
         ];
     }
 
-    public function login (): bool {
+    public function login(): bool {
         /** @var Users $user */
         $user = Users::findOne(['email' => $this->email]);
 

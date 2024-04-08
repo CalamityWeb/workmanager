@@ -16,13 +16,13 @@ use tframe\core\Response;
 
 class RoutesManagement extends Controller {
     /* * Items */
-    public function listItems (): string {
+    public function listItems(): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.items.list', ['items' => GenerateTableData::convertData(AuthItem::findMany())]);
     }
 
-    public function createItem (Request $request, Response $response): string {
+    public function createItem(Request $request, Response $response): string {
         $this->setLayout('main');
 
         $routeItem = new AuthItem();
@@ -38,7 +38,7 @@ class RoutesManagement extends Controller {
         return $this->render('routes-management.items.create', ['routeItem' => $routeItem]);
     }
 
-    public function manageItem (Request $request, Response $response): string {
+    public function manageItem(Request $request, Response $response): string {
         $this->setLayout('main');
 
         /** @var AuthItem $authItem */
@@ -60,13 +60,13 @@ class RoutesManagement extends Controller {
     }
 
     /* * Roles */
-    public function listRoles (Request $request, Response $response): string {
+    public function listRoles(Request $request, Response $response): string {
         $this->setLayout('main');
 
         return $this->render('routes-management.roles.list', ['roles' => GenerateTableData::convertData(Roles::findMany())]);
     }
 
-    public function createRole (Request $request, Response $response): string {
+    public function createRole(Request $request, Response $response): string {
         $this->setLayout('main');
 
         $role = new Roles();
@@ -82,7 +82,7 @@ class RoutesManagement extends Controller {
         return $this->render('routes-management.roles.create', ['role' => $role]);
     }
 
-    public function deleteRole (Request $request, Response $response): void {
+    public function deleteRole(Request $request, Response $response): void {
         $flag = true;
         /** @var Roles $role */
         $role = Roles::findOne([Roles::primaryKey() => $request->getRouteParam('id')]);
@@ -102,7 +102,7 @@ class RoutesManagement extends Controller {
         Application::$app->response->redirect('/routes-management/roles/list-all');
     }
 
-    public function manageRole (Request $request, Response $response): string {
+    public function manageRole(Request $request, Response $response): string {
         $this->setLayout('main');
 
         /** @var Roles $role */
@@ -117,16 +117,15 @@ class RoutesManagement extends Controller {
             throw new NotFoundException();
         }
 
-        $authAssignments = AuthAssignments::findMany(['code' => $role->id]);
+        $authAssignments = AuthAssignments::findMany(['role' => $role->id]);
         $adminAuthItems = AuthItem::queryMany('item LIKE "@admin/%"', 'item');
         $publicAuthItems = AuthItem::queryMany('item LIKE "@public/%"', 'item');
-        $apiAuthItems = AuthItem::queryMany('item LIKE "@api/%"', 'item');
 
         if ($request->isPost()) {
             $role->loadData($request->getBody());
             if ($role->validate()) {
                 /** @var $assignment AuthAssignments */
-                foreach (AuthAssignments::findMany(['code' => $role->id]) as $assignment) {
+                foreach (AuthAssignments::findMany(['role' => $role->id]) as $assignment) {
                     $assignment->delete();
                 }
                 if (isset($request->getBody()["routes"])) {
@@ -149,7 +148,6 @@ class RoutesManagement extends Controller {
                 'authAssignments' => $authAssignments,
                 'adminAuthItems' => $adminAuthItems,
                 'publicAuthItems' => $publicAuthItems,
-                'apiAuthItems' => $apiAuthItems,
             ],
         );
     }

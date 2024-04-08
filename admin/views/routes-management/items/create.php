@@ -19,9 +19,9 @@ $this->title = Application::t('general', 'Create Route Item');
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>
 
-                <?= $form->field($routeItem, 'item')->required(); ?>
+                <?= $form->field($routeItem, 'item')->required() ?>
                 <p>
-                    Please use <strong>@public</strong>, <strong>@admin</strong> or <strong>@api</strong> aliases for the routes start
+                    Please use <strong>@public</strong> or <strong>@admin</strong> aliases for the routes start
                 </p>
                 <?= $form->textareaField($routeItem, 'description') ?>
 

@@ -58,9 +58,9 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
                     <span class="d-none d-md-inline">
                         <?= $sessionUser->getFullName() ?>
                     </span>
-                    <?php if (!empty($sessionUser->getActveRole()->roleIcon)): ?>
+                    <?php if (!empty($sessionUser->getActiveRole()->roleIcon)): ?>
                         <span class="d-none d-md-inline">
-                        <?= $sessionUser->getActveRole()->roleIcon ?>
+                        <?= $sessionUser->getActiveRole()->roleIcon ?>
                     </span>
                     <?php endif; ?>
                 </span>
@@ -69,7 +69,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
                             <img src="<?= $sessionUser->getPicture() ?>" class="img-circle shadow" alt="User">
                             <p>
                                 <?= $sessionUser->getFullName() ?>
-                                <small><?= $sessionUser->getActveRole()->roleIcon ?><?= $sessionUser->getActveRole()->roleName ?></small>
+                                <small><?= $sessionUser->getActiveRole()->roleIcon ?><?= $sessionUser->getActiveRole()->roleName ?></small>
                             </p>
                         </li>
                         <li class="user-footer">

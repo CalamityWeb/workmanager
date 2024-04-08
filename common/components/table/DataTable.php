@@ -9,22 +9,47 @@ class DataTable {
     public static string $identification = "#dataTable";
     public static string $js = '';
 
-    public static function init (array $config): string {
+    public static function init(array $config): string {
         if (!isset($config['data'], $config['columns'])) {
-            throw new InvalidConfigException("DataTables configuration is invalid. 'Data' or 'Columns' options are missing!");
+            throw new InvalidConfigException(Application::t('table', "DataTables configuration is invalid. 'Data' or 'Columns' options are missing!"));
         }
 
         self::configure($config);
         return self::render($config);
     }
 
-    private static function configure (array $config) {
+    private static function configure(array $config): void {
         $data = $config['data'];
         $columns = $config['columns'];
 
+        $order = "[";
+        if (isset($config['order'])) {
+            foreach ($config['order'] as $key => $value) {
+                $order .= "[$key, '$value']";
+            }
+        }
+        $order .= "]";
+
+        $columndefs = "[";
+        if (isset($config['$columndefs'])) {
+            $order .= "{";
+            foreach ($config['$columndefs'] as $key => $value) {
+                $order .= "targets: $key";
+                $order .= "render: $value";
+            }
+            $order .= "},";
+        }
+        $columndefs .= "]";
+
+        if (Application::$app->language !== 'en_EN') {
+            $language = substr(Application::$app->language, 0, 2);
+        } else {
+            $language = 'en-GB';
+        }
+
         $id = self::$identification;
         self::$js .= <<<JS
-			$("$id").DataTable({
+			new DataTable('$id', {
 				paging: true,
 				searching: true,
 				ordering: true,
@@ -35,11 +60,20 @@ class DataTable {
 				processing: true,
 				data: $data,
 				columns: $columns,
+				order: $order,
+				drawCallback: function () { 
+				    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]'); 
+				    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+				},
+				columnDefs: $columndefs,
+				language: {
+				    url: 'https://cdn.datatables.net/plug-ins/2.0.3/i18n/$language.json',
+				},
 			});
 		JS;
     }
 
-    private static function render (array $config): string {
+    private static function render(array $config): string {
         if (isset($config['identification'])) {
             self::$identification = $config['identification'];
         }
