@@ -4,7 +4,6 @@
 2. [Installation](#installation)
 3. [Configuration](#configuration)
 4. [Support](#support)
-5. [Updates](#updates)
 
 ## Meet Tframe
 
@@ -23,24 +22,15 @@ There is a pre-configured account `Superadmin`.
 
 ## Configuration
 
+First and foremost run `composer install` to get the necessary files you need.
+
 Under `/common/config` you will find a `.env.example` file. Rename ti to just `.env`, and fill the fields in it.
 For the `_URL` paths include `http://` or `https://` otherwise your app could crash. For the pages root set the `/web`
 folder under admin/public/api.
 
-> [!CAUTION]
-> Your app won't work until you set up the API. It is used for the DataTables queries, so it will report a problem
-> unless you install the api correctly.
-
-> [!TIP]
-> Look into the `aliases.php` and `globals.php` files too and modify/add variables you like.
-
 ## Support
 
-| Version | PHP |      Release      |      Support       |
-|:-------:|:---:|:-----------------:|:------------------:|
-|  v1.0   | 8.3 | 04th January 2024 | :white_check_mark: |
-|  v1.1   |  -  |    in progress    |        TBA         |
-
-## Updates
-
-- [ ] https://github.com/tokrist/tframe/issues/1
+| Version | PHP  |      Release      |      Support       |
+|:-------:|:----:|:-----------------:|:------------------:|
+|  v1.0   | 8.2^ | 04th January 2024 | :white_check_mark: |
+|  v2.0   | 8.2^ |    in progress    |    Early Summer    |
