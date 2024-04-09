@@ -246,7 +246,7 @@ use calamity\core\Calamity;
         <!-- Description -->
         <p class="overlay__description">
             Calamity is a web application framework, for making your life simple and easy. <strong>Please note</strong>, that it is still in
-            progress. Tframe is based on PHP and MySQL or PostgreSQL (it uses PDO). It is free to use for any project you want.
+            progress. Calamity is based on PHP and MySQL or PostgreSQL (it uses PDO). It is free to use for any project you want.
         </p>
         <!-- Buttons -->
         <div class="overlay__btns">
