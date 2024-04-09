@@ -6,7 +6,7 @@
 
 use calamity\common\components\form\Form;
 use calamity\common\components\text\Text;
-use calamity\core\Calamity;
+use calamity\Calamity;
 
 $this->title = Calamity::t('general', 'Profile');
 ?>

@@ -9,7 +9,7 @@ use calamity\common\components\table\DataTable;
 use calamity\common\components\table\GenerateTableData;
 use calamity\common\components\text\Text;
 use calamity\common\models\Users;
-use calamity\core\Calamity;
+use calamity\Calamity;
 
 $sessionUser = Calamity::$app->user;
 

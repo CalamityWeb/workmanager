@@ -3,16 +3,16 @@
 namespace calamity\admin\controllers;
 
 use calamity\common\models\Users;
-use calamity\core\Calamity;
-use calamity\core\auth\ForgotPasswordForm;
-use calamity\core\auth\LoginForm;
-use calamity\core\auth\RegisterForm;
-use calamity\core\auth\ResetPasswordForm;
-use calamity\core\auth\ResetToken;
-use calamity\core\Controller;
-use calamity\core\exception\NotFoundException;
-use calamity\core\Request;
-use calamity\core\Response;
+use calamity\Calamity;
+use calamity\auth\ForgotPasswordForm;
+use calamity\auth\LoginForm;
+use calamity\auth\RegisterForm;
+use calamity\auth\ResetPasswordForm;
+use calamity\auth\ResetToken;
+use calamity\Controller;
+use calamity\exception\NotFoundException;
+use calamity\Request;
+use calamity\Response;
 
 class AuthController extends Controller {
     public function register (Request $request): string {

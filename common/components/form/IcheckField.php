@@ -2,7 +2,7 @@
 
 namespace calamity\common\components\form;
 
-use calamity\core\Model;
+use calamity\Model;
 
 class IcheckField {
     protected Model $model;

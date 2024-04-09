@@ -2,8 +2,8 @@
 
 namespace calamity\common\components\table;
 
-use calamity\core\Calamity;
-use calamity\core\exception\InvalidConfigException;
+use calamity\Calamity;
+use calamity\exception\InvalidConfigException;
 
 class DataTable {
     public static string $identification = "#dataTable";

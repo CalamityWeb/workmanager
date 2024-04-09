@@ -2,7 +2,7 @@
 
 namespace calamity\common\components\form;
 
-use calamity\core\Model;
+use calamity\Model;
 
 class FieldWithIcon extends IconField {
     public const TYPE_TEXT = 'text';

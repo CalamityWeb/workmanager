@@ -2,8 +2,8 @@
 
 namespace calamity\common\components\form;
 
-use calamity\core\Calamity;
-use calamity\core\Model;
+use calamity\Calamity;
+use calamity\Model;
 
 class SwitchField extends BaseField {
     public function __construct (Model $model, string $attribute, array $options, $disabled) {

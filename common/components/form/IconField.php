@@ -2,7 +2,7 @@
 
 namespace calamity\common\components\form;
 
-use calamity\core\Model;
+use calamity\Model;
 
 abstract class IconField {
     protected Model $model;

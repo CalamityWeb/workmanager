@@ -5,7 +5,7 @@
  */
 
 use calamity\common\components\form\Form;
-use calamity\core\Calamity;
+use calamity\Calamity;
 
 $this->title = Calamity::t('auth', 'Forgot password') . ' | ' . Calamity::$GLOBALS['APP_NAME'];
 

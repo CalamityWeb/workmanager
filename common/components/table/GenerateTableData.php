@@ -3,9 +3,9 @@
 namespace calamity\common\components\table;
 
 use calamity\common\components\text\Text;
-use calamity\core\Calamity;
-use calamity\core\database\MagicRecord;
-use calamity\core\exception\InvalidConfigException;
+use calamity\Calamity;
+use calamity\database\MagicRecord;
+use calamity\exception\InvalidConfigException;
 
 class GenerateTableData {
     private static array $disabledAttributes = ['password', 'token', 'errors',];

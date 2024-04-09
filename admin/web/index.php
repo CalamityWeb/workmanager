@@ -7,7 +7,7 @@ use calamity\admin\controllers\AuthController;
 use calamity\admin\controllers\RoutesManagement;
 use calamity\admin\controllers\SiteController;
 use calamity\admin\controllers\UsersController;
-use calamity\core\Calamity;
+use calamity\Calamity;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 

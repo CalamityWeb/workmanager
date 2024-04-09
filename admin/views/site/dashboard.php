@@ -5,7 +5,7 @@
  * @var $user      \tframe\common\models\Users
  */
 
-use calamity\core\Calamity;
+use calamity\Calamity;
 
 $this->title = Calamity::t('general', 'Dashboard');
 ?>

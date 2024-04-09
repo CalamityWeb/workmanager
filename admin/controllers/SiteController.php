@@ -3,10 +3,10 @@
 namespace calamity\admin\controllers;
 
 use calamity\common\models\Users;
-use calamity\core\Calamity;
-use calamity\core\Controller;
-use calamity\core\Request;
-use calamity\core\Response;
+use calamity\Calamity;
+use calamity\Controller;
+use calamity\Request;
+use calamity\Response;
 
 class SiteController extends Controller {
     public function dashboard (): string {

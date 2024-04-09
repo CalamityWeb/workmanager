@@ -5,9 +5,9 @@ namespace calamity\common\components\mailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use calamity\common\helpers\CoreHelper;
-use calamity\core\Calamity;
-use calamity\core\exception\InvalidArgumentException;
-use calamity\core\exception\InvalidConfigException;
+use calamity\Calamity;
+use calamity\exception\InvalidArgumentException;
+use calamity\exception\InvalidConfigException;
 
 class Mailer {
     public PHPMailer $mail;

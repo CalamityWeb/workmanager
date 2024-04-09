@@ -5,7 +5,7 @@
 
 use calamity\common\components\alert\Sweetalert;
 use calamity\common\models\Users;
-use calamity\core\Calamity;
+use calamity\Calamity;
 
 /** @var \tframe\common\models\Users $sessionUser */
 $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);

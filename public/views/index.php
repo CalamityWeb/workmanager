@@ -3,7 +3,7 @@
  * @var $this \tframe\core\View
  */
 
-use calamity\core\Calamity;
+use calamity\Calamity;
 
 ?>
 <!doctype html>

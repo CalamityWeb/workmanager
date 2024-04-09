@@ -16,10 +16,11 @@
 		}
 	},
 	"require": {
-		"php": ">= 8.1",
+		"php": ">= 8.2",
 		"vlucas/phpdotenv": "^5.5",
 		"ext-openssl": "*",
 		"ext-pdo": "*",
-		"phpmailer/phpmailer": "^6.8"
+		"phpmailer/phpmailer": "^6.8",
+		"calamityweb/calamity": "dev-main"
 	}
 }

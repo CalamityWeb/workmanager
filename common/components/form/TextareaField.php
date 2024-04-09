@@ -2,7 +2,7 @@
 
 namespace calamity\common\components\form;
 
-use calamity\core\Model;
+use calamity\Model;
 
 class TextareaField extends BaseField {
     public function __construct (Model $model, string $attribute, array $options, bool $disabled) {

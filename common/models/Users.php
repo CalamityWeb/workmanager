@@ -2,12 +2,12 @@
 
 namespace calamity\common\models;
 
-use calamity\core\Calamity;
-use calamity\core\auth\AuthAssignments;
-use calamity\core\auth\AuthItem;
-use calamity\core\auth\Roles;
-use calamity\core\auth\UserRoles;
-use calamity\core\database\MagicRecord;
+use calamity\Calamity;
+use calamity\auth\AuthAssignments;
+use calamity\auth\AuthItem;
+use calamity\auth\Roles;
+use calamity\auth\UserRoles;
+use calamity\database\MagicRecord;
 
 /**
  * @property integer $id

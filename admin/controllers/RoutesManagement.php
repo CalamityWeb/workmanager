@@ -4,15 +4,15 @@ namespace calamity\admin\controllers;
 
 use calamity\common\components\table\GenerateTableData;
 use calamity\common\models\Users;
-use calamity\core\Calamity;
-use calamity\core\auth\AuthAssignments;
-use calamity\core\auth\AuthItem;
-use calamity\core\auth\Roles;
-use calamity\core\auth\UserRoles;
-use calamity\core\Controller;
-use calamity\core\exception\NotFoundException;
-use calamity\core\Request;
-use calamity\core\Response;
+use calamity\Calamity;
+use calamity\auth\AuthAssignments;
+use calamity\auth\AuthItem;
+use calamity\auth\Roles;
+use calamity\auth\UserRoles;
+use calamity\Controller;
+use calamity\exception\NotFoundException;
+use calamity\Request;
+use calamity\Response;
 
 class RoutesManagement extends Controller {
     /* * Items */

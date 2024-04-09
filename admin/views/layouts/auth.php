@@ -4,7 +4,7 @@
  */
 
 use calamity\common\components\alert\Sweetalert;
-use calamity\core\Calamity;
+use calamity\Calamity;
 
 ?>
 
