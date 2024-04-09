@@ -26,6 +26,10 @@ $config = [
     ],
     'maintenance' => $_ENV['PUBLIC_MAINTENANCE'],
     'language' => $_ENV['PUBLIC_LANGUAGE'],
+    'google' => [
+        'site_key' => $_ENV['GOOGLE_SITE_KEY'],
+        'secret_key' => $_ENV['GOOGLE_SECRET_KEY'],
+    ],
 ];
 
 $app = new Calamity(dirname(__DIR__), $config);

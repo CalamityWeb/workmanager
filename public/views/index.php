@@ -255,9 +255,9 @@ use calamity\core\Calamity;
                 Go to the admin page
             </a>
 
-            <a class="overlay__btn overlay__btn--colors" href="/auth/login">
+            <!-- <a class="overlay__btn overlay__btn--colors" href="/auth/login">
                 Log in to <?= Calamity::$GLOBALS['APP_NAME'] ?>
-            </a>
+            </a> -->
         </div>
     </div>
     <img class="logo" src="/assets/images/tframe-logo.png" alt="TFRAME logo">

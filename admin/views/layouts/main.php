@@ -31,6 +31,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <link rel="stylesheet" href="/assets/site.css?v=<?= time() ?>">
 
     {{css}}

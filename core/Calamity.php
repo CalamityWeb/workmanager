@@ -28,6 +28,7 @@ class Calamity {
     public bool $maintenance;
     public string $language;
     protected array $eventListeners = [];
+    public static array $config;
 
     public function __construct ($rootDir, $config) {
         $this->user = null;
@@ -45,7 +46,6 @@ class Calamity {
         ];
 
         $this->maintenance = strtolower($config['maintenance']) === 'true';
-
         $this->language = $config['language'];
 
         foreach (require CoreHelper::getAlias('@common') . '/config/globals.php' as $key => $value) {
@@ -59,6 +59,10 @@ class Calamity {
             echo $this->router->renderViewOnly('@common.error', [
                 'exception' => $e,
             ]);
+        }
+
+        if (isset($config['google'])) {
+            self::$config['google'] = $config['google'];
         }
 
         $userId = self::$app->session->get('sessionUser');

@@ -20,6 +20,8 @@ class SiteController extends Controller {
         $this->setLayout('main');
         $user = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
         if ($request->isPost()) {
+            print_r($_POST);
+            exit();
             $user->loadData($request->getBody());
             if ($user->validate()) {
                 $user->save();

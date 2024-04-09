@@ -3,6 +3,7 @@
 namespace calamity\common\components\form;
 
 use calamity\common\components\button\Button;
+use calamity\core\Calamity;
 use calamity\core\Model;
 
 class Form {
@@ -24,6 +25,10 @@ class Form {
 
     public function submitButton (string $text, string $class, string $icon = null, array $options = []): string {
         return '<div class="mb-3">' . Button::generateButton('submit', $text, $class, $icon, $options) . '</div>';
+    }
+
+    public function captchaSubmitButton(string $text, string $class, string $icon = null, array $options = []): string {
+        return '<div class="mb-3">' . Button::generateCaptchaButton('submit', $text, $class, $icon, $options) . '</div>';
     }
 
     public function disabledFields (array|string $fields): void {

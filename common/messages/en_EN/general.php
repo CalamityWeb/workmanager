@@ -43,4 +43,6 @@ return [
     'Dashboard' => 'Dashboard',
     'Welcome,' => 'Welcome,',
     'Profile' => 'Profile',
+
+    'Google captcha doesn\'t configured properly!' => 'Google captcha doesn\'t configured properly!',
 ];
