@@ -1,18 +1,18 @@
 <?php
 
-namespace tframe\admin\controllers;
+namespace calamity\admin\controllers;
 
-use tframe\common\components\table\GenerateTableData;
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\auth\AuthAssignments;
-use tframe\core\auth\AuthItem;
-use tframe\core\auth\Roles;
-use tframe\core\auth\UserRoles;
-use tframe\core\Controller;
-use tframe\core\exception\NotFoundException;
-use tframe\core\Request;
-use tframe\core\Response;
+use calamity\common\components\table\GenerateTableData;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
+use calamity\core\auth\AuthAssignments;
+use calamity\core\auth\AuthItem;
+use calamity\core\auth\Roles;
+use calamity\core\auth\UserRoles;
+use calamity\core\Controller;
+use calamity\core\exception\NotFoundException;
+use calamity\core\Request;
+use calamity\core\Response;
 
 class RoutesManagement extends Controller {
     /* * Items */
@@ -31,7 +31,7 @@ class RoutesManagement extends Controller {
             if ($routeItem->validate() and $routeItem->validateAliases()) {
                 $routeItem->id = null;
                 $routeItem->save();
-                Application::$app->session->setFlash('success', Application::t('auth', 'Route creation successful'));
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Route creation successful'));
             }
         }
 
@@ -52,7 +52,7 @@ class RoutesManagement extends Controller {
             $authItem->loadData($request->getBody());
             if ($authItem->validate() and $authItem->validateAliases()) {
                 $authItem->save();
-                Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
+                Calamity::$app->session->setFlash('success', Calamity::t('general', 'Update successful!'));
             }
         }
 
@@ -75,7 +75,7 @@ class RoutesManagement extends Controller {
             if ($role->validate()) {
                 $role->id = null;
                 $role->save();
-                Application::$app->session->setFlash('success', Application::t('auth', 'Role creation successful'));
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Role creation successful'));
             }
         }
 
@@ -88,7 +88,7 @@ class RoutesManagement extends Controller {
         $role = Roles::findOne([Roles::primaryKey() => $request->getRouteParam('id')]);
 
         /** @var \tframe\common\models\Users $sessionUser */
-        $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
+        $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
         /** @var Roles $userRole */
         foreach ($sessionUser->getRoles() as $userRole) {
             if ($userRole->id == $role->id) {
@@ -99,7 +99,7 @@ class RoutesManagement extends Controller {
         if ($flag) {
             $role->delete();
         }
-        Application::$app->response->redirect('/routes-management/roles/list-all');
+        Calamity::$app->response->redirect('/routes-management/roles/list-all');
     }
 
     public function manageRole(Request $request, Response $response): string {
@@ -137,7 +137,7 @@ class RoutesManagement extends Controller {
                     }
                 }
                 $role->save();
-                Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
+                Calamity::$app->session->setFlash('success', Calamity::t('general', 'Update successful!'));
             }
         }
 

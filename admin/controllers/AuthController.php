@@ -1,18 +1,18 @@
 <?php
 
-namespace tframe\admin\controllers;
+namespace calamity\admin\controllers;
 
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\auth\ForgotPasswordForm;
-use tframe\core\auth\LoginForm;
-use tframe\core\auth\RegisterForm;
-use tframe\core\auth\ResetPasswordForm;
-use tframe\core\auth\ResetToken;
-use tframe\core\Controller;
-use tframe\core\exception\NotFoundException;
-use tframe\core\Request;
-use tframe\core\Response;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
+use calamity\core\auth\ForgotPasswordForm;
+use calamity\core\auth\LoginForm;
+use calamity\core\auth\RegisterForm;
+use calamity\core\auth\ResetPasswordForm;
+use calamity\core\auth\ResetToken;
+use calamity\core\Controller;
+use calamity\core\exception\NotFoundException;
+use calamity\core\Request;
+use calamity\core\Response;
 
 class AuthController extends Controller {
     public function register (Request $request): string {
@@ -22,8 +22,8 @@ class AuthController extends Controller {
         if ($request->isPost()) {
             $registerForm->loadData($request->getBody());
             if ($registerForm->validate() and $user = $registerForm->register()) {
-                Application::$app->login($user);
-                Application::$app->session->setFlash('success', Application::t('auth', 'Register successful'), '/site/dashboard');
+                Calamity::$app->login($user);
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Register successful'), '/site/dashboard');
             }
         }
 
@@ -38,7 +38,7 @@ class AuthController extends Controller {
             $user = Users::findOne(['id' => $_COOKIE['sessionUser']]);
 
             if ($user) {
-                Application::$app->login($user);
+                Calamity::$app->login($user);
                 $response->redirect('/site/dashboard');
             }
         }
@@ -48,7 +48,7 @@ class AuthController extends Controller {
             $user = Users::findOne(['id' => $_COOKIE['rememberMe']]);
 
             if ($user) {
-                Application::$app->login($user);
+                Calamity::$app->login($user);
                 $response->redirect('/site/dashboard');
             }
         }
@@ -57,7 +57,7 @@ class AuthController extends Controller {
         if ($request->isPost()) {
             $loginForm->loadData($request->getBody());
             if ($loginForm->validate() and $loginForm->login()) {
-                Application::$app->session->setFlash('success', Application::t('auth', 'Login successful'), '/site/dashboard');
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Login successful'), '/site/dashboard');
             }
         }
 
@@ -65,7 +65,7 @@ class AuthController extends Controller {
     }
 
     public function logout (Request $request, Response $response): void {
-        Application::$app->logout();
+        Calamity::$app->logout();
     }
 
     public function forgotPassword (Request $request): string {
@@ -76,7 +76,7 @@ class AuthController extends Controller {
         if ($request->isPost()) {
             $forgotPasswordForm->loadData($request->getBody());
             if ($forgotPasswordForm->validate() and $forgotPasswordForm->sendUpdateEmail()) {
-                Application::$app->session->setFlash('success', Application::t('auth', 'Recovery email sent successfully'));
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Recovery email sent successfully'));
             }
         }
 
@@ -108,7 +108,7 @@ class AuthController extends Controller {
                 $token->completed_at = date('Y-m-d H:i:s');
                 $token->save();
 
-                Application::$app->session->setFlash('success', Application::t('auth', 'Password updated successfully'), '/auth/login');
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Password updated successfully'), '/auth/login');
             }
         }
 

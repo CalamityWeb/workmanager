@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\core;
+namespace calamity\core;
 
 class Session {
     protected const FLASH_KEY = 'flash_messages';

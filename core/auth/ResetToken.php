@@ -1,8 +1,8 @@
 <?php
 
-namespace tframe\core\auth;
+namespace calamity\core\auth;
 
-use tframe\core\database\MagicRecord;
+use calamity\core\database\MagicRecord;
 
 /**
  * @property string  $token

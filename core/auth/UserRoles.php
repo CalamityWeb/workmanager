@@ -1,11 +1,11 @@
 <?php
 
-namespace tframe\core\auth;
+namespace calamity\core\auth;
 
 use Override;
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\database\MagicRecord;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
+use calamity\core\database\MagicRecord;
 
 /**
  * @property integer $userId
@@ -24,8 +24,8 @@ class UserRoles extends MagicRecord {
 
     public static function labels(): array {
         return [
-            'userId' => Application::t('attributes', 'User'),
-            'roleId' => Application::t('attributes', 'Role'),
+            'userId' => Calamity::t('attributes', 'User'),
+            'roleId' => Calamity::t('attributes', 'Role'),
         ];
     }
 

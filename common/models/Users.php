@@ -1,13 +1,13 @@
 <?php
 
-namespace tframe\common\models;
+namespace calamity\common\models;
 
-use tframe\core\Application;
-use tframe\core\auth\AuthAssignments;
-use tframe\core\auth\AuthItem;
-use tframe\core\auth\Roles;
-use tframe\core\auth\UserRoles;
-use tframe\core\database\MagicRecord;
+use calamity\core\Calamity;
+use calamity\core\auth\AuthAssignments;
+use calamity\core\auth\AuthItem;
+use calamity\core\auth\Roles;
+use calamity\core\auth\UserRoles;
+use calamity\core\database\MagicRecord;
 
 /**
  * @property integer $id
@@ -80,11 +80,11 @@ class Users extends MagicRecord {
 
     public static function labels(): array {
         return [
-            'email' => Application::t('attributes', 'Email address'),
-            'firstName' => Application::t('attributes', 'Given name'),
-            'lastName' => Application::t('attributes', 'Family name'),
-            'password' => Application::t('attributes', 'Password'),
-            'email_confirmed' => Application::t('attributes', 'Email confirmed'),
+            'email' => Calamity::t('attributes', 'Email address'),
+            'firstName' => Calamity::t('attributes', 'Given name'),
+            'lastName' => Calamity::t('attributes', 'Family name'),
+            'password' => Calamity::t('attributes', 'Password'),
+            'email_confirmed' => Calamity::t('attributes', 'Email confirmed'),
         ];
     }
 

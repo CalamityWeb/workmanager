@@ -1,14 +1,14 @@
 <?php
 
-namespace tframe\core\exception;
+namespace calamity\core\exception;
 
 use Exception;
-use tframe\core\Application;
+use calamity\core\Calamity;
 use Throwable;
 
 class UnauthorizedException extends Exception {
     public function __construct (string $message = "You are not authorized to view this page", int $code = 401, ?Throwable $previous = null) {
-        Application::$app->view->title = 'ERROR - ' . $code;
+        Calamity::$app->view->title = 'ERROR - ' . $code;
         http_response_code($code);
         parent::__construct($message, $code, $previous);
     }

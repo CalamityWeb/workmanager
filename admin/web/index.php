@@ -3,11 +3,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-use tframe\admin\controllers\AuthController;
-use tframe\admin\controllers\RoutesManagement;
-use tframe\admin\controllers\SiteController;
-use tframe\admin\controllers\UsersController;
-use tframe\core\Application;
+use calamity\admin\controllers\AuthController;
+use calamity\admin\controllers\RoutesManagement;
+use calamity\admin\controllers\SiteController;
+use calamity\admin\controllers\UsersController;
+use calamity\core\Calamity;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -31,9 +31,9 @@ $config = [
     'language' => $_ENV['ADMIN_LANGUAGE'],
 ];
 
-$app = new Application(dirname(__DIR__), $config);
+$app = new Calamity(dirname(__DIR__), $config);
 
-$app->router->get('/', function() { Application::$app->response->redirect('/auth/login'); });
+$app->router->get('/', function() { Calamity::$app->response->redirect('/auth/login'); });
 
 /* *Site routes */
 $app->router->getNpost('/site/dashboard', [SiteController::class, 'dashboard']);

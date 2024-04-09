@@ -1,9 +1,9 @@
 <?php
 
-namespace tframe\common\components\table;
+namespace calamity\common\components\table;
 
-use tframe\core\Application;
-use tframe\core\exception\InvalidConfigException;
+use calamity\core\Calamity;
+use calamity\core\exception\InvalidConfigException;
 
 class DataTable {
     public static string $identification = "#dataTable";
@@ -11,7 +11,7 @@ class DataTable {
 
     public static function init(array $config): string {
         if (!isset($config['data'], $config['columns'])) {
-            throw new InvalidConfigException(Application::t('table', "DataTables configuration is invalid. 'Data' or 'Columns' options are missing!"));
+            throw new InvalidConfigException(Calamity::t('table', "DataTables configuration is invalid. 'Data' or 'Columns' options are missing!"));
         }
 
         self::configure($config);
@@ -41,8 +41,8 @@ class DataTable {
         }
         $columndefs .= "]";
 
-        if (Application::$app->language !== 'en_EN') {
-            $language = substr(Application::$app->language, 0, 2);
+        if (Calamity::$app->language !== 'en_EN') {
+            $language = substr(Calamity::$app->language, 0, 2);
         } else {
             $language = 'en-GB';
         }
@@ -89,7 +89,7 @@ class DataTable {
             $id = '';
         }
 
-        Application::$app->view->registerJS(self::$js);
+        Calamity::$app->view->registerJS(self::$js);
 
         return '
         <table class="' . $class . '" id="' . $id . '">

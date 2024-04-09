@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\core\database;
+namespace calamity\core\database;
 
 use PDO;
 use PDOStatement;

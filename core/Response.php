@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\core;
+namespace calamity\core;
 
 class Response {
     public function statusCode (int $code): void {

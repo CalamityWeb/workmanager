@@ -4,18 +4,18 @@
  * @var $items array
  */
 
-use tframe\common\components\button\Button;
-use tframe\common\components\table\DataTable;
-use tframe\common\components\table\GenerateTableData;
-use tframe\common\components\text\Text;
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\auth\AuthItem;
+use calamity\common\components\button\Button;
+use calamity\common\components\table\DataTable;
+use calamity\common\components\table\GenerateTableData;
+use calamity\common\components\text\Text;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
+use calamity\core\auth\AuthItem;
 
 /** @var \tframe\common\models\Users $sessionUser */
-$sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
+$sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
 
-$this->title = Application::t('general', 'Route Items');
+$this->title = Calamity::t('general', 'Route Items');
 
 $columns = GenerateTableData::generateColumns(AuthItem::class,
     [
@@ -34,7 +34,7 @@ $columns = GenerateTableData::generateColumns(AuthItem::class,
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <?= Button::generateClickButton('/routes-management/items/create', 'btn-primary', Application::t('general', 'New Route Item'), 'fa-plus') ?>
+                    <?= Button::generateClickButton('/routes-management/items/create', 'btn-primary', Calamity::t('general', 'New Route Item'), 'fa-plus') ?>
                 </div>
                 <div class="card-body">
                     <?= DataTable::init(['data' => $items, 'columns' => $columns]) ?>
@@ -46,8 +46,8 @@ $columns = GenerateTableData::generateColumns(AuthItem::class,
 <?php
 $canManage = Users::canRoute($sessionUser, '@admin/routes-management/items/manage/0') ? 'true' : 'false';
 $canDelete = Users::canRoute($sessionUser, '@admin/routes-management/items/delete/0') ? 'true' : 'false';
-$edit = Application::t('general', 'Edit');
-$delete = Application::t('general', 'Delete');
+$edit = Calamity::t('general', 'Edit');
+$delete = Calamity::t('general', 'Delete');
 
 $this->registerJS(<<<JS
 function getButtons(data) {

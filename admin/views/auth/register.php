@@ -4,19 +4,19 @@
  * @var $this         \tframe\core\View
  */
 
-use tframe\common\components\form\Form;
-use tframe\core\Application;
+use calamity\common\components\form\Form;
+use calamity\core\Calamity;
 
-$this->title = Application::t('auth', 'Register') . ' | ' . Application::$GLOBALS['APP_NAME'];
+$this->title = Calamity::t('auth', 'Register') . ' | ' . Calamity::$GLOBALS['APP_NAME'];
 ?>
 
 <div class="card card-outline card-primary">
     <div class="card-header text-center">
         <img class="img-fluid d-inline-block text-right" src="/assets/images/tframe-logo.png" alt="Logo" style="width: 2.5rem">
-        <span class="h3 mb-0 d-inline-block text-lefts align-middle"><?= Application::$GLOBALS['APP_NAME'] ?></span>
+        <span class="h3 mb-0 d-inline-block text-lefts align-middle"><?= Calamity::$GLOBALS['APP_NAME'] ?></span>
     </div>
     <div class="card-body register-card-body">
-        <p class="login-box-msg"><?= Application::t('auth', 'Register a new membership') ?></p>
+        <p class="login-box-msg"><?= Calamity::t('auth', 'Register a new membership') ?></p>
 
         <?php $form = Form::begin('post') ?>
 
@@ -32,14 +32,14 @@ $this->title = Application::t('auth', 'Register') . ' | ' . Application::$GLOBAL
                 <?= $form->icheckField($registerForm, 'agreeTerms')->required() ?>
             </div>
             <div class="col-4">
-                <?= $form->submitButton(Application::t('auth', 'Register'), 'btn-primary d-block w-100'); ?>
+                <?= $form->submitButton(Calamity::t('auth', 'Register'), 'btn-primary d-block w-100'); ?>
             </div>
         </div>
 
         <?php Form::end() ?>
 
         <p class="mb-0">
-            <a href="/auth/login"><?= Application::t('auth', 'I already have a membership') ?></a>
+            <a href="/auth/login"><?= Calamity::t('auth', 'I already have a membership') ?></a>
         </p>
     </div>
 </div>

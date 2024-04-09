@@ -1,12 +1,12 @@
 <?php
 
-namespace tframe\core\database;
+namespace calamity\core\database;
 
 use AllowDynamicProperties;
 use PDO;
 use PDOStatement;
-use tframe\core\Application;
-use tframe\core\Model;
+use calamity\core\Calamity;
+use calamity\core\Model;
 
 #[AllowDynamicProperties] abstract class MagicRecord extends Model {
     public function __construct() {
@@ -46,7 +46,7 @@ use tframe\core\Model;
     abstract public static function tableName(): string;
 
     public static function prepare($sql): PDOStatement {
-        return Application::$app->db->prepare($sql);
+        return Calamity::$app->db->prepare($sql);
     }
 
     public static function queryOne(string $tableName, string $query) {

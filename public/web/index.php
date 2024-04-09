@@ -3,8 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-use tframe\core\Application;
-use tframe\public\controllers\SiteController;
+use calamity\core\Calamity;
+use calamity\public\controllers\SiteController;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -28,7 +28,7 @@ $config = [
     'language' => $_ENV['PUBLIC_LANGUAGE'],
 ];
 
-$app = new Application(dirname(__DIR__), $config);
+$app = new Calamity(dirname(__DIR__), $config);
 
 $app->router->get('/', [SiteController::class, 'index']);
 

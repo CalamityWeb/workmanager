@@ -1,9 +1,9 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\common\components\button\Button;
-use tframe\core\Model;
+use calamity\common\components\button\Button;
+use calamity\core\Model;
 
 class Form {
     private array $disabledFields = [];

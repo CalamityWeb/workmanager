@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\common\components\button;
+namespace calamity\common\components\button;
 
 class Button {
     public static function generateButton (string $type, string $text, string $class, string $icon = null, array $options = []): string {

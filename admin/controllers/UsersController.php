@@ -1,16 +1,16 @@
 <?php
 
-namespace tframe\admin\controllers;
+namespace calamity\admin\controllers;
 
-use tframe\common\components\table\GenerateTableData;
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\auth\RegisterForm;
-use tframe\core\auth\Roles;
-use tframe\core\auth\UserRoles;
-use tframe\core\Controller;
-use tframe\core\Request;
-use tframe\core\Response;
+use calamity\common\components\table\GenerateTableData;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
+use calamity\core\auth\RegisterForm;
+use calamity\core\auth\Roles;
+use calamity\core\auth\UserRoles;
+use calamity\core\Controller;
+use calamity\core\Request;
+use calamity\core\Response;
 
 class UsersController extends Controller {
     public function listUsers (): string {
@@ -27,7 +27,7 @@ class UsersController extends Controller {
             $registerForm->loadData($request->getBody());
             $registerForm->agreeTerms = true;
             if ($registerForm->validate() and $registerForm->register()) {
-                Application::$app->session->setFlash('success', Application::t('auth', 'Register successful'));
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Register successful'));
             }
         }
 
@@ -63,7 +63,7 @@ class UsersController extends Controller {
                 }
 
                 $user->save();
-                Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
+                Calamity::$app->session->setFlash('success', Calamity::t('general', 'Update successful!'));
             }
         }
 

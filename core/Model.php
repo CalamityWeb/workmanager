@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\core;
+namespace calamity\core;
 
 class Model {
     public const RULE_REQUIRED = 'required';
@@ -61,7 +61,7 @@ class Model {
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $tableName = $className::tableName();
-                    $db = Application::$app->db;
+                    $db = Calamity::$app->db;
                     $statement = $db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :$uniqueAttr");
                     $statement->bindValue(":$uniqueAttr", $value);
                     $statement->execute();
@@ -73,7 +73,7 @@ class Model {
                 if ($ruleName === self::RULE_EXISTS) {
                     $className = $rule['class'];
                     $tableName = $className::tableName();
-                    $db = Application::$app->db;
+                    $db = Calamity::$app->db;
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $statement = $db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :$uniqueAttr");
                     $statement->bindValue(":$uniqueAttr", $value);
@@ -107,16 +107,16 @@ class Model {
 
     public function errorMessages(): array {
         return [
-            self::RULE_REQUIRED => Application::t('attributes', 'The field is required'),
-            self::RULE_EMAIL => Application::t('attributes', 'The field has to be a valid email address'),
-            self::RULE_MIN => Application::t('attributes', 'The field has to contains at least {min} characters'),
-            self::RULE_MAX => Application::t('attributes', 'The field must contains a maximum of {max} characters'),
-            self::RULE_MATCH => Application::t('attributes', 'The field has to match with {match}'),
-            self::RULE_UNIQUE => Application::t('attributes', 'This field\'s value is used'),
-            self::RULE_DATE_BEFORE => Application::t('attributes', 'The given date cannot be before {date_before}'),
-            self::RULE_DATE_AFTER => Application::t('attributes', 'The given date cannot be after {date_before}'),
-            self::RULE_PASSWORD => Application::t('attributes', 'Your password has to contain one uppercase, lowercase, number and special character'),
-            self::RULE_EXISTS => Application::t('attributes', 'Please provide a value that exists'),
+            self::RULE_REQUIRED => Calamity::t('attributes', 'The field is required'),
+            self::RULE_EMAIL => Calamity::t('attributes', 'The field has to be a valid email address'),
+            self::RULE_MIN => Calamity::t('attributes', 'The field has to contains at least {min} characters'),
+            self::RULE_MAX => Calamity::t('attributes', 'The field must contains a maximum of {max} characters'),
+            self::RULE_MATCH => Calamity::t('attributes', 'The field has to match with {match}'),
+            self::RULE_UNIQUE => Calamity::t('attributes', 'This field\'s value is used'),
+            self::RULE_DATE_BEFORE => Calamity::t('attributes', 'The given date cannot be before {date_before}'),
+            self::RULE_DATE_AFTER => Calamity::t('attributes', 'The given date cannot be after {date_before}'),
+            self::RULE_PASSWORD => Calamity::t('attributes', 'Your password has to contain one uppercase, lowercase, number and special character'),
+            self::RULE_EXISTS => Calamity::t('attributes', 'Please provide a value that exists'),
         ];
     }
 

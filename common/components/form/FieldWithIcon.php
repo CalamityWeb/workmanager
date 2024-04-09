@@ -1,8 +1,8 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Model;
+use calamity\core\Model;
 
 class FieldWithIcon extends IconField {
     public const TYPE_TEXT = 'text';

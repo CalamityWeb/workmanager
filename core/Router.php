@@ -1,11 +1,11 @@
 <?php
 
-namespace tframe\core;
+namespace calamity\core;
 
-use tframe\common\models\Users;
-use tframe\core\exception\ForbiddenException;
-use tframe\core\exception\NotFoundException;
-use tframe\core\exception\ServiceUnavailableException;
+use calamity\common\models\Users;
+use calamity\core\exception\ForbiddenException;
+use calamity\core\exception\NotFoundException;
+use calamity\core\exception\ServiceUnavailableException;
 
 class Router {
     private Request $request;
@@ -37,8 +37,8 @@ class Router {
      * @throws \tframe\core\exception\UnauthorizedException
      */
     public function resolve (): mixed {
-        if (Application::$app->maintenance) {
-            throw new ServiceUnavailableException(Application::t('general', 'Maintenance in progress'));
+        if (Calamity::$app->maintenance) {
+            throw new ServiceUnavailableException(Calamity::t('general', 'Maintenance in progress'));
         }
 
         $method = $this->request->getMethod();
@@ -60,19 +60,19 @@ class Router {
              */
             $controller = new $callback[0]();
             $controller->action = $callback[1];
-            Application::$app->controller = $controller;
+            Calamity::$app->controller = $controller;
 
             if (isset($_COOKIE['rememberMe'])) {
                 /** @var Users $user */
                 $user = Users::findOne(['id' => $_COOKIE['rememberMe']]);
 
                 if ($user) {
-                    Application::$app->login($user);
+                    Calamity::$app->login($user);
                 }
             }
 
             $modified = $this->getHost($url);
-            if (!Users::canRoute(Application::$app->user, $modified)) {
+            if (!Users::canRoute(Calamity::$app->user, $modified)) {
                 throw new ForbiddenException();
             }
 
@@ -129,14 +129,14 @@ class Router {
     }
 
     public function renderView ($view, $params = []): string {
-        return Application::$app->view->renderView($view, $params);
+        return Calamity::$app->view->renderView($view, $params);
     }
 
     private function getHost (mixed $url): string {
         $host = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-        if ($host == Application::$URL['@admin']) {
+        if ($host == Calamity::$URL['@admin']) {
             $modified = '@admin' . $url;
-        } elseif ($host == Application::$URL['@public']) {
+        } elseif ($host == Calamity::$URL['@public']) {
             $modified = '@public' . $url;
         } else {
             $modified = '';
@@ -145,6 +145,6 @@ class Router {
     }
 
     public function renderViewOnly ($view, $params = []): string {
-        return Application::$app->view->renderViewOnly($view, $params);
+        return Calamity::$app->view->renderViewOnly($view, $params);
     }
 }

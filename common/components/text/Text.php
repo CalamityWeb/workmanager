@@ -1,11 +1,11 @@
 <?php
 
-namespace tframe\common\components\text;
+namespace calamity\common\components\text;
 
-use tframe\core\Application;
+use calamity\core\Calamity;
 
 class Text {
     public static function notSetText (string $class = ''): string {
-        return '<span class="text-danger fst-italic ' . $class . '">(' . Application::t('general', 'not set') . ')</span>';
+        return '<span class="text-danger fst-italic ' . $class . '">(' . Calamity::t('general', 'not set') . ')</span>';
     }
 }

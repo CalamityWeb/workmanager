@@ -1,9 +1,9 @@
 <?php
 
-namespace tframe\core\auth;
+namespace calamity\core\auth;
 
-use tframe\core\Application;
-use tframe\core\Model;
+use calamity\core\Calamity;
+use calamity\core\Model;
 
 class ResetPasswordForm extends Model {
     public ?string $password = null;
@@ -11,8 +11,8 @@ class ResetPasswordForm extends Model {
 
     public static function labels(): array {
         return [
-            'password' => Application::t('attributes', 'New password'),
-            'passwordConfirmation' => Application::t('attributes', 'New password confirmation'),
+            'password' => Calamity::t('attributes', 'New password'),
+            'passwordConfirmation' => Calamity::t('attributes', 'New password confirmation'),
         ];
     }
 

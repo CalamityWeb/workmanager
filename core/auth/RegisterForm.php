@@ -1,11 +1,11 @@
 <?php
 
-namespace tframe\core\auth;
+namespace calamity\core\auth;
 
-use tframe\common\components\text\Generator;
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\Model;
+use calamity\common\components\text\Generator;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
+use calamity\core\Model;
 
 class RegisterForm extends Model {
     public ?string $email = null;
@@ -17,12 +17,12 @@ class RegisterForm extends Model {
 
     public static function labels(): array {
         return [
-            'email' => Application::t('attributes', 'Email address'),
-            'firstName' => Application::t('attributes', 'Given name'),
-            'lastName' => Application::t('attributes', 'Family name'),
-            'password' => Application::t('attributes', 'Password'),
-            'passwordConfirmation' => Application::t('attributes', 'Password confirmation'),
-            'agreeTerms' => Application::t('attributes', 'I agree to the terms'),
+            'email' => Calamity::t('attributes', 'Email address'),
+            'firstName' => Calamity::t('attributes', 'Given name'),
+            'lastName' => Calamity::t('attributes', 'Family name'),
+            'password' => Calamity::t('attributes', 'Password'),
+            'passwordConfirmation' => Calamity::t('attributes', 'Password confirmation'),
+            'agreeTerms' => Calamity::t('attributes', 'I agree to the terms'),
         ];
     }
 

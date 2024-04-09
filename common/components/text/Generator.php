@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\common\components\text;
+namespace calamity\common\components\text;
 
 class Generator {
     public static function randomString ($model = null, string $key = null, int $length = 16, bool $lowercase = true, bool $uppercase = true, bool $numbers = true, bool $special = false): string {

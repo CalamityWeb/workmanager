@@ -1,19 +1,8 @@
 .idea/
 vendor/
-node_modules/
 
 .gitignore
 .env
 composer.lock
-package-lock.json
 
 null
-
-# Modules
-admin/web/assets/modules/fontawesome/
-admin/web/assets/modules/bootstrap/
-admin/web/assets/modules/webfonts/
-admin/web/assets/modules/adminlte/
-public/web/assets/modules/bootstrap/
-public/web/assets/modules/fontawesome/
-public/web/assets/modules/webfonts/

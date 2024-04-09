@@ -6,11 +6,11 @@
  * @var $userRoles array
  */
 
-use tframe\common\components\form\Form;
-use tframe\common\components\text\Text;
-use tframe\core\Application;
+use calamity\common\components\form\Form;
+use calamity\common\components\text\Text;
+use calamity\core\Calamity;
 
-$this->title = Application::t('general', 'Manage User');
+$this->title = Calamity::t('general', 'Manage User');
 ?>
 
 <div class="row">
@@ -29,24 +29,24 @@ $this->title = Application::t('general', 'Manage User');
     <div class="col-12 col-md-6 col-xl-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title"><?= Application::t('general', 'Profile Data') ?></h3>
+                <h3 class="card-title"><?= Calamity::t('general', 'Profile Data') ?></h3>
             </div>
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>
-                <?php if ($user->id == Application::$app->user->id) $form->disabledFields('email_confirmed'); ?>
+                <?php if ($user->id == Calamity::$app->user->id) $form->disabledFields('email_confirmed'); ?>
 
                 <?= $form->field($user, 'email')->required(); ?>
                 <?= $form->field($user, 'firstName')->required(); ?>
                 <?= $form->field($user, 'lastName')->required(); ?>
                 <?= $form->switchField($user, 'email_confirmed'); ?>
 
-                <?= $form->submitButton(Application::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
+                <?= $form->submitButton(Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 
                 <p class="fs-7 mb-0 mt-3 fst-italic text-end">
-                    <?= Application::t('general', 'Created') ?>: <?= $user->created_at ?>
+                    <?= Calamity::t('general', 'Created') ?>: <?= $user->created_at ?>
                 </p>
                 <p class="fs-7 mb-0 fst-italic text-end">
-                    <?= Application::t('general', 'Edited') ?>: <?= ($user->updated_at != null) ? $user->updated_at : Text::notSetText() ?>
+                    <?= Calamity::t('general', 'Edited') ?>: <?= ($user->updated_at != null) ? $user->updated_at : Text::notSetText() ?>
                 </p>
             </div>
         </div>
@@ -54,7 +54,7 @@ $this->title = Application::t('general', 'Manage User');
     <div class="col-12 col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title"><?= Application::t('general', 'Roles') ?></h3>
+                <h3 class="card-title"><?= Calamity::t('general', 'Roles') ?></h3>
             </div>
             <div class="card-body">
                 <?php /* @var $role \tframe\core\auth\Roles */ ?>

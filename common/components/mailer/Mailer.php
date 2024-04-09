@@ -1,13 +1,13 @@
 <?php
 
-namespace tframe\common\components\mailer;
+namespace calamity\common\components\mailer;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use tframe\common\helpers\CoreHelper;
-use tframe\core\Application;
-use tframe\core\exception\InvalidArgumentException;
-use tframe\core\exception\InvalidConfigException;
+use calamity\common\helpers\CoreHelper;
+use calamity\core\Calamity;
+use calamity\core\exception\InvalidArgumentException;
+use calamity\core\exception\InvalidConfigException;
 
 class Mailer {
     public PHPMailer $mail;
@@ -28,14 +28,14 @@ class Mailer {
         $this->SYSTEM_ADDRESS = $config['system_address'];
 
         $this->mail->From = $this->SYSTEM_ADDRESS;
-        $this->mail->FromName = Application::$GLOBALS['APP_NAME'];
+        $this->mail->FromName = Calamity::$GLOBALS['APP_NAME'];
     }
 
     public function setFrom (string $address, string $name = '', bool $auto = false): static {
         try {
             $this->mail->setFrom($address, $name, $auto);
         } catch (Exception $e) {
-            throw new InvalidConfigException(Application::t("email", "Cannot set email from address"));
+            throw new InvalidConfigException(Calamity::t("email", "Cannot set email from address"));
         }
         return $this;
     }
@@ -50,7 +50,7 @@ class Mailer {
                         $this->mail->addReplyTo($address);
                     }
                 } catch (Exception $e) {
-                    throw new InvalidConfigException(Application::t("email", "Cannot set email reply-to address"));
+                    throw new InvalidConfigException(Calamity::t("email", "Cannot set email reply-to address"));
                 }
             }
         } else {
@@ -73,14 +73,14 @@ class Mailer {
                         $this->mail->addAddress($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new InvalidConfigException(Application::t("email", "Cannot set email recipient address"));
+                    throw new InvalidConfigException(Calamity::t("email", "Cannot set email recipient address"));
                 }
             }
         } else {
             try {
                 $this->mail->addAddress($recipients);
             } catch (Exception $e) {
-                throw new InvalidConfigException(Application::t("email", "Cannot set email recipient address"));
+                throw new InvalidConfigException(Calamity::t("email", "Cannot set email recipient address"));
             }
         }
         return $this;
@@ -96,14 +96,14 @@ class Mailer {
                         $this->mail->addCC($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new InvalidConfigException(Application::t("email", "Cannot set email cc address"));
+                    throw new InvalidConfigException(Calamity::t("email", "Cannot set email cc address"));
                 }
             }
         } else {
             try {
                 $this->mail->addCC($recipients);
             } catch (Exception $e) {
-                throw new InvalidConfigException(Application::t("email", "Cannot set email cc address"));
+                throw new InvalidConfigException(Calamity::t("email", "Cannot set email cc address"));
             }
         }
         return $this;
@@ -119,14 +119,14 @@ class Mailer {
                         $this->mail->addBCC($recipient);
                     }
                 } catch (Exception $e) {
-                    throw new InvalidConfigException(Application::t("email", "Cannot set email bcc address"));
+                    throw new InvalidConfigException(Calamity::t("email", "Cannot set email bcc address"));
                 }
             }
         } else {
             try {
                 $this->mail->addBCC($recipients);
             } catch (Exception $e) {
-                throw new InvalidConfigException(Application::t("email", "Cannot set email bcc address"));
+                throw new InvalidConfigException(Calamity::t("email", "Cannot set email bcc address"));
             }
         }
         return $this;
@@ -138,14 +138,14 @@ class Mailer {
                 try {
                     $this->mail->addAttachment($attachment);
                 } catch (Exception $e) {
-                    throw new InvalidConfigException(Application::t("email", "Cannot attach attachments to the email"));
+                    throw new InvalidConfigException(Calamity::t("email", "Cannot attach attachments to the email"));
                 }
             }
         } else {
             try {
                 $this->mail->addAttachment($attachments);
             } catch (Exception $e) {
-                throw new InvalidConfigException(Application::t("email", "Cannot attach attachments to the email"));
+                throw new InvalidConfigException(Calamity::t("email", "Cannot attach attachments to the email"));
             }
         }
         return $this;
@@ -166,10 +166,10 @@ class Mailer {
             foreach ($args as $key => $value) {
                 $content = str_replace('{{' . $key . '}}', $value, $content);
             }
-            $content = str_replace(array ('{{copyright_year}}', '{{app_name}}', '{{app_link}}', '{{email_subject}}'), array (date('Y'), Application::$GLOBALS['APP_NAME'], ((empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST']), $this->mail->Subject), $content);
+            $content = str_replace(array ('{{copyright_year}}', '{{app_name}}', '{{app_link}}', '{{email_subject}}'), array (date('Y'), Calamity::$GLOBALS['APP_NAME'], ((empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST']), $this->mail->Subject), $content);
             $this->mail->Body = $content;
         } catch (Exception $e) {
-            throw new InvalidConfigException(Application::t("email", "Cannot set email template"));
+            throw new InvalidConfigException(Calamity::t("email", "Cannot set email template"));
         }
         return $this;
     }
@@ -184,9 +184,9 @@ class Mailer {
             if ($this->mail->send()) {
                 return true;
             }
-            throw new InvalidConfigException(Application::t("email", "Cannot send email"));
+            throw new InvalidConfigException(Calamity::t("email", "Cannot send email"));
         } catch (Exception $e) {
-            throw new InvalidArgumentException(Application::t("email", "Cannot send email: ") + $e->errorMessage());
+            throw new InvalidArgumentException(Calamity::t("email", "Cannot send email: ") + $e->errorMessage());
         }
     }
 }

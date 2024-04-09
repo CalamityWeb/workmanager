@@ -3,7 +3,7 @@
  * @var $this \tframe\core\View
  */
 
-use tframe\core\Application;
+use calamity\core\Calamity;
 
 ?>
 <!doctype html>
@@ -12,7 +12,7 @@ use tframe\core\Application;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= Application::$GLOBALS['APP_NAME'] ?></title>
+    <title><?= Calamity::$GLOBALS['APP_NAME'] ?></title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -241,22 +241,22 @@ use tframe\core\Application;
     <div class="overlay__inner">
         <!-- Title -->
         <h1 class="overlay__title">
-            Welcome to, <span class="text-gradient">TFRAME</span>
+            Welcome to, <span class="text-gradient">CALAMITY</span>
         </h1>
         <!-- Description -->
         <p class="overlay__description">
-            Tframe is a web application framework, for making your life simple and easy. <strong>Please note</strong>, that it is still in
+            Calamity is a web application framework, for making your life simple and easy. <strong>Please note</strong>, that it is still in
             progress. Tframe is based on PHP and MySQL or PostgreSQL (it uses PDO). It is free to use for any project you want.
         </p>
         <!-- Buttons -->
         <div class="overlay__btns">
 
-            <a class="overlay__btn overlay__btn--transparent" target="_blank" href="<?= Application::$URL['@admin'] . '/auth/login' ?>">
+            <a class="overlay__btn overlay__btn--transparent" target="_blank" href="<?= Calamity::$URL['@admin'] . '/auth/login' ?>">
                 Go to the admin page
             </a>
 
             <a class="overlay__btn overlay__btn--colors" href="/auth/login">
-                Log in to <?= Application::$GLOBALS['APP_NAME'] ?>
+                Log in to <?= Calamity::$GLOBALS['APP_NAME'] ?>
             </a>
         </div>
     </div>

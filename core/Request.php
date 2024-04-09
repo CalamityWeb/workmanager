@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\core;
+namespace calamity\core;
 
 class Request {
     private array $routeParams = [];

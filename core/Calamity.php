@@ -1,17 +1,17 @@
 <?php
 
-namespace tframe\core;
+namespace calamity\core;
 
 use Exception;
-use tframe\common\components\mailer\Mailer;
-use tframe\common\helpers\CoreHelper;
-use tframe\common\models\Users;
-use tframe\core\database\Database;
+use calamity\common\components\mailer\Mailer;
+use calamity\common\helpers\CoreHelper;
+use calamity\common\models\Users;
+use calamity\core\database\Database;
 
-class Application {
+class Calamity {
     const EVENT_BEFORE_REQUEST = 'beforeRequest';
     const EVENT_AFTER_REQUEST = 'afterRequest';
-    public static Application $app;
+    public static Calamity $app;
     public static string $ROOT_DIR;
     public static array $URL;
     public static array $GLOBALS;

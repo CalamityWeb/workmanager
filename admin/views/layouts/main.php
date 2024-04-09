@@ -3,12 +3,12 @@
  * @var $this \tframe\core\View
  */
 
-use tframe\common\components\alert\Sweetalert;
-use tframe\common\models\Users;
-use tframe\core\Application;
+use calamity\common\components\alert\Sweetalert;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
 
 /** @var \tframe\common\models\Users $sessionUser */
-$sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
+$sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
 
 ?>
 
@@ -126,7 +126,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
         <div class="brand-container">
             <a href="/site/dashboard" class="brand-link">
                 <img src="/assets/images/tframe-logo.png" alt="Logo" class="brand-image shadow">
-                <span class="brand-text fw-light"><?= Application::$GLOBALS['APP_NAME'] ?></span>
+                <span class="brand-text fw-light"><?= Calamity::$GLOBALS['APP_NAME'] ?></span>
             </a>
             <span class="pushmenu mx-1" data-lte-toggle="sidebar-mini" role="button">
             <i class="fa-solid fa-angles-left"></i>
@@ -208,7 +208,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
     <footer class="main-footer">
         <strong>
             Copyright &copy; <?= date('Y') ?> |
-            <a href="<?= Application::$URL['@public'] ?>"><?= Application::$GLOBALS['APP_NAME'] ?></a> |
+            <a href="<?= Calamity::$URL['@public'] ?>"><?= Calamity::$GLOBALS['APP_NAME'] ?></a> |
             All Rights Reserved.
         </strong>
 
@@ -233,11 +233,11 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
 
 <script src="/assets/site.js?v=<?= time() ?>"></script>
 
-<?php if (Application::$app->session->getFlash('success')): ?>
-    <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success')) ?>
+<?php if (Calamity::$app->session->getFlash('success')): ?>
+    <?= Sweetalert::generateToastAlert('success', Calamity::$app->session->getFlash('success')) ?>
 <?php endif; ?>
-<?php if (Application::$app->session->getFlash('error')): ?>
-    <?= Sweetalert::generateToastAlert('error', Application::$app->session->getFlash('error')) ?>
+<?php if (Calamity::$app->session->getFlash('error')): ?>
+    <?= Sweetalert::generateToastAlert('error', Calamity::$app->session->getFlash('error')) ?>
 <?php endif; ?>
 
 </body>

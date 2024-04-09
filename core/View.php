@@ -1,8 +1,8 @@
 <?php
 
-namespace tframe\core;
+namespace calamity\core;
 
-use tframe\common\helpers\CoreHelper;
+use calamity\common\helpers\CoreHelper;
 
 class View {
     public string $title = '';
@@ -18,7 +18,7 @@ class View {
     }
 
     public function renderView ($view, array $params): string {
-        $layoutName = Application::$app->controller->layout ?? Application::$app->layout;
+        $layoutName = Calamity::$app->controller->layout ?? Calamity::$app->layout;
         if (str_contains($layoutName, '.')) {
             $layoutName = str_replace('.', '/', $layoutName);
         }
@@ -46,7 +46,7 @@ class View {
             $view = CoreHelper::getAlias($view);
             $view = substr_replace($view, 'views/', strrpos($view, '/'), 1) . '.php';
         } else {
-            $view = Application::$ROOT_DIR . "/views/$view.php";
+            $view = Calamity::$ROOT_DIR . "/views/$view.php";
         }
         return $view;
     }
@@ -56,7 +56,7 @@ class View {
             $layout = CoreHelper::getAlias($layout);
             $layout = substr_replace($layout, 'views/layouts/', strpos($layout, '/'), 1) . '.php';
         } else {
-            $layout = Application::$ROOT_DIR . "/views/layouts/$layout.php";
+            $layout = Calamity::$ROOT_DIR . "/views/layouts/$layout.php";
         }
         return $layout;
     }

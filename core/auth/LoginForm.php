@@ -1,10 +1,10 @@
 <?php
 
-namespace tframe\core\auth;
+namespace calamity\core\auth;
 
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\Model;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
+use calamity\core\Model;
 
 class LoginForm extends Model {
     public ?string $email = null;
@@ -13,9 +13,9 @@ class LoginForm extends Model {
 
     public static function labels(): array {
         return [
-            'email' => Application::t('attributes', 'Email address'),
-            'password' => Application::t('attributes', 'Password'),
-            'rememberMe' => Application::t('attributes', 'Remember me'),
+            'email' => Calamity::t('attributes', 'Email address'),
+            'password' => Calamity::t('attributes', 'Password'),
+            'rememberMe' => Calamity::t('attributes', 'Remember me'),
         ];
     }
 
@@ -31,11 +31,11 @@ class LoginForm extends Model {
         $user = Users::findOne(['email' => $this->email]);
 
         if (!$user) {
-            $this->addError('email', Application::t('auth', 'This email is not in our system!'));
+            $this->addError('email', Calamity::t('auth', 'This email is not in our system!'));
             return false;
         }
         if (!password_verify($this->password, $user->password)) {
-            $this->addError('password', Application::t('auth', 'The given email/password combination is not correct!'));
+            $this->addError('password', Calamity::t('auth', 'The given email/password combination is not correct!'));
             return false;
         }
 
@@ -43,6 +43,6 @@ class LoginForm extends Model {
             setcookie('rememberMe', $user->id, (time() + (86400 * 7)), '/');
         }
 
-        return Application::$app->login($user);
+        return Calamity::$app->login($user);
     }
 }

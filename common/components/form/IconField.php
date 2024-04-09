@@ -1,8 +1,8 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Model;
+use calamity\core\Model;
 
 abstract class IconField {
     protected Model $model;

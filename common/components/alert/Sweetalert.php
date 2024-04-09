@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\common\components\alert;
+namespace calamity\common\components\alert;
 
 class Sweetalert {
     public static function generateToastAlert (string $icon, string $title, int $timer = 2000, $redirectUrl = null): string {

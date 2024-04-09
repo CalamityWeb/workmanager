@@ -1,11 +1,11 @@
 <?php
 
-namespace tframe\common\components\table;
+namespace calamity\common\components\table;
 
-use tframe\common\components\text\Text;
-use tframe\core\Application;
-use tframe\core\database\MagicRecord;
-use tframe\core\exception\InvalidConfigException;
+use calamity\common\components\text\Text;
+use calamity\core\Calamity;
+use calamity\core\database\MagicRecord;
+use calamity\core\exception\InvalidConfigException;
 
 class GenerateTableData {
     private static array $disabledAttributes = ['password', 'token', 'errors',];
@@ -76,7 +76,7 @@ class GenerateTableData {
                 $added++;
             }
             if (isset($settings['place']) and $settings['place'] == 'latest' and $latest) {
-                throw new InvalidConfigException(Application::t('table', 'Cannot be more than one latest column in a table!'));
+                throw new InvalidConfigException(Calamity::t('table', 'Cannot be more than one latest column in a table!'));
             }
             if (isset($settings['place']) and $settings['place'] == 'latest' and !$latest) {
                 $latest = true;
@@ -102,7 +102,7 @@ class GenerateTableData {
                     } elseif (in_array($column, $model::attributes())) {
                         $return .= 'data : "' . $column . '",';
                     } else {
-                        throw new InvalidConfigException(Application::t('table', 'DataTables custom column needs a data field!'));
+                        throw new InvalidConfigException(Calamity::t('table', 'DataTables custom column needs a data field!'));
                     }
                     $return .= '},';
                     unset($config['columns'][$column]);
@@ -149,7 +149,7 @@ class GenerateTableData {
                     if (isset($settings['data'])) {
                         $return .= 'data : ' . $settings['data'] . ',';
                     } else {
-                        throw new InvalidConfigException(Application::t('table', 'DataTables custom column needs a data field!'));
+                        throw new InvalidConfigException(Calamity::t('table', 'DataTables custom column needs a data field!'));
                     }
                     $return .= '},';
                     unset($config['columns'][$column]);
@@ -159,12 +159,12 @@ class GenerateTableData {
 
             if (count($placed) == $maxplaced - $latest) {
                 $return .= '{';
-                $return .= 'title : "' . Application::t('general', 'Created') . '",';
+                $return .= 'title : "' . Calamity::t('general', 'Created') . '",';
                 $return .= 'data : "created_at",';
                 $return .= '},';
 
                 $return .= '{';
-                $return .= 'title : "' . Application::t('general', 'Updated') . '",';
+                $return .= 'title : "' . Calamity::t('general', 'Updated') . '",';
                 $return .= 'data : function (data) {return (!data.updated_at) ? \'' . Text::notSetText() . '\' : data.updated_at },';
                 $return .= '},';
                 foreach ($config['columns'] as $column => $settings) {
@@ -180,7 +180,7 @@ class GenerateTableData {
                     if (isset($settings['data'])) {
                         $return .= 'data : ' . $settings['data'] . ',';
                     } else {
-                        throw new InvalidConfigException(Application::t('table', 'DataTables custom column needs a data field!'));
+                        throw new InvalidConfigException(Calamity::t('table', 'DataTables custom column needs a data field!'));
                     }
                     $return .= '},';
                     unset($config['columns'][$column]);

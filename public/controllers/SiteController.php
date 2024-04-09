@@ -1,8 +1,8 @@
 <?php
 
-namespace tframe\public\controllers;
+namespace calamity\public\controllers;
 
-use tframe\core\Controller;
+use calamity\core\Controller;
 
 class SiteController extends Controller {
     public function index (): string {

@@ -1,9 +1,9 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Application;
-use tframe\core\Model;
+use calamity\core\Calamity;
+use calamity\core\Model;
 
 class SwitchField extends BaseField {
     public function __construct (Model $model, string $attribute, array $options, $disabled) {
@@ -29,7 +29,7 @@ class SwitchField extends BaseField {
 
         $element .= ' type="checkbox" role="switch"';
 
-        if (!isset($_POST[$this->attribute]) and $this->model->{$this->attribute} and Application::$app->request->isPost()) {
+        if (!isset($_POST[$this->attribute]) and $this->model->{$this->attribute} and Calamity::$app->request->isPost()) {
             $element .= '>';
         } elseif (isset($_POST[$this->attribute]) or $this->model->{$this->attribute}) {
             $element .= 'checked>';

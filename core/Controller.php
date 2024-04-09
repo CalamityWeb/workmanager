@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\core;
+namespace calamity\core;
 
 class Controller {
     public string $layout = 'main';
@@ -11,10 +11,10 @@ class Controller {
     }
 
     public function render ($view, $params = []): string {
-        return Application::$app->router->renderView($view, $params);
+        return Calamity::$app->router->renderView($view, $params);
     }
 
     public function renderViewOnly ($view, $params = []): string {
-        return Application::$app->router->renderViewOnly($view, $params);
+        return Calamity::$app->router->renderViewOnly($view, $params);
     }
 }

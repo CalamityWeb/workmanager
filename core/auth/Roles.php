@@ -1,9 +1,9 @@
 <?php
 
-namespace tframe\core\auth;
+namespace calamity\core\auth;
 
-use tframe\core\Application;
-use tframe\core\database\MagicRecord;
+use calamity\core\Calamity;
+use calamity\core\database\MagicRecord;
 
 /**
  * @property int    $id
@@ -24,9 +24,9 @@ class Roles extends MagicRecord {
 
     public static function labels(): array {
         return [
-            'roleName' => Application::t('attributes', 'Role Name'),
-            'roleIcon' => Application::t('attributes', 'Role Icon'),
-            'description' => Application::t('attributes', 'Description'),
+            'roleName' => Calamity::t('attributes', 'Role Name'),
+            'roleIcon' => Calamity::t('attributes', 'Role Icon'),
+            'description' => Calamity::t('attributes', 'Description'),
         ];
     }
 

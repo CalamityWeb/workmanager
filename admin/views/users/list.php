@@ -4,16 +4,16 @@
  * @var $users string
  */
 
-use tframe\common\components\button\Button;
-use tframe\common\components\table\DataTable;
-use tframe\common\components\table\GenerateTableData;
-use tframe\common\components\text\Text;
-use tframe\common\models\Users;
-use tframe\core\Application;
+use calamity\common\components\button\Button;
+use calamity\common\components\table\DataTable;
+use calamity\common\components\table\GenerateTableData;
+use calamity\common\components\text\Text;
+use calamity\common\models\Users;
+use calamity\core\Calamity;
 
-$sessionUser = Application::$app->user;
+$sessionUser = Calamity::$app->user;
 
-$this->title = Application::t('general', 'Users');
+$this->title = Calamity::t('general', 'Users');
 
 $columns = GenerateTableData::generateColumns(Users::class,
     [
@@ -33,7 +33,7 @@ $columns = GenerateTableData::generateColumns(Users::class,
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <?= Button::generateClickButton('/users/create', 'btn-primary', Application::t('general', 'New User'), 'fa-user-plus') ?>
+                    <?= Button::generateClickButton('/users/create', 'btn-primary', Calamity::t('general', 'New User'), 'fa-user-plus') ?>
                 </div>
                 <div class="card-body">
                     <?= DataTable::init(['data' => $users, 'columns' => $columns, 'order' => [1 => 'asc'],]) ?>
@@ -47,8 +47,8 @@ $columns = GenerateTableData::generateColumns(Users::class,
 $canManage = Users::canRoute($sessionUser, '@admin/users/manage/0') ? 'true' : 'false';
 $canDelete = Users::canRoute($sessionUser, '@admin/users/delete/0') ? 'true' : 'false';
 $userId = $sessionUser->id;
-$edit = Application::t('general', 'Edit');
-$delete = Application::t('general', 'Delete');
+$edit = Calamity::t('general', 'Edit');
+$delete = Calamity::t('general', 'Delete');
 
 $this->registerJS(<<<JS
 function getButtons(data) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace tframe\common\helpers;
+namespace calamity\common\helpers;
 
 class CoreHelper {
     public static function checkAlias ($string): bool {

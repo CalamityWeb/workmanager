@@ -1,8 +1,8 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Model;
+use calamity\core\Model;
 
 class SelectField extends BaseField {
     private array $choices;

@@ -1,9 +1,9 @@
 <?php
 
-namespace tframe\core\auth;
+namespace calamity\core\auth;
 
-use tframe\core\Application;
-use tframe\core\database\MagicRecord;
+use calamity\core\Calamity;
+use calamity\core\database\MagicRecord;
 
 /**
  * @property int    $id
@@ -23,8 +23,8 @@ class AuthItem extends MagicRecord {
 
     public static function labels(): array {
         return [
-            'item' => Application::t('attributes', 'Route (URL)'),
-            'description' => Application::t('attributes', 'Description'),
+            'item' => Calamity::t('attributes', 'Route (URL)'),
+            'description' => Calamity::t('attributes', 'Description'),
         ];
     }
 
@@ -36,7 +36,7 @@ class AuthItem extends MagicRecord {
 
     public function validateAliases(): bool {
         if (!str_contains($this->item, '@admin') and !str_contains($this->item, '@public')) {
-            $this->addError('item', Application::t('auth', 'Route must contains the aliases of the sites. Please see below!'));
+            $this->addError('item', Calamity::t('auth', 'Route must contains the aliases of the sites. Please see below!'));
             return false;
         }
 

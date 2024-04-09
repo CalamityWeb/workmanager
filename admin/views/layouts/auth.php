@@ -3,8 +3,8 @@
  * @var $this \tframe\core\View
  */
 
-use tframe\common\components\alert\Sweetalert;
-use tframe\core\Application;
+use calamity\common\components\alert\Sweetalert;
+use calamity\core\Calamity;
 
 ?>
 
@@ -39,8 +39,8 @@ use tframe\core\Application;
 
 <script src="/assets/site.js"></script>
 
-<?php if (Application::$app->session->getFlash('success')): ?>
-    <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success'), 1500, Application::$app->session->getFlashContent('success')['redirectUrl']) ?>
+<?php if (Calamity::$app->session->getFlash('success')): ?>
+    <?= Sweetalert::generateToastAlert('success', Calamity::$app->session->getFlash('success'), 1500, Calamity::$app->session->getFlashContent('success')['redirectUrl']) ?>
 <?php endif; ?>
 
 </body>

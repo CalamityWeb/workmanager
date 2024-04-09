@@ -4,11 +4,11 @@
  * @var $user \tframe\common\models\Users
  */
 
-use tframe\common\components\form\Form;
-use tframe\common\components\text\Text;
-use tframe\core\Application;
+use calamity\common\components\form\Form;
+use calamity\common\components\text\Text;
+use calamity\core\Calamity;
 
-$this->title = Application::t('general', 'Profile');
+$this->title = Calamity::t('general', 'Profile');
 ?>
 
 <div class="row">
@@ -27,7 +27,7 @@ $this->title = Application::t('general', 'Profile');
     <div class="col-12 col-md-6 col-xl-4">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title"><?= Application::t('general', 'Profile') ?></h3>
+                <h3 class="card-title"><?= Calamity::t('general', 'Profile') ?></h3>
             </div>
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>
@@ -36,13 +36,13 @@ $this->title = Application::t('general', 'Profile');
                 <?= $form->field($user, 'firstName')->required(); ?>
                 <?= $form->field($user, 'lastName')->required(); ?>
 
-                <?= $form->submitButton(Application::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
+                <?= $form->submitButton(Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 
                 <p class="fs-7 mb-0 mt-3 fst-italic text-end">
-                    <?= Application::t('general', 'Created') ?>: <?= $user->created_at ?>
+                    <?= Calamity::t('general', 'Created') ?>: <?= $user->created_at ?>
                 </p>
                 <p class="fs-7 mb-0 fst-italic text-end">
-                    <?= Application::t('general', 'Edited') ?>: <?= ($user->updated_at != null) ? $user->updated_at : Text::notSetText() ?>
+                    <?= Calamity::t('general', 'Edited') ?>: <?= ($user->updated_at != null) ? $user->updated_at : Text::notSetText() ?>
                 </p>
             </div>
         </div>

@@ -1,190 +1,163 @@
-CREATE TABLE if NOT EXISTS auth_items
+CREATE TABLE IF NOT EXISTS auth_items
 (
     id
-    INT
-    auto_increment
-    PRIMARY
-    KEY,
+                INT
+        AUTO_INCREMENT
+        PRIMARY
+            KEY,
     item
-    VARCHAR
-(
-    255
-) NOT NULL,
-    description text NULL,
-    created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at datetime NULL ON UPDATE CURRENT_TIMESTAMP
-    );
+                VARCHAR(255)                       NOT NULL,
+    description TEXT                               NULL,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at  DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP
+);
 
-CREATE TABLE if NOT EXISTS roles
+CREATE TABLE IF NOT EXISTS roles
 (
     id
-    INT
-    auto_increment
-    PRIMARY
-    KEY,
+                INT
+        AUTO_INCREMENT
+        PRIMARY
+            KEY,
     roleName
-    VARCHAR
-(
-    255
-) NOT NULL,
-    roleIcon VARCHAR
-(
-    255
-) NULL,
-    description text NULL,
-    created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at datetime NULL ON UPDATE CURRENT_TIMESTAMP
-    );
+                VARCHAR(255)                       NOT NULL,
+    roleIcon    VARCHAR(255)                       NULL,
+    description TEXT                               NULL,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at  DATETIME                           NULL ON UPDATE CURRENT_TIMESTAMP
+);
 
-CREATE TABLE if NOT EXISTS auth_assignments
+CREATE TABLE IF NOT EXISTS auth_assignments
 (
     ROLE
-    INT
-    NOT
-    NULL,
+        INT
+        NOT
+            NULL,
     item
-    INT
-    NOT
-    NULL,
+        INT
+        NOT
+            NULL,
     created_at
-    datetime
-    DEFAULT
-    CURRENT_TIMESTAMP
-    NOT
-    NULL,
+        DATETIME
+        DEFAULT
+            CURRENT_TIMESTAMP
+        NOT
+            NULL,
     updated_at
-    datetime
-    NULL
-    ON
-    UPDATE
-    CURRENT_TIMESTAMP,
+        DATETIME
+        NULL
+        ON
+            UPDATE
+            CURRENT_TIMESTAMP,
     CONSTRAINT
-    auth_assignments_auth_groups_id_fk
-    FOREIGN
-    KEY
-(
-    ROLE
-) REFERENCES roles
-(
-    id
-)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
+        auth_assignments_auth_groups_id_fk
+        FOREIGN
+            KEY
+            (
+             ROLE
+                ) REFERENCES roles
+            (
+             id
+                )
+            ON UPDATE CASCADE
+            ON DELETE CASCADE,
     CONSTRAINT auth_assignments_auth_items_id_fk
-    FOREIGN KEY
-(
-    item
-) REFERENCES auth_items
-(
-    id
-)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-    );
+        FOREIGN KEY
+            (
+             item
+                ) REFERENCES auth_items
+            (
+             id
+                )
+            ON UPDATE CASCADE
+            ON DELETE CASCADE
+);
 
-CREATE TABLE if NOT EXISTS users
+CREATE TABLE IF NOT EXISTS users
 (
     id
-    INT
-    auto_increment
-    PRIMARY
-    KEY,
+                    INT
+        AUTO_INCREMENT
+        PRIMARY
+            KEY,
     email
-    VARCHAR
-(
-    255
-) NOT NULL,
-    firstName VARCHAR
-(
-    255
-) NOT NULL,
-    lastName VARCHAR
-(
-    255
-) NOT NULL,
-    password VARCHAR
-(
-    255
-) NOT NULL,
-    email_confirmed tinyint
-(
-    1
-) DEFAULT 0 NOT NULL,
-    created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at datetime NULL ON UPDATE CURRENT_TIMESTAMP
-    );
+                    VARCHAR(255)                         NOT NULL,
+    firstName       VARCHAR(255)                         NOT NULL,
+    lastName        VARCHAR(255)                         NOT NULL,
+    password        VARCHAR(255)                         NOT NULL,
+    email_confirmed TINYINT(1) DEFAULT 0                 NOT NULL,
+    created_at      DATETIME   DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at      DATETIME                             NULL ON UPDATE CURRENT_TIMESTAMP
+);
 
-CREATE TABLE if NOT EXISTS reset_tokens
+CREATE TABLE IF NOT EXISTS reset_tokens
 (
     token
-    VARCHAR
-(
-    64
-) NOT NULL,
-    userId INT NOT NULL,
-    created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    completed_at datetime NULL,
+                 VARCHAR(64)                        NOT NULL,
+    userId       INT                                NOT NULL,
+    created_at   DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    completed_at DATETIME                           NULL,
     PRIMARY KEY
-(
-    token
-),
+        (
+         token
+            ),
     CONSTRAINT reset_tokens_users_id_fk
-    FOREIGN KEY
-(
-    userId
-) REFERENCES users
-(
-    id
-)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-    );
+        FOREIGN KEY
+            (
+             userId
+                ) REFERENCES users
+            (
+             id
+                )
+            ON UPDATE CASCADE
+            ON DELETE CASCADE
+);
 
-CREATE TABLE if NOT EXISTS user_roles
+CREATE TABLE IF NOT EXISTS user_roles
 (
     userId
-    INT
-    NOT
-    NULL,
+        INT
+        NOT
+            NULL,
     roleId
-    INT
-    NOT
-    NULL,
+        INT
+        NOT
+            NULL,
     created_at
-    datetime
-    DEFAULT
-    CURRENT_TIMESTAMP
-    NOT
-    NULL,
+        DATETIME
+        DEFAULT
+            CURRENT_TIMESTAMP
+        NOT
+            NULL,
     updated_at
-    datetime
-    NULL
-    ON
-    UPDATE
-    CURRENT_TIMESTAMP,
+        DATETIME
+        NULL
+        ON
+            UPDATE
+            CURRENT_TIMESTAMP,
     CONSTRAINT
-    user_roles_roles_id_fk
-    FOREIGN
-    KEY
-(
-    roleId
-) REFERENCES roles
-(
-    id
-)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
+        user_roles_roles_id_fk
+        FOREIGN
+            KEY
+            (
+             roleId
+                ) REFERENCES roles
+            (
+             id
+                )
+            ON UPDATE CASCADE
+            ON DELETE CASCADE,
     CONSTRAINT user_roles_users_id_fk
-    FOREIGN KEY
-(
-    userId
-) REFERENCES users
-(
-    id
-)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-    );
+        FOREIGN KEY
+            (
+             userId
+                ) REFERENCES users
+            (
+             id
+                )
+            ON UPDATE CASCADE
+            ON DELETE CASCADE
+);
 
 INSERT INTO `auth_items` (`id`, `item`, `description`, `created_at`, `updated_at`)
 VALUES (1, '@admin/auth/login', NULL, '2000-01-01 00:00:00', NULL),

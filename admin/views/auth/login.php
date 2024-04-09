@@ -4,19 +4,19 @@
  * @var $this      \tframe\core\View
  */
 
-use tframe\common\components\form\Form;
-use tframe\core\Application;
+use calamity\common\components\form\Form;
+use calamity\core\Calamity;
 
-$this->title = Application::t('auth', 'Login') . ' | ' . Application::$GLOBALS['APP_NAME'];
+$this->title = Calamity::t('auth', 'Login') . ' | ' . Calamity::$GLOBALS['APP_NAME'];
 ?>
 
 <div class="card card-outline card-primary">
     <div class="card-header text-center">
         <img class="img-fluid d-inline-block text-right" src="/assets/images/tframe-logo.png" alt="Logo" style="width: 2.5rem">
-        <span class="h3 mb-0 d-inline-block text-lefts align-middle"><?= Application::$GLOBALS['APP_NAME'] ?></span>
+        <span class="h3 mb-0 d-inline-block text-lefts align-middle"><?= Calamity::$GLOBALS['APP_NAME'] ?></span>
     </div>
     <div class="card-body login-card-body">
-        <p class="login-box-msg"><?= Application::t('auth', 'Sign in to start your session') ?></p>
+        <p class="login-box-msg"><?= Calamity::t('auth', 'Sign in to start your session') ?></p>
 
         <?php $form = Form::begin('post') ?>
 
@@ -35,10 +35,10 @@ $this->title = Application::t('auth', 'Login') . ' | ' . Application::$GLOBALS['
         <?php Form::end() ?>
 
         <p class="mb-1">
-            <a href=/auth/forgot-password><?= Application::t('auth', 'I forgot my password') ?></a>
+            <a href=/auth/forgot-password><?= Calamity::t('auth', 'I forgot my password') ?></a>
         </p>
         <p class="mb-0">
-            <a href="/auth/register"><?= Application::t('auth', 'Register a new membership') ?></a>
+            <a href="/auth/register"><?= Calamity::t('auth', 'Register a new membership') ?></a>
         </p>
     </div>
 </div>
