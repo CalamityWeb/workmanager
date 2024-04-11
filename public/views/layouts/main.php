@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this \tframe\core\View
+ * @var $this \calamity\View
  */
 
 ?>

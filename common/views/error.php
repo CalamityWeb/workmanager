@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $exception \Exception
- * @var $this      \tframe\core\View
+ * @var $this      \calamity\View
  */
 
 ?>

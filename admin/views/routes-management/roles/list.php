@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this  \tframe\core\View
+ * @var $this  \calamity\View
  * @var $roles array
  */
 
@@ -12,7 +12,7 @@ use calamity\common\models\Users;
 use calamity\Calamity;
 use calamity\auth\Roles;
 
-/** @var \tframe\common\models\Users $sessionUser */
+/** @var \calamity\common\models\Users $sessionUser */
 $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
 
 $this->title = Calamity::t('general', 'Roles');

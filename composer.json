@@ -21,6 +21,7 @@
 		"ext-openssl": "*",
 		"ext-pdo": "*",
 		"phpmailer/phpmailer": "^6.8",
-		"calamityweb/calamity": "dev-main"
+		"calamityweb/calamity": "1.1",
+		"ext-curl": "*"
 	}
 }

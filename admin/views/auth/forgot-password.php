@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $forgotPasswordForm \tframe\core\auth\ForgotPasswordForm
- * @var $this               \tframe\core\View
+ * @var $forgotPasswordForm \calamity\auth\ForgotPasswordForm
+ * @var $this               \calamity\View
  */
 
 use calamity\common\components\form\Form;

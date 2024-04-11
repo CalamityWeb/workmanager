@@ -45,4 +45,5 @@ return [
     'Profile' => 'Profile',
 
     'Google captcha doesn\'t configured properly!' => 'Google captcha doesn\'t configured properly!',
+    'Captcha validation failed!' => 'Captcha validation failed!',
 ];

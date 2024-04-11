@@ -87,7 +87,7 @@ class RoutesManagement extends Controller {
         /** @var Roles $role */
         $role = Roles::findOne([Roles::primaryKey() => $request->getRouteParam('id')]);
 
-        /** @var \tframe\common\models\Users $sessionUser */
+        /** @var \calamity\common\models\Users $sessionUser */
         $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
         /** @var Roles $userRole */
         foreach ($sessionUser->getRoles() as $userRole) {

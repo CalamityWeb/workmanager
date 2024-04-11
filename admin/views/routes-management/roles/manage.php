@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $this            \tframe\core\View
- * @var $role            \tframe\core\auth\Roles
+ * @var $this            \calamity\View
+ * @var $role            \calamity\auth\Roles
  * @var $users           array
  * @var $authAssignments array
  * @var $adminAuthItems  array
@@ -63,11 +63,11 @@ $this->title = Calamity::t('general', 'Create Role');
                 <h3 class="card-title"><?= Calamity::t('general', 'Public routes') ?></h3>
             </div>
             <div class="card-body">
-                <?php /* @var $authItem \tframe\core\auth\AuthItem */ ?>
+                <?php /* @var $authItem \calamity\auth\AuthItem */ ?>
                 <?php foreach ($publicAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \tframe\core\auth\AuthAssignments */
+                    /* @var $assignment \calamity\auth\AuthAssignments */
                     foreach ($authAssignments as $assignment) {
                         if ($authItem->id == $assignment->item) {
                             $checked = true;
@@ -89,11 +89,11 @@ $this->title = Calamity::t('general', 'Create Role');
                 <h3 class="card-title"><?= Calamity::t('general', 'Admin Routes') ?></h3>
             </div>
             <div class="card-body">
-                <?php /* @var $authItem \tframe\core\auth\AuthItem */ ?>
+                <?php /* @var $authItem \calamity\auth\AuthItem */ ?>
                 <?php foreach ($adminAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \tframe\core\auth\AuthAssignments */
+                    /* @var $assignment \calamity\auth\AuthAssignments */
                     foreach ($authAssignments as $assignment) {
                         if ($authItem->id == $assignment->item) {
                             $checked = true;

@@ -2,6 +2,7 @@
 
 namespace calamity\admin\controllers;
 
+use calamity\common\helpers\CoreHelper;
 use calamity\common\models\Users;
 use calamity\Calamity;
 use calamity\Controller;
@@ -20,12 +21,18 @@ class SiteController extends Controller {
         $this->setLayout('main');
         $user = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
         if ($request->isPost()) {
-            print_r($_POST);
-            exit();
             $user->loadData($request->getBody());
-            if ($user->validate()) {
+            if (isset($request->getBody()['g-recaptcha-response'])) {
+                $captcha = CoreHelper::validateGoogleCaptcha($request->getBody()['g-recaptcha-response']);
+            } else {
+                $captcha = true;
+            }
+            if ($user->validate() and $captcha) {
                 $user->save();
                 Calamity::$app->session->setFlash('success', Calamity::t('general', 'Update successful!'));
+            }
+            if (!$captcha) {
+                Calamity::$app->session->setFlash('error', Calamity::t('general', 'Captcha validation failed!'));
             }
         }
         return $this->render('site.profile', ['user' => $user]);

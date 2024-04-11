@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $this      \tframe\core\View
- * @var $user      \tframe\common\models\Users
+ * @var $this      \calamity\View
+ * @var $user      \calamity\common\models\Users
  * @var $roles     array
  * @var $userRoles array
  */
@@ -57,12 +57,12 @@ $this->title = Calamity::t('general', 'Manage User');
                 <h3 class="card-title"><?= Calamity::t('general', 'Roles') ?></h3>
             </div>
             <div class="card-body">
-                <?php /* @var $role \tframe\core\auth\Roles */ ?>
+                <?php /* @var $role \calamity\auth\Roles */ ?>
                 <?php foreach ($roles as $role): ?>
                     <?php
                     $hasRole = false;
                     $disabled = false;
-                    /* @var $userRole \tframe\core\auth\Roles */
+                    /* @var $userRole \calamity\auth\Roles */
                     foreach ($userRoles as $userRole) {
                         if ($role->id == $userRole->id) {
                             $hasRole = true;

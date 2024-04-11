@@ -15,7 +15,7 @@ class Button {
         return '<button type="' . $type . '" class="btn ' . $class . '" ' . implode(" ", $attributes) . '>' . $icon . $text . '</button>';
     }
 
-    public static function generateCaptchaButton(string $type, string $text, string $class, string $icon = null, array $options = []): string {
+    public static function generateCaptchaButton(string $id, string $text, string $class, string $icon = null, array $options = []): string {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
@@ -29,8 +29,10 @@ class Button {
         }
         $site_key = Calamity::$config['google']['site_key'];
 
+        Calamity::$app->view->registerJS('function onSubmit(token) {document.getElementById("' . $id . '").submit();}');
+
         return <<<HTML
-            <button type="$type" class="btn g-recaptcha $class" data-sitekey="$site_key" data-action='submit' $attr onclick="$(this).closest('form').submit();">
+            <button class="btn g-recaptcha $class" data-sitekey="$site_key" data-callback='onSubmit' data-action='submit' $attr>
                 $icon $text
             </button>
         HTML;

@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $this \tframe\core\View
- * @var $user \tframe\common\models\Users
+ * @var $this \calamity\View
+ * @var $user \calamity\common\models\Users
  */
 
 use calamity\common\components\form\Form;
@@ -10,7 +10,7 @@ use calamity\Calamity;
 
 $this->title = Calamity::t('general', 'Profile');
 ?>
-<script src="https://www.google.com/recaptcha/enterprise.js?render=6LeA4bUpAAAAANkhGiTJlx9z7h4B6BhNLrpetG2l"></script>
+<!--<script src="https://www.google.com/recaptcha/enterprise.js?render=6LeA4bUpAAAAANkhGiTJlx9z7h4B6BhNLrpetG2l"></script>-->
 <div class="row">
     <div class="col-12 col-md-6 col-xl-4">
         <div class="card card-primary card-outline">
@@ -30,20 +30,13 @@ $this->title = Calamity::t('general', 'Profile');
                 <h3 class="card-title"><?= Calamity::t('general', 'Profile') ?></h3>
             </div>
             <div class="card-body">
-                <?php $form = Form::begin('post', ['id' => 'test']) ?>
+                <?php $form = Form::begin('post', ['id' => 'submit-profile']) ?>
 
                 <?= $form->field($user, 'email')->required(); ?>
                 <?= $form->field($user, 'firstName')->required(); ?>
                 <?= $form->field($user, 'lastName')->required(); ?>
 
-                <!--                --><?php //= $form->captchaSubmitButton(Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
-
-                <button class="g-recaptcha"
-                        data-sitekey="6LeA4bUpAAAAANkhGiTJlx9z7h4B6BhNLrpetG2l"
-                        data-callback='onSubmit'
-                        data-action='submit'>
-                    Submit
-                </button>
+                <?= $form->captchaSubmitButton('submit-profile', Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 
                 <p class="fs-7 mb-0 mt-3 fst-italic text-end">
                     <?= Calamity::t('general', 'Created') ?>: <?= $user->created_at ?>
@@ -55,10 +48,3 @@ $this->title = Calamity::t('general', 'Profile');
         </div>
     </div>
 </div>
-
-<!-- Replace the variables below. -->
-<script>
-    function onSubmit(token) {
-        document.getElementById("test").submit();
-    }
-</script>

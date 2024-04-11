@@ -1,13 +1,13 @@
 <?php
 /**
- * @var $this \tframe\core\View
+ * @var $this \calamity\View
  */
 
 use calamity\common\components\alert\Sweetalert;
 use calamity\common\models\Users;
 use calamity\Calamity;
 
-/** @var \tframe\common\models\Users $sessionUser */
+/** @var \calamity\common\models\Users $sessionUser */
 $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
 
 ?>
@@ -31,7 +31,9 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <?php if (!empty(Calamity::$config['google'])): ?>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+    <?php endif; ?>
     <link rel="stylesheet" href="/assets/site.css?v=<?= time() ?>">
 
     {{css}}
@@ -85,33 +87,28 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
                 </li>
                 <li class="nav-item dropdown">
                     <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
-                            id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
-                            data-bs-display="static">
-                      <span class="theme-icon-active">
+                            id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
+                        <span class="theme-icon-active">
                             <i class="my-1"></i>
-                      </span>
+                        </span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme"
-                        style="--bs-dropdown-min-width: 8rem;">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme" style="--bs-dropdown-min-width: 8rem;">
                         <li>
-                            <button type="button" class="dropdown-item d-flex align-items-center active"
-                                    data-bs-theme-value="light">
+                            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light">
                                 <i class="fa-solid fa-sun me-2 opacity-50"></i>
                                 Light
                                 <i class="fa-solid fa-check ms-auto d-none"></i>
                             </button>
                         </li>
                         <li>
-                            <button type="button" class="dropdown-item d-flex align-items-center"
-                                    data-bs-theme-value="dark">
+                            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
                                 <i class="fa-solid fa-moon me-2 opacity-50"></i>
                                 Dark
                                 <i class="fa-solid fa-check ms-auto d-none"></i>
                             </button>
                         </li>
                         <li>
-                            <button type="button" class="dropdown-item d-flex align-items-center"
-                                    data-bs-theme-value="auto">
+                            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto">
                                 <i class="fa-solid fa-circle-half-stroke me-2 opacity-50"></i>
                                 Auto
                                 <i class="fa-solid fa-check ms-auto d-none"></i>
@@ -214,7 +211,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
         </strong>
 
         <div class="float-end d-none d-sm-inline-block">
-            <b>Version</b> v1.0
+            <b>Version</b> v2.0
         </div>
     </footer>
 </div>

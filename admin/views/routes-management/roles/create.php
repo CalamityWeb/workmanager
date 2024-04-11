@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $this \tframe\core\View
- * @var $role \tframe\core\auth\Roles
+ * @var $this \calamity\View
+ * @var $role \calamity\auth\Roles
  */
 
 use calamity\common\components\form\Form;

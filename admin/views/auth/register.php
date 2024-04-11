@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $registerForm \tframe\core\auth\RegisterForm
- * @var $this         \tframe\core\View
+ * @var $registerForm \calamity\auth\RegisterForm
+ * @var $this         \calamity\View
  */
 
 use calamity\common\components\form\Form;

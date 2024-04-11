@@ -1,8 +1,8 @@
 <?php
 /**
- * @var $this      \tframe\core\View
+ * @var $this      \calamity\View
  * @var $userCount integer
- * @var $user      \tframe\common\models\Users
+ * @var $user      \calamity\common\models\Users
  */
 
 use calamity\Calamity;
