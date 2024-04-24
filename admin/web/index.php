@@ -7,7 +7,7 @@ use calamity\admin\controllers\AuthController;
 use calamity\admin\controllers\RoutesManagement;
 use calamity\admin\controllers\SiteController;
 use calamity\admin\controllers\UsersController;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -49,6 +49,7 @@ $app->router->getNpost('/auth/register', [AuthController::class, 'register']);
 $app->router->get('/auth/logout', [AuthController::class, 'logout']);
 $app->router->getNpost('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 $app->router->getNpost('/auth/reset-password/{token}', [AuthController::class, 'resetPassword']);
+$app->router->get('/auth/google-auth', [AuthController::class, 'googleAuth']);
 
 /* * Users Management routes */
 $app->router->get('/users/list-all', [UsersController::class, 'listUsers']);

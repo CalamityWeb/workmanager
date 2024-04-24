@@ -2,12 +2,12 @@
 
 namespace calamity\common\components\mailer;
 
+use calamity\common\helpers\CoreHelper;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\exception\InvalidArgumentException;
+use calamity\common\models\core\exception\InvalidConfigException;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use calamity\common\helpers\CoreHelper;
-use calamity\Calamity;
-use calamity\exception\InvalidArgumentException;
-use calamity\exception\InvalidConfigException;
 
 class Mailer {
     public PHPMailer $mail;
@@ -162,7 +162,7 @@ class Mailer {
             if (str_contains($templateName, '.')) {
                 $templateName = str_replace('.', '/', $templateName);
             }
-            $content = file_get_contents(CoreHelper::getAlias('@common') . 'components/mailer/template/' . $templateName . '.html');
+            $content = file_get_contents(CoreHelper::getAlias('@common') . '/components/mailer/template/' . $templateName . '.html');
             foreach ($args as $key => $value) {
                 $content = str_replace('{{' . $key . '}}', $value, $content);
             }

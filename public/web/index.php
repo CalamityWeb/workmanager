@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 use calamity\public\controllers\SiteController;
 
 require_once __DIR__ . '/../../vendor/autoload.php';

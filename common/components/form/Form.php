@@ -3,8 +3,7 @@
 namespace calamity\common\components\form;
 
 use calamity\common\components\button\Button;
-use calamity\Calamity;
-use calamity\Model;
+use calamity\common\models\core\Model;
 
 class Form {
     private array $disabledFields = [];

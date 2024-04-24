@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this  \calamity\View
+ * @var $this  \calamity\common\models\core\View
  * @var $roles array
  */
 
@@ -8,9 +8,9 @@ use calamity\common\components\button\Button;
 use calamity\common\components\table\DataTable;
 use calamity\common\components\table\GenerateTableData;
 use calamity\common\components\text\Text;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\Roles;
 use calamity\common\models\Users;
-use calamity\Calamity;
-use calamity\auth\Roles;
 
 /** @var \calamity\common\models\Users $sessionUser */
 $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);

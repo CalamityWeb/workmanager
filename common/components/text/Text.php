@@ -2,7 +2,7 @@
 
 namespace calamity\common\components\text;
 
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 class Text {
     public static function notSetText (string $class = ''): string {

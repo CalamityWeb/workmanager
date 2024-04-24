@@ -2,15 +2,15 @@
 
 namespace calamity\admin\controllers;
 
+use calamity\common\components\auth\RegisterForm;
+use calamity\common\components\auth\UserRoles;
 use calamity\common\components\table\GenerateTableData;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\Controller;
+use calamity\common\models\core\Request;
+use calamity\common\models\core\Response;
+use calamity\common\models\Roles;
 use calamity\common\models\Users;
-use calamity\Calamity;
-use calamity\auth\RegisterForm;
-use calamity\auth\Roles;
-use calamity\auth\UserRoles;
-use calamity\Controller;
-use calamity\Request;
-use calamity\Response;
 
 class UsersController extends Controller {
     public function listUsers (): string {

@@ -1,11 +1,11 @@
 <?php
 /**
- * @var $this      \calamity\View
- * @var $routeItem \calamity\auth\AuthItem
+ * @var $this      \calamity\common\models\core\View
+ * @var $routeItem \calamity\common\components\auth\AuthItem
  */
 
 use calamity\common\components\form\Form;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('general', 'Create Route Item');
 ?>

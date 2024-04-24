@@ -1,11 +1,11 @@
 <?php
 /**
- * @var $this         \calamity\View
- * @var $registerForm tframe\auth\RegisterForm
+ * @var $this         \calamity\common\models\core\View
+ * @var $registerForm \calamity\common\components\auth\RegisterForm
  */
 
 use calamity\common\components\form\Form;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('general', 'Create User');
 ?>

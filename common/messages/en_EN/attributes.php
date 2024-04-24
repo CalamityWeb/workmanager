@@ -15,6 +15,7 @@ return [
     'I agree to the terms' => 'I agree to the terms',
     'Profile picture' => 'Profile picture',
     'Email confirmed' => 'Email confirmed',
+    'Auth provider' => 'Auth provider',
 
     // ? Auth
     'Route (URL)' => 'Route (URL)',

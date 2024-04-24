@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var $this \calamity\View
+ * @var $this \calamity\common\models\core\View
  */
 $this->title = 'Teszt oldal';
 ?>

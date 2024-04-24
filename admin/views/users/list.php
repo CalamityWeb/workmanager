@@ -1,15 +1,14 @@
 <?php
 /**
- * @var $this  \calamity\View
+ * @var $this  \calamity\common\models\core\View
  * @var $users string
  */
 
 use calamity\common\components\button\Button;
 use calamity\common\components\table\DataTable;
 use calamity\common\components\table\GenerateTableData;
-use calamity\common\components\text\Text;
+use calamity\common\models\core\Calamity;
 use calamity\common\models\Users;
-use calamity\Calamity;
 
 $sessionUser = Calamity::$app->user;
 

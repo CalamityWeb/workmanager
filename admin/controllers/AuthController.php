@@ -2,17 +2,21 @@
 
 namespace calamity\admin\controllers;
 
+use calamity\common\components\auth\ForgotPasswordForm;
+use calamity\common\components\auth\GoogleAuth;
+use calamity\common\components\auth\LoginForm;
+use calamity\common\components\auth\RegisterForm;
+use calamity\common\components\auth\ResetPasswordForm;
+use calamity\common\components\auth\ResetToken;
+use calamity\common\helpers\CoreHelper;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\Controller;
+use calamity\common\models\core\exception\InvalidConfigException;
+use calamity\common\models\core\exception\NotFoundException;
+use calamity\common\models\core\Request;
+use calamity\common\models\core\Response;
 use calamity\common\models\Users;
-use calamity\Calamity;
-use calamity\auth\ForgotPasswordForm;
-use calamity\auth\LoginForm;
-use calamity\auth\RegisterForm;
-use calamity\auth\ResetPasswordForm;
-use calamity\auth\ResetToken;
-use calamity\Controller;
-use calamity\exception\NotFoundException;
-use calamity\Request;
-use calamity\Response;
+use Google_Service_Oauth2;
 
 class AuthController extends Controller {
     public function register (Request $request): string {
@@ -27,7 +31,14 @@ class AuthController extends Controller {
             }
         }
 
-        return $this->render('auth.register', ['registerForm' => $registerForm]);
+        if (file_exists(CoreHelper::getAlias('@common') . '/config/client_secret.json')) {
+            $googleClient = new GoogleAuth();
+            $googleLoginUrl = $googleClient->getRedirectUrl();
+        } else {
+            $googleClient = false;
+        }
+
+        return $this->render('auth.register', ['registerForm' => $registerForm, 'googleClient' => $googleClient]);
     }
 
     public function login (Request $request, Response $response): string {
@@ -53,6 +64,13 @@ class AuthController extends Controller {
             }
         }
 
+        if (file_exists(CoreHelper::getAlias('@common') . '/config/client_secret.json')) {
+            $googleClient = new GoogleAuth();
+            $googleLoginUrl = $googleClient->getRedirectUrl();
+        } else {
+            $googleClient = false;
+        }
+
         $loginForm = new LoginForm();
         if ($request->isPost()) {
             $loginForm->loadData($request->getBody());
@@ -61,7 +79,7 @@ class AuthController extends Controller {
             }
         }
 
-        return $this->render('auth.login', ['loginForm' => $loginForm]);
+        return $this->render('auth.login', ['loginForm' => $loginForm, 'googleClient' => $googleClient]);
     }
 
     public function logout (Request $request, Response $response): void {
@@ -113,5 +131,29 @@ class AuthController extends Controller {
         }
 
         return $this->render('auth.reset-password', ['resetPasswordForm' => $resetPasswordForm]);
+    }
+
+    public function googleAuth(Request $request, Response $response): string {
+        $this->setLayout('auth');
+        if (!isset($request->getBody()['code'])) {
+            throw new InvalidConfigException(Calamity::t('auth', 'Google Authentication code is invalid'));
+        }
+
+        $client = new GoogleAuth();
+        $accessToken = $client->getAccessToken($request->getBody()['code']);
+        $client->provideAccessToken($accessToken);
+
+        $google_oauth = new Google_Service_Oauth2($client->getClient());
+        $google_account_info = $google_oauth->userinfo->get();
+
+        if ($user = Users::findOne(['email' => $google_account_info->getEmail()])) {
+            Calamity::$app->login($user);
+            Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Login successful'), '/site/dashboard');
+            $loginForm = new LoginForm();
+        } else {
+            Calamity::$app->login(GoogleAuth::registerGoogleUser($google_account_info));
+            Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Register successful'), '/site/dashboard');
+        }
+        return $this->render('auth.login', ['loginForm' => $loginForm, 'googleClient' => $client]);
     }
 }

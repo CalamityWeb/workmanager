@@ -1,11 +1,11 @@
 <?php
 /**
- * @var $this      \calamity\View
+ * @var $this      \calamity\common\models\core\View
  * @var $userCount integer
  * @var $user      \calamity\common\models\Users
  */
 
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('general', 'Dashboard');
 ?>

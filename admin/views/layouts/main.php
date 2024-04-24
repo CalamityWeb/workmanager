@@ -1,11 +1,11 @@
 <?php
 /**
- * @var $this \calamity\View
+ * @var $this \calamity\common\models\core\View
  */
 
 use calamity\common\components\alert\Sweetalert;
+use calamity\common\models\core\Calamity;
 use calamity\common\models\Users;
-use calamity\Calamity;
 
 /** @var \calamity\common\models\Users $sessionUser */
 $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
@@ -231,12 +231,14 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
 
 <script src="/assets/site.js?v=<?= time() ?>"></script>
 
-<?php if (Calamity::$app->session->getFlash('success')): ?>
-    <?= Sweetalert::generateToastAlert('success', Calamity::$app->session->getFlash('success')) ?>
-<?php endif; ?>
-<?php if (Calamity::$app->session->getFlash('error')): ?>
-    <?= Sweetalert::generateToastAlert('error', Calamity::$app->session->getFlash('error')) ?>
-<?php endif; ?>
+<?php
+if (Calamity::$app->session->getFlash('success')) {
+    Calamity::$app->view->registerJS(Sweetalert::generateToastAlert('success', Calamity::$app->session->getFlash('success')));
+}
+if (Calamity::$app->session->getFlash('error')) {
+    Calamity::$app->view->registerJS(Sweetalert::generateToastAlert('error', Calamity::$app->session->getFlash('error')));
+}
+?>
 
 </body>
 </html>

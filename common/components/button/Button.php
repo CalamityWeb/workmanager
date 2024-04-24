@@ -2,8 +2,8 @@
 
 namespace calamity\common\components\button;
 
-use calamity\Calamity;
-use calamity\exception\InvalidConfigException;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\exception\InvalidConfigException;
 
 class Button {
     public static function generateButton (string $type, string $text, string $class, string $icon = null, array $options = []): string {

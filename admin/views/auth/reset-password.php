@@ -1,11 +1,11 @@
 <?php
 /**
- * @var $resetPasswordForm \calamity\auth\ResetPasswordForm
- * @var $this              \calamity\View
+ * @var $resetPasswordForm \calamity\common\components\auth\ResetPasswordForm
+ * @var $this              \calamity\common\models\core\View
  */
 
 use calamity\common\components\form\Form;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('auth', 'Reset password') . ' | ' . Calamity::$GLOBALS['APP_NAME'];
 

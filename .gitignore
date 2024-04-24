@@ -6,3 +6,4 @@ vendor/
 composer.lock
 
 null
+/common/config/client_secret.json

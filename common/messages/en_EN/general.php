@@ -15,6 +15,7 @@ return [
     'Description' => 'Description',
     'Edit' => 'Edit',
     'Delete' => 'Delete',
+    'Error' => 'Error',
 
     'Route Item' => 'Route Item',
     'Create Route Item' => 'Route Item',
@@ -46,4 +47,5 @@ return [
 
     'Google captcha doesn\'t configured properly!' => 'Google captcha doesn\'t configured properly!',
     'Captcha validation failed!' => 'Captcha validation failed!',
+    'Google client_secret.json file does not exist!' => 'Google client_secret.json file does not exist!',
 ];

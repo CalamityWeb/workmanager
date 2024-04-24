@@ -1,11 +1,11 @@
 <?php
 /**
- * @var $forgotPasswordForm \calamity\auth\ForgotPasswordForm
- * @var $this               \calamity\View
+ * @var $forgotPasswordForm \calamity\common\components\auth\ForgotPasswordForm
+ * @var $this               \calamity\common\models\core\View
  */
 
 use calamity\common\components\form\Form;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('auth', 'Forgot password') . ' | ' . Calamity::$GLOBALS['APP_NAME'];
 

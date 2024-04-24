@@ -1,11 +1,11 @@
 <?php
 /**
- * @var $this \calamity\View
- * @var $role \calamity\auth\Roles
+ * @var $this \calamity\common\models\core\View
+ * @var $role \calamity\common\models\Roles
  */
 
 use calamity\common\components\form\Form;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('general', 'Create Role');
 ?>

@@ -2,7 +2,7 @@
 
 namespace calamity\common\components\form;
 
-use calamity\Model;
+use calamity\common\models\core\Model;
 
 class Field extends BaseField {
     public const TYPE_TEXT = 'text';

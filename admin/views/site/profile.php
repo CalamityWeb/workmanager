@@ -1,12 +1,12 @@
 <?php
 /**
- * @var $this \calamity\View
+ * @var $this \calamity\common\models\core\View
  * @var $user \calamity\common\models\Users
  */
 
 use calamity\common\components\form\Form;
 use calamity\common\components\text\Text;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('general', 'Profile');
 ?>

@@ -2,8 +2,8 @@
 
 namespace calamity\common\components\table;
 
-use calamity\Calamity;
-use calamity\exception\InvalidConfigException;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\exception\InvalidConfigException;
 
 class DataTable {
     public static string $identification = "#dataTable";
@@ -77,11 +77,7 @@ class DataTable {
         if (isset($config['identification'])) {
             self::$identification = $config['identification'];
         }
-        if (isset($config['class'])) {
-            $class = $config['class'];
-        } else {
-            $class = 'table table-bordered table-hover table-striped dataTable dtr-inline';
-        }
+        $class = $config['class'] ?? 'table table-bordered table-hover table-striped dataTable dtr-inline';
         if (str_contains(self::$identification, '#')) {
             $id = str_replace('#', '', self::$identification);
         } else if (str_contains(self::$identification, '.')) {

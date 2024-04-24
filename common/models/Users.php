@@ -2,12 +2,11 @@
 
 namespace calamity\common\models;
 
-use calamity\Calamity;
-use calamity\auth\AuthAssignments;
-use calamity\auth\AuthItem;
-use calamity\auth\Roles;
-use calamity\auth\UserRoles;
-use calamity\database\MagicRecord;
+use calamity\common\components\auth\AuthAssignments;
+use calamity\common\components\auth\AuthItem;
+use calamity\common\components\auth\UserRoles;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\database\MagicRecord;
 
 /**
  * @property integer $id
@@ -16,6 +15,7 @@ use calamity\database\MagicRecord;
  * @property string  $lastName
  * @property string  $password
  * @property boolean $email_confirmed
+ * @property string $auth_provider
  * @property string  $created_at
  * @property string  $updated_at
  */
@@ -75,6 +75,7 @@ class Users extends MagicRecord {
             'lastName',
             'password',
             'email_confirmed',
+            'auth_provider',
         ];
     }
 
@@ -85,6 +86,7 @@ class Users extends MagicRecord {
             'lastName' => Calamity::t('attributes', 'Family name'),
             'password' => Calamity::t('attributes', 'Password'),
             'email_confirmed' => Calamity::t('attributes', 'Email confirmed'),
+            'auth_provider' => Calamity::t('attributes', 'Auth provider'),
         ];
     }
 

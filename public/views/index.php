@@ -1,9 +1,9 @@
 <?php
 /**
- * @var $this \calamity\View
+ * @var $this \calamity\common\models\core\View
  */
 
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 ?>
 <!doctype html>

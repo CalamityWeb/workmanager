@@ -2,7 +2,7 @@
 
 namespace calamity\public\controllers;
 
-use calamity\Controller;
+use calamity\common\models\core\Controller;
 
 class SiteController extends Controller {
     public function index (): string {

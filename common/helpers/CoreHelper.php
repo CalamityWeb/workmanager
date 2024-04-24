@@ -2,8 +2,7 @@
 
 namespace calamity\common\helpers;
 
-use calamity\Calamity;
-use calamity\exception\InternalServerErrorException;
+use calamity\common\models\core\Calamity;
 
 class CoreHelper {
     public static function checkAlias ($string): bool {

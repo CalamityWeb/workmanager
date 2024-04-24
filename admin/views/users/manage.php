@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this      \calamity\View
+ * @var $this      \calamity\common\models\core\View
  * @var $user      \calamity\common\models\Users
  * @var $roles     array
  * @var $userRoles array
@@ -8,7 +8,7 @@
 
 use calamity\common\components\form\Form;
 use calamity\common\components\text\Text;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('general', 'Manage User');
 ?>
@@ -57,12 +57,12 @@ $this->title = Calamity::t('general', 'Manage User');
                 <h3 class="card-title"><?= Calamity::t('general', 'Roles') ?></h3>
             </div>
             <div class="card-body">
-                <?php /* @var $role \calamity\auth\Roles */ ?>
+                <?php /* @var $role \calamity\common\models\Roles */ ?>
                 <?php foreach ($roles as $role): ?>
                     <?php
                     $hasRole = false;
                     $disabled = false;
-                    /* @var $userRole \calamity\auth\Roles */
+                    /* @var $userRole \calamity\common\models\Roles */
                     foreach ($userRoles as $userRole) {
                         if ($role->id == $userRole->id) {
                             $hasRole = true;

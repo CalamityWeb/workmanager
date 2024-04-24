@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $this            \calamity\View
- * @var $role            \calamity\auth\Roles
+ * @var $this            \calamity\common\models\core\View
+ * @var $role            \calamity\common\models\Roles
  * @var $users           array
  * @var $authAssignments array
  * @var $adminAuthItems  array
@@ -11,7 +11,7 @@
 
 use calamity\common\components\form\Form;
 use calamity\common\components\text\Text;
-use calamity\Calamity;
+use calamity\common\models\core\Calamity;
 
 $this->title = Calamity::t('general', 'Create Role');
 ?>
@@ -63,11 +63,11 @@ $this->title = Calamity::t('general', 'Create Role');
                 <h3 class="card-title"><?= Calamity::t('general', 'Public routes') ?></h3>
             </div>
             <div class="card-body">
-                <?php /* @var $authItem \calamity\auth\AuthItem */ ?>
+                <?php /* @var $authItem \calamity\common\components\auth\AuthItem */ ?>
                 <?php foreach ($publicAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \calamity\auth\AuthAssignments */
+                    /* @var $assignment \calamity\common\components\auth\AuthAssignments */
                     foreach ($authAssignments as $assignment) {
                         if ($authItem->id == $assignment->item) {
                             $checked = true;
@@ -89,11 +89,11 @@ $this->title = Calamity::t('general', 'Create Role');
                 <h3 class="card-title"><?= Calamity::t('general', 'Admin Routes') ?></h3>
             </div>
             <div class="card-body">
-                <?php /* @var $authItem \calamity\auth\AuthItem */ ?>
+                <?php /* @var $authItem \calamity\common\components\auth\AuthItem */ ?>
                 <?php foreach ($adminAuthItems as $authItem): ?>
                     <?php
                     $checked = false;
-                    /* @var $assignment \calamity\auth\AuthAssignments */
+                    /* @var $assignment \calamity\common\components\auth\AuthAssignments */
                     foreach ($authAssignments as $assignment) {
                         if ($authItem->id == $assignment->item) {
                             $checked = true;
