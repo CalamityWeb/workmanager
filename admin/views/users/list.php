@@ -21,6 +21,7 @@ $columns = GenerateTableData::generateColumns(Users::class,
                 'ID' => ['place' => 1, 'data' => '"id"'],
                 'name' => ['title' => 'Name', 'place' => 3, 'data' => 'function (data) { return data.firstName + " " + data.lastName }'],
                 'email_confirmed' => ['data' => 'function (data) { return (data.email_confirmed) ? \'<i class="fa-solid fa-circle-check text-success"></i>\' : \'<i class="fa-solid fa-circle-xmark text-danger"></i>\' }'],
+                'auth_provider' => ['data' => 'function (data) { return (data.auth_provider == "google") ? \'<i class="fa-brands fa-google me-1"></i>Google\' : \'<i class="fa-solid fa-cloud-slash me-1"></i>Internal\' }'],
                 'Modify' => ['place' => 'latest', 'data' => 'function (data) { return getButtons(data)}'],
             ],
         'remove' => ['firstName', 'lastName'],
@@ -62,12 +63,12 @@ function getButtons(data) {
     
     return '<div class="btn-group btn-group-sm" role="group">' +
                 '<a class="btn btn-primary '+manage+'" data-bs-toggle="tooltip" data-bs-title="$edit" href="/users/manage/'+data.id+'">' +
-                        '<i class="fa-solid fa-gear"></i>' +
-                    '</a>' +
-                '<a class="btn btn-danger '+del+'" data-bs-toggle="tooltip" data-bs-title="$delete" href="/users/delete/'+data.id+'">' +
-                        '<i class="fa-solid fa-trash"></i>' +
+                    '<i class="fa-solid fa-gear"></i>' +
                 '</a>' +
-            '</div>';
+                '<a class="btn btn-danger '+del+'" data-bs-toggle="tooltip" data-bs-title="$delete" href="/users/delete/'+data.id+'">' +
+                    '<i class="fa-solid fa-trash"></i>' +
+                '</a>' +
+           '</div>';
 }
 JS,
 );
