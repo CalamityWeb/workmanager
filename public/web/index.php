@@ -27,8 +27,8 @@ $config = [
     'maintenance' => $_ENV['PUBLIC_MAINTENANCE'],
     'language' => $_ENV['PUBLIC_LANGUAGE'],
     'google' => [
-        'site_key' => $_ENV['GOOGLE_SITE_KEY'],
-        'secret_key' => $_ENV['GOOGLE_SECRET_KEY'],
+        'captcha_site_key' => $_ENV['GOOGLE_CAPTCHA_SITE_KEY'],
+        'captcha_secret_key' => $_ENV['GOOGLE_CAPTCHA_SECRET_KEY'],
     ],
 ];
 

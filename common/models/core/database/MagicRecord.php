@@ -83,7 +83,9 @@ use PDOStatement;
         $attributes = static::attributes();
         $params = array_map(static fn($attr) => ":$attr", $attributes);
 
-        if (!is_array(static::primaryKey())) {
+        if(!is_array(static::primaryKey()) and (!isset($this->{static::primaryKey()}) or $this->{static::primaryKey()} == null)) {
+            $exists = false;
+        } else if (!is_array(static::primaryKey())) {
             $exists = self::findOne([static::primaryKey() => $this->{static::primaryKey()}]);
         } else {
             $where = [];

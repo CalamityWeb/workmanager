@@ -28,7 +28,7 @@ class CoreHelper {
     }
 
     public static function validateGoogleCaptcha($captcha): bool {
-        $secret = Calamity::$config['google']['secret_key'];
+        $secret = Calamity::$config['google']['captcha_secret_key'];
         $ch = curl_init("https://www.google.com/recaptcha/api/siteverify");
 
         curl_setopt($ch, CURLOPT_HEADER, 0);

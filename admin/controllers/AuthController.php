@@ -146,10 +146,11 @@ class AuthController extends Controller {
         $google_oauth = new Google_Service_Oauth2($client->getClient());
         $google_account_info = $google_oauth->userinfo->get();
 
+        $loginForm = new LoginForm();
+
         if ($user = Users::findOne(['email' => $google_account_info->getEmail()])) {
             Calamity::$app->login($user);
             Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Login successful'), '/site/dashboard');
-            $loginForm = new LoginForm();
         } else {
             Calamity::$app->login(GoogleAuth::registerGoogleUser($google_account_info));
             Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Register successful'), '/site/dashboard');

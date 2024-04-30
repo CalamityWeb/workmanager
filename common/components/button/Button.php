@@ -24,10 +24,10 @@ class Button {
         $icon = $icon == null ? '' : '<span class="fa-solid ' . $icon . ' me-1"></span> ';
         $attr = implode(" ", $attributes);
 
-        if (!isset(Calamity::$config['google']['site_key']) and !isset(Calamity::$config['google']['secret_key'])) {
+        if (!isset(Calamity::$config['google']['captcha_site_key']) and !isset(Calamity::$config['google']['captcha_secret_key'])) {
             throw new InvalidConfigException(Calamity::t('general', 'Google captcha doesn\'t configured properly!'));
         }
-        $site_key = Calamity::$config['google']['site_key'];
+        $site_key = Calamity::$config['google']['captcha_site_key'];
 
         Calamity::$app->view->registerJS('function onSubmit(token) {document.getElementById("' . $id . '").submit();}');
 
