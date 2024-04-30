@@ -37,13 +37,12 @@ class ForgotPasswordForm extends Model {
         $resetToken->completed_at = null;
         $resetToken->save();
 
-        $link = '<a href="' . Calamity::$URL['ADMIN'] . '/auth/reset-password/' . $resetToken->token . '">' . Calamity::$URL['ADMIN'] . '/auth/reset-password/'
-            . $resetToken->token . '</a>';
+        $link = Calamity::$URL['@admin'] . '/auth/reset-password/' . $resetToken->token;
 
         return Calamity::$app->mailer
             ->setAddress($user->email)
             ->setSubject(Calamity::t('auth', 'Recover account password'))
-            ->setTemplate('forgot-password', ['resetLink' => $link, 'firstName' => $user->firstName])
+            ->setTemplate('forgot-password', ['reset_link' => $link, 'firstName' => $user->firstName])
             ->send();
     }
 }

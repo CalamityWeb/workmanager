@@ -24,6 +24,39 @@ class Users extends MagicRecord {
         return "users";
     }
 
+    public static function primaryKey(): string|array { return 'id'; }
+
+    public static function attributes(): array {
+        return [
+            'email',
+            'firstName',
+            'lastName',
+            'password',
+            'email_confirmed',
+            'auth_provider',
+        ];
+    }
+
+    public static function labels(): array {
+        return [
+            'email' => Calamity::t('attributes', 'Email address'),
+            'firstName' => Calamity::t('attributes', 'Given name'),
+            'lastName' => Calamity::t('attributes', 'Family name'),
+            'password' => Calamity::t('attributes', 'Password'),
+            'email_confirmed' => Calamity::t('attributes', 'Email confirmed'),
+            'auth_provider' => Calamity::t('attributes', 'Auth provider'),
+        ];
+    }
+
+    public function rules(): array {
+        return [
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class], 'attribute'],
+            'firstName' => [self::RULE_REQUIRED],
+            'lastName' => [self::RULE_REQUIRED],
+            'password' => [self::RULE_REQUIRED, self::RULE_PASSWORD],
+        ];
+    }
+
     public static function canRoute(Users|null $user, string $route): bool {
         $can = false;
         if (is_null($user)) {
@@ -66,39 +99,6 @@ class Users extends MagicRecord {
         return file_exists('./assets/images/profile-pictures/' . $this->{self::primaryKey()} . '.png') ? '/assets/images/profile-pictures/' . $this->{self::primaryKey()} . '.png' : '/assets/images/user-dummy.png';
     }
 
-    public static function primaryKey(): string|array { return 'id'; }
-
-    public static function attributes(): array {
-        return [
-            'email',
-            'firstName',
-            'lastName',
-            'password',
-            'email_confirmed',
-            'auth_provider',
-        ];
-    }
-
-    public static function labels(): array {
-        return [
-            'email' => Calamity::t('attributes', 'Email address'),
-            'firstName' => Calamity::t('attributes', 'Given name'),
-            'lastName' => Calamity::t('attributes', 'Family name'),
-            'password' => Calamity::t('attributes', 'Password'),
-            'email_confirmed' => Calamity::t('attributes', 'Email confirmed'),
-            'auth_provider' => Calamity::t('attributes', 'Auth provider'),
-        ];
-    }
-
-    public function rules(): array {
-        return [
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class], 'attribute'],
-            'firstName' => [self::RULE_REQUIRED],
-            'lastName' => [self::RULE_REQUIRED],
-            'password' => [self::RULE_REQUIRED, self::RULE_PASSWORD],
-        ];
-    }
-
     public function getActiveRole(): Roles|null {
         if (empty($this->getRoles())) {
             return null;
@@ -124,5 +124,15 @@ class Users extends MagicRecord {
             $roles[] = Roles::findOne([Roles::primaryKey() => $ids->roleId]);
         }
         return $roles;
+    }
+
+    public function sendConfirmationEmail(): bool {
+        $link = Calamity::$URL['@admin'] . '/auth/verify-account/' . bin2hex($this->email);
+
+        return Calamity::$app->mailer
+            ->setAddress($this->email)
+            ->setSubject(Calamity::t('auth', 'Confirm your account'))
+            ->setTemplate('confirm-account', ['confirm_link' => $link, 'firstName' => $this->firstName])
+            ->send();
     }
 }

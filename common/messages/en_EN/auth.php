@@ -19,6 +19,7 @@ return [
     'Register' => 'Register',
     'I already have a membership' => 'I already have a membership',
     'Register a new membership' => 'Register a new membership',
+    'Confirm your account' => 'Confirm your account',
 
     // ? Forgot password
     'Forgot password' => 'Forgot password',

@@ -19,6 +19,7 @@ $config = [
         'password' => $_ENV['DATABASE_PASSWORD'],
     ],
     'mailer' => [
+        'support_address' => $_ENV['SUPPORT_EMAIL'],
         'system_address' => $_ENV['SYSTEM_EMAIL'],
         'host' => $_ENV['EMAIL_HOST'],
         'username' => $_ENV['EMAIL_USERNAME'],

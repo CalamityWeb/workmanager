@@ -8,7 +8,6 @@ use calamity\common\models\core\exception\InvalidConfigException;
 use calamity\common\models\Roles;
 use calamity\common\models\Users;
 use Google\Client;
-use Google\Service;
 use Google\Service\Oauth2\Userinfo;
 
 class GoogleAuth {
@@ -53,6 +52,8 @@ class GoogleAuth {
         $user->email_confirmed = false;
         $user->password = null;
         $user->save();
+
+        $user->sendConfirmationEmail();
 
         $userRole = new UserRoles();
         $userRole->userId = Users::findOne(['email' => $userinfo->getEmail()])->id;

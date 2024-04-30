@@ -12,6 +12,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 class Mailer {
     public PHPMailer $mail;
     public string $SYSTEM_ADDRESS;
+    public string $SUPPORT_ADDRESS;
 
     public function __construct (array $config = []) {
         $this->mail = new PHPMailer();
@@ -26,6 +27,7 @@ class Mailer {
         $this->mail->CharSet = PHPMailer::CHARSET_UTF8;
 
         $this->SYSTEM_ADDRESS = $config['system_address'];
+        $this->SUPPORT_ADDRESS = $config['support_address'];
 
         $this->mail->From = $this->SYSTEM_ADDRESS;
         $this->mail->FromName = Calamity::$GLOBALS['APP_NAME'];
@@ -166,7 +168,17 @@ class Mailer {
             foreach ($args as $key => $value) {
                 $content = str_replace('{{' . $key . '}}', $value, $content);
             }
-            $content = str_replace(array ('{{copyright_year}}', '{{app_name}}', '{{app_link}}', '{{email_subject}}'), array (date('Y'), Calamity::$GLOBALS['APP_NAME'], ((empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST']), $this->mail->Subject), $content);
+            $content = str_replace(
+                array ('{{copyright_year}}', '{{app_name}}', '{{app_link}}', '{{email_subject}}', '{{support_email}}'),
+                array (
+                    date('Y'),
+                    Calamity::$GLOBALS['APP_NAME'],
+                    ((empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST']),
+                    $this->mail->Subject,
+                    !empty($this->SUPPORT_ADDRESS) ? $this->SUPPORT_ADDRESS : $this->SYSTEM_ADDRESS,
+                ),
+                $content,
+            );
             $this->mail->Body = $content;
         } catch (Exception $e) {
             throw new InvalidConfigException(Calamity::t("email", "Cannot set email template"));

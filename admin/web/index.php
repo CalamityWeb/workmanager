@@ -22,6 +22,7 @@ $config = [
         'password' => $_ENV['DATABASE_PASSWORD'],
     ],
     'mailer' => [
+        'support_address' => $_ENV['SUPPORT_EMAIL'],
         'system_address' => $_ENV['SYSTEM_EMAIL'],
         'host' => $_ENV['EMAIL_HOST'],
         'username' => $_ENV['EMAIL_USERNAME'],
@@ -49,6 +50,7 @@ $app->router->getNpost('/auth/register', [AuthController::class, 'register']);
 $app->router->get('/auth/logout', [AuthController::class, 'logout']);
 $app->router->getNpost('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 $app->router->getNpost('/auth/reset-password/{token}', [AuthController::class, 'resetPassword']);
+$app->router->getNpost('/auth/verify-account/{token}', [AuthController::class, 'verifyAccount']);
 $app->router->get('/auth/google-auth', [AuthController::class, 'googleAuth']);
 
 /* * Users Management routes */

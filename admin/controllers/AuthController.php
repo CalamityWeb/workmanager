@@ -25,7 +25,7 @@ class AuthController extends Controller {
         $registerForm = new RegisterForm();
         if ($request->isPost()) {
             $registerForm->loadData($request->getBody());
-            if ($registerForm->validate() and $user = $registerForm->register()) {
+            if ($registerForm->validate() and $user = $registerForm->register() and $user->sendConfirmationEmail()) {
                 Calamity::$app->login($user);
                 Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Register successful'), '/site/dashboard');
             }
@@ -156,5 +156,19 @@ class AuthController extends Controller {
             Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Register successful'), '/site/dashboard');
         }
         return $this->render('auth.login', ['loginForm' => $loginForm, 'googleClient' => $client]);
+    }
+
+    public function verifyAccount(Request $request, Response $response): void {
+        $token = $request->getRouteParam('token');
+        if (!$token) {
+            throw new NotFoundException();
+        }
+
+        /* @var $user Users */
+        $user = Users::findOne(['email' => hex2bin($token)]);
+        $user->email_confirmed = true;
+        $user->save();
+
+        $response->redirect('/site/dashboard');
     }
 }

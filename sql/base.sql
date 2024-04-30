@@ -94,12 +94,13 @@ values (1, '@admin/auth/login', null, '2000-01-01 00:00:00', null),
        (13, '@admin/routes-management/items/create', null, '2000-01-01 00:00:00', null),
        (14, '@admin/auth/logout', null, '2000-01-01 00:00:00', null),
        (15, '@admin/auth/forgot-password', null, '2000-01-01 00:00:00', null),
-       (16, '@admin/auth/reset-password', null, '2000-01-01 00:00:00', null),
+       (16, '@admin/auth/reset-password/{token}', null, '2000-01-01 00:00:00', null),
        (18, '@admin/routes-management/roles/create', null, '2000-01-01 00:00:00', null),
        (19, '@admin/routes-management/roles/list-all', null, '2000-01-01 00:00:00', null),
        (20, '@admin/routes-management/roles/manage/{id}', null, '2000-01-01 00:00:00', null),
        (21, '@public/', null, '2000-01-01 00:00:00', null),
        (22, '@admin/auth/google-auth', null, '2000-01-01 00:00:00', null);
+    (23, '@admin/auth/verify-account/{token}', null, '2000-01-01 00:00:00', null);
 
 insert into `roles` (`id`, `roleName`, `roleIcon`, `description`, `created_at`, `updated_at`)
 values (1, 'Administrator', '<i class=\"fa-solid fa-crown\" style=\"color: #f5bd02;\"></i>', null,
@@ -136,6 +137,8 @@ values (1, 21, '2000-01-01 00:00:00', null),
        (1, 8, '2000-01-01 00:00:00', null),
        (1, 9, '2000-01-01 00:00:00', null),
        (1, 22, '2000-01-01 00:00:00', null),
+       (1, 23, '2000-01-01 00:00:00', null),
+       (2, 23, '2000-01-01 00:00:00', null),
        (2, 22, '2000-01-01 00:00:00', null),
        (2, 21, '2000-01-01 00:00:00', null),
        (2, 15, '2000-01-01 00:00:00', null),
