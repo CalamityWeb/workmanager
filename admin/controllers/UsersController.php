@@ -1,30 +1,25 @@
 <?php
 
-namespace tframe\admin\controllers;
+namespace calamity\admin\controllers;
 
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\auth\RegisterForm;
-use tframe\core\auth\Roles;
-use tframe\core\auth\UserRoles;
-use tframe\core\Controller;
-use tframe\core\Request;
-use tframe\core\Response;
+use calamity\common\components\auth\RegisterForm;
+use calamity\common\components\auth\UserRoles;
+use calamity\common\components\table\GenerateTableData;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\Controller;
+use calamity\common\models\core\Request;
+use calamity\common\models\core\Response;
+use calamity\common\models\Roles;
+use calamity\common\models\Users;
 
 class UsersController extends Controller {
-    public function listUsers(): string {
+    public function listUsers (): string {
         $this->setLayout('main');
 
-        $users = Users::findMany();
-        foreach ($users as $user) {
-            unset($user->password, $user->token, $user->errors);
-        }
-        $users = json_encode($users);
-
-        return $this->render('users.list', ['users' => $users]);
+        return $this->render('users.list', ['users' => GenerateTableData::convertData(Users::findMany())]);
     }
 
-    public function createUser(Request $request): string {
+    public function createUser (Request $request): string {
         $this->setLayout('main');
 
         $registerForm = new RegisterForm();
@@ -32,14 +27,14 @@ class UsersController extends Controller {
             $registerForm->loadData($request->getBody());
             $registerForm->agreeTerms = true;
             if ($registerForm->validate() and $registerForm->register()) {
-                Application::$app->session->setFlash('success', Application::t('auth', 'Register successful'));
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Register successful'));
             }
         }
 
         return $this->render('users.create', ['registerForm' => $registerForm]);
     }
 
-    public function manageUser(Request $request, Response $response): string {
+    public function manageUser (Request $request, Response $response): string {
         $this->setLayout('main');
 
         /** @var Users $user */
@@ -47,18 +42,18 @@ class UsersController extends Controller {
         $roles = Roles::findMany();
         $userRoles = $user->getRoles();
 
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $user->loadData($request->getBody());
-            if($user->validate()) {
+            if ($user->validate()) {
                 $user->email_confirmed = isset($request->getBody()['email_confirmed']) ? true : $user->email_confirmed;
 
                 /** @var $assignment UserRoles */
                 foreach (UserRoles::findMany(['userId' => $user->id]) as $assignment) {
-                    if($assignment->roleId != 1) {
+                    if ($assignment->roleId != 1) {
                         $assignment->delete();
                     }
                 }
-                if(isset($request->getBody()["roles"])) {
+                if (isset($request->getBody()["roles"])) {
                     foreach ($request->getBody()["roles"] as $id) {
                         $assignment = new UserRoles();
                         $assignment->userId = $user->id;
@@ -68,7 +63,7 @@ class UsersController extends Controller {
                 }
 
                 $user->save();
-                Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
+                Calamity::$app->session->setFlash('success', Calamity::t('general', 'Update successful!'));
             }
         }
 
@@ -77,7 +72,7 @@ class UsersController extends Controller {
                 'user' => $user,
                 'roles' => $roles,
                 'userRoles' => $userRoles,
-            ]
+            ],
         );
     }
 }

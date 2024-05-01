@@ -12,12 +12,14 @@ return [
     'Login' => 'Login',
     'Sign in to start your session' => 'Sign in to start your session',
     'I forgot my password' => 'I forgot my password',
+    'You registered with an external provider, please log in with that provider and set up a password to use this feature of login in the next time!' => 'You registered with an external provider, please log in with that provider and set up a password to use this feature of login in the next time!',
 
     // ? Register
     'Register successful' => 'Register successful',
     'Register' => 'Register',
     'I already have a membership' => 'I already have a membership',
     'Register a new membership' => 'Register a new membership',
+    'Confirm your account' => 'Confirm your account',
 
     // ? Forgot password
     'Forgot password' => 'Forgot password',
@@ -36,4 +38,5 @@ return [
     // ? Routes management
     'Route creation successful' => 'Route creation successful',
     'Route must contains the aliases of the sites. Please see below!', 'Route must contains the aliases of the sites. Please see below!',
+    'Google Authentication code is invalid' => 'Google Authentication code is invalid',
 ];

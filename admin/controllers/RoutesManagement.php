@@ -1,37 +1,37 @@
 <?php
 
-namespace tframe\admin\controllers;
+namespace calamity\admin\controllers;
 
-use tframe\common\components\text\Generator;
-use tframe\common\models\Users;
-use tframe\core\Application;
-use tframe\core\auth\AuthAssignments;
-use tframe\core\auth\Roles;
-use tframe\core\auth\AuthItem;
-use tframe\core\auth\UserRoles;
-use tframe\core\Controller;
-use tframe\core\exception\NotFoundException;
-use tframe\core\Request;
-use tframe\core\Response;
+use calamity\common\components\auth\AuthAssignments;
+use calamity\common\components\auth\AuthItem;
+use calamity\common\components\auth\UserRoles;
+use calamity\common\components\table\GenerateTableData;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\Controller;
+use calamity\common\models\core\exception\NotFoundException;
+use calamity\common\models\core\Request;
+use calamity\common\models\core\Response;
+use calamity\common\models\Roles;
+use calamity\common\models\Users;
 
 class RoutesManagement extends Controller {
     /* * Items */
     public function listItems(): string {
         $this->setLayout('main');
 
-        return $this->render('routes-management.items.list');
+        return $this->render('routes-management.items.list', ['items' => GenerateTableData::convertData(AuthItem::findMany())]);
     }
 
     public function createItem(Request $request, Response $response): string {
         $this->setLayout('main');
 
         $routeItem = new AuthItem();
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $routeItem->loadData($request->getBody());
-            if($routeItem->validate() and $routeItem->validateAliases()) {
+            if ($routeItem->validate() and $routeItem->validateAliases()) {
                 $routeItem->id = null;
                 $routeItem->save();
-                Application::$app->session->setFlash('success', Application::t('auth', 'Route creation successful'));
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Route creation successful'));
             }
         }
 
@@ -44,15 +44,15 @@ class RoutesManagement extends Controller {
         /** @var AuthItem $authItem */
         $authItem = AuthItem::findOne(['id' => $request->getRouteParam('id')]);
 
-        if(!$authItem) {
+        if (!$authItem) {
             throw new NotFoundException();
         }
 
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $authItem->loadData($request->getBody());
-            if($authItem->validate() and $authItem->validateAliases()) {
+            if ($authItem->validate() and $authItem->validateAliases()) {
                 $authItem->save();
-                Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
+                Calamity::$app->session->setFlash('success', Calamity::t('general', 'Update successful!'));
             }
         }
 
@@ -63,19 +63,19 @@ class RoutesManagement extends Controller {
     public function listRoles(Request $request, Response $response): string {
         $this->setLayout('main');
 
-        return $this->render('routes-management.roles.list');
+        return $this->render('routes-management.roles.list', ['roles' => GenerateTableData::convertData(Roles::findMany())]);
     }
 
     public function createRole(Request $request, Response $response): string {
         $this->setLayout('main');
 
         $role = new Roles();
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $role->loadData($request->getBody());
-            if($role->validate()) {
+            if ($role->validate()) {
                 $role->id = null;
                 $role->save();
-                Application::$app->session->setFlash('success', Application::t('auth', 'Role creation successful'));
+                Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Role creation successful'));
             }
         }
 
@@ -87,19 +87,19 @@ class RoutesManagement extends Controller {
         /** @var Roles $role */
         $role = Roles::findOne([Roles::primaryKey() => $request->getRouteParam('id')]);
 
-        /** @var \tframe\common\models\Users $sessionUser */
-        $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
+        /** @var \calamity\common\models\Users $sessionUser */
+        $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
         /** @var Roles $userRole */
         foreach ($sessionUser->getRoles() as $userRole) {
-            if($userRole->id == $role->id) {
+            if ($userRole->id == $role->id) {
                 $flag = false;
             }
         }
 
-        if($flag) {
+        if ($flag) {
             $role->delete();
         }
-        Application::$app->response->redirect('/routes-management/roles/list-all');
+        Calamity::$app->response->redirect('/routes-management/roles/list-all');
     }
 
     public function manageRole(Request $request, Response $response): string {
@@ -113,23 +113,22 @@ class RoutesManagement extends Controller {
             $users[] = Users::findOne([Users::primaryKey() => $assign->userId]);
         }
 
-        if(!$role) {
+        if (!$role) {
             throw new NotFoundException();
         }
 
-        $authAssignments = AuthAssignments::findMany(['code' => $role->id]);
+        $authAssignments = AuthAssignments::findMany(['role' => $role->id]);
         $adminAuthItems = AuthItem::queryMany('item LIKE "@admin/%"', 'item');
         $publicAuthItems = AuthItem::queryMany('item LIKE "@public/%"', 'item');
-        $apiAuthItems = AuthItem::queryMany('item LIKE "@api/%"', 'item');
 
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $role->loadData($request->getBody());
-            if($role->validate()) {
+            if ($role->validate()) {
                 /** @var $assignment AuthAssignments */
-                foreach (AuthAssignments::findMany(['code' => $role->id]) as $assignment) {
+                foreach (AuthAssignments::findMany(['role' => $role->id]) as $assignment) {
                     $assignment->delete();
                 }
-                if(isset($request->getBody()["routes"])) {
+                if (isset($request->getBody()["routes"])) {
                     foreach ($request->getBody()["routes"] as $id) {
                         $assignment = new AuthAssignments();
                         $assignment->role = $role->id;
@@ -138,7 +137,7 @@ class RoutesManagement extends Controller {
                     }
                 }
                 $role->save();
-                Application::$app->session->setFlash('success', Application::t('general', 'Update successful!'));
+                Calamity::$app->session->setFlash('success', Calamity::t('general', 'Update successful!'));
             }
         }
 
@@ -149,8 +148,7 @@ class RoutesManagement extends Controller {
                 'authAssignments' => $authAssignments,
                 'adminAuthItems' => $adminAuthItems,
                 'publicAuthItems' => $publicAuthItems,
-                'apiAuthItems' => $apiAuthItems
-            ]
+            ],
         );
     }
 }

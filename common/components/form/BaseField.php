@@ -1,15 +1,14 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Model;
+use calamity\common\models\core\Model;
 
 abstract class BaseField {
     protected Model $model;
     protected string $attribute;
     protected array $options;
     protected string $type;
-
     protected bool $required = false;
     protected bool $disabled = false;
 

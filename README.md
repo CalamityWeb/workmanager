@@ -1,46 +1,41 @@
 # Table of contents
 
-1. [Meet Tframe](#meet-tframe)
+1. [Meet Calamity](#meet-calamity)
 2. [Installation](#installation)
 3. [Configuration](#configuration)
 4. [Support](#support)
-5. [Updates](#updates)
 
-## Meet Tframe
+## Meet Calamity
 
-Tframe is a web application framework, for making your life simple and easy. **Please note**, that it is still in
-progress. Tframe is based on `PHP` and `MySQL` or `PostgreSQL` (it uses PDO). It is free to use for any project you
+Calamity is a web application framework, for making your life simple and easy. **Please note**, that it is still in
+progress. Calamity is based on `PHP` and `MySQL` or `PostgreSQL` (it uses PDO). It is free to use for any project you
 want.
 
 ## Installation
 
-To install Tframe just download the source zip, extract, and it is ready to use. Please refer
+To install Calamity just download the source zip, extract, and it is ready to use. Please refer
 to [configuration](#configuration) before using it. In `/sql/base.sql` you find the basic SQL commands you need to run.
 There is a pre-configured account `Superadmin`.
 
 > [!IMPORTANT]
-> The email for login is `admin@example.com` with the password of `Superadmin1*`
+> The email for the login is `admin@example.com` with the password of `Superadmin1*`
 
 ## Configuration
 
-Under `/common/config` you will find a `.env.example` file. Rename ti to just `.env`, and fill the fields in it.
+First run `composer install` to get the necessary files you need.
+
+Under `/common/config/` you will find a `.env.example` file. Rename it to just `.env`, and fill the fields in it.
 For the `_URL` paths include `http://` or `https://` otherwise your app could crash. For the pages root set the `/web`
-folder under admin/public/api.
+folder under admin/public.
 
-> [!CAUTION]
-> Your app won't work until you set up the API. It is used for the DataTables queries, so it will report a problem
-> unless you install the api correctly.
+To use Google Captcha field, fill the `.env` file with the site key and secret key.
 
-> [!TIP]
-> Look into the `aliases.php` and `globals.php` files too and modify/add variables you like.
+To use Google Authentication download the `client_secret.json` file from the Google Console and paste it to `/common/config/`
 
 ## Support
 
-| Version | PHP |      Release      |      Support       |
-|:-------:|:---:|:-----------------:|:------------------:|
-|  v1.0   | 8.3 | 04th January 2024 | :white_check_mark: |
-|  v1.1   |  -  |    in progress    |        TBA         |
-
-## Updates
-
-- [ ] https://github.com/tokrist/tframe/issues/1
+| Version | PHP  |      Release      |      Support       |
+|:-------:|:----:|:-----------------:|:------------------:|
+|  v1.0   | 8.2+ | 04th January 2024 |        :x:         |
+|  v2.0   | 8.2+ |    01 May 2024    | :white_check_mark: |
+|  v3.0   | 8.3+ |        TBA        |        TBA         |

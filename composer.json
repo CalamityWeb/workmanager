@@ -1,25 +1,27 @@
 {
-	"name": "tokrist/tframe",
-	"description": "Personal (custom built) framework",
+	"name": "calamityweb/framework",
+	"description": "Calamity framework",
 	"minimum-stability": "stable",
 	"license": "MIT",
 	"type": "project",
 	"authors": [
 		{
-			"name": "tokrist",
-			"email": "tokrist15@gmail.com"
+			"name": "CalamityWeb",
+			"email": "hello@calamityweb.com"
 		}
 	],
 	"autoload": {
 		"psr-4": {
-			"tframe\\": "./"
+			"calamity\\": "./"
 		}
 	},
 	"require": {
-		"php": ">= 8.2",
-		"vlucas/phpdotenv": "^5.5",
 		"ext-openssl": "*",
 		"ext-pdo": "*",
-		"phpmailer/phpmailer": "^6.8"
+		"ext-curl": "*",
+		"php": ">= 8.2",
+		"vlucas/phpdotenv": "^5.5",
+		"phpmailer/phpmailer": "^6.8",
+		"google/apiclient": "v2.15.3"
 	}
 }

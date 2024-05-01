@@ -1,8 +1,8 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Model;
+use calamity\common\models\core\Model;
 
 abstract class IconField {
     protected Model $model;
@@ -10,18 +10,17 @@ abstract class IconField {
     protected string $icon;
     protected array $options;
     protected string $type;
-
     protected bool $required = false;
     protected bool $disabled = false;
 
-    public function __construct(Model $model, string $attribute, string $icon, array $options) {
+    public function __construct (Model $model, string $attribute, string $icon, array $options) {
         $this->model = $model;
         $this->attribute = $attribute;
         $this->icon = $icon;
         $this->options = $options;
     }
 
-    public function __toString() {
+    public function __toString () {
         return '
         <div class="input-group">
             ' . $this->renderInput($this->options) . '
@@ -35,5 +34,5 @@ abstract class IconField {
         ';
     }
 
-    abstract public function renderInput(array $options);
+    abstract public function renderInput (array $options);
 }

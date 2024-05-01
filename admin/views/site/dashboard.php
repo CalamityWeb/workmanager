@@ -1,17 +1,17 @@
 <?php
 /**
- * @var $this \tframe\core\View
+ * @var $this      \calamity\common\models\core\View
  * @var $userCount integer
- * @var $user \tframe\common\models\Users
+ * @var $user      \calamity\common\models\Users
  */
 
-use tframe\core\Application;
+use calamity\common\models\core\Calamity;
 
-$this->title = Application::t('general','Dashboard');
+$this->title = Calamity::t('general', 'Dashboard');
 ?>
 <div class="row mb-2">
     <div class="col-12">
-        <h3><?= Application::t('general','Welcome,') ?> <?= $user->firstName ?></h3>
+        <h3><?= Calamity::t('general', 'Welcome,') ?> <?= $user->firstName ?></h3>
     </div>
 </div>
 
@@ -20,7 +20,7 @@ $this->title = Application::t('general','Dashboard');
         <div class="small-box bg-primary">
             <div class="inner">
                 <h3><?= $userCount ?></h3>
-                <p class="mb-0"><?= Application::t('general','Users') ?></p>
+                <p class="mb-0"><?= Calamity::t('general', 'Users') ?></p>
             </div>
             <div class="icon">
                 <i class="fa-solid fa-users"></i>

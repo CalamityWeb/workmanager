@@ -1,12 +1,13 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-use tframe\admin\controllers\AuthController;
-use tframe\admin\controllers\RoutesManagement;
-use tframe\admin\controllers\SiteController;
-use tframe\admin\controllers\UsersController;
-use tframe\core\Application;
+use calamity\admin\controllers\AuthController;
+use calamity\admin\controllers\RoutesManagement;
+use calamity\admin\controllers\SiteController;
+use calamity\admin\controllers\UsersController;
+use calamity\common\models\core\Calamity;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -18,21 +19,26 @@ $config = [
         'host' => $_ENV['DATABASE_HOST'],
         'dbname' => $_ENV['DATABASE_DBNAME'],
         'username' => $_ENV['DATABASE_USERNAME'],
-        'password' => $_ENV['DATABASE_PASSWORD']
+        'password' => $_ENV['DATABASE_PASSWORD'],
     ],
     'mailer' => [
+        'support_address' => $_ENV['SUPPORT_EMAIL'],
         'system_address' => $_ENV['SYSTEM_EMAIL'],
         'host' => $_ENV['EMAIL_HOST'],
         'username' => $_ENV['EMAIL_USERNAME'],
-        'password' => $_ENV['EMAIL_PASSWORD']
+        'password' => $_ENV['EMAIL_PASSWORD'],
     ],
     'maintenance' => $_ENV['ADMIN_MAINTENANCE'],
-    'language' => $_ENV['ADMIN_LANGUAGE']
+    'language' => $_ENV['ADMIN_LANGUAGE'],
+    'google' => [
+        'captcha_site_key' => $_ENV['GOOGLE_CAPTCHA_SITE_KEY'],
+        'captcha_secret_key' => $_ENV['GOOGLE_CAPTCHA_SECRET_KEY'],
+    ],
 ];
 
-$app = new Application(dirname(__DIR__), $config);
+$app = new Calamity(dirname(__DIR__), $config);
 
-$app->router->get('/', function (){Application::$app->response->redirect('/auth/login');});
+$app->router->get('/', function() { Calamity::$app->response->redirect('/auth/login'); });
 
 /* *Site routes */
 $app->router->getNpost('/site/dashboard', [SiteController::class, 'dashboard']);
@@ -44,6 +50,8 @@ $app->router->getNpost('/auth/register', [AuthController::class, 'register']);
 $app->router->get('/auth/logout', [AuthController::class, 'logout']);
 $app->router->getNpost('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 $app->router->getNpost('/auth/reset-password/{token}', [AuthController::class, 'resetPassword']);
+$app->router->getNpost('/auth/verify-account/{token}', [AuthController::class, 'verifyAccount']);
+$app->router->get('/auth/google-auth', [AuthController::class, 'googleAuth']);
 
 /* * Users Management routes */
 $app->router->get('/users/list-all', [UsersController::class, 'listUsers']);

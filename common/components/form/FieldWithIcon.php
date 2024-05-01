@@ -1,26 +1,26 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Model;
+use calamity\common\models\core\Model;
 
 class FieldWithIcon extends IconField {
-    const TYPE_TEXT = 'text';
-    const TYPE_PASSWORD = 'password';
-    const TYPE_FILE = 'file';
-    const TYPE_EMAIL = 'email';
-    const TYPE_TEL = 'tel';
-    const TYPE_URL = 'url';
-    const TYPE_DATE = 'date';
-    const TYPE_SELECT = 'select';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_PASSWORD = 'password';
+    public const TYPE_FILE = 'file';
+    public const TYPE_EMAIL = 'email';
+    public const TYPE_TEL = 'tel';
+    public const TYPE_URL = 'url';
+    public const TYPE_DATE = 'date';
+    public const TYPE_SELECT = 'select';
 
-    public function __construct(Model $model, string $attribute, string $icon, array $options, bool $disabled) {
+    public function __construct (Model $model, string $attribute, string $icon, array $options, bool $disabled) {
         $this->type = self::TYPE_TEXT;
         $this->disabled = $disabled;
         parent::__construct($model, $attribute, $icon, $options);
     }
 
-    public function renderInput(array $options): string {
+    public function renderInput (array $options): string {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
@@ -28,7 +28,7 @@ class FieldWithIcon extends IconField {
         return '
         <input
             type="' . $this->type . '"
-            class="form-control ' . (($this->model->hasError($this->attribute)) ? " is-invalid" : "") .'"
+            class="form-control ' . (($this->model->hasError($this->attribute)) ? " is-invalid" : "") . '"
             name="' . $this->attribute . '"
             value="' . ($_POST[$this->attribute] ?? $this->model->{$this->attribute}) . '"
             placeholder="' . $this->model->getLabel($this->attribute) . '"
@@ -39,47 +39,47 @@ class FieldWithIcon extends IconField {
         ';
     }
 
-    public function required(): static {
+    public function required (): static {
         $this->required = true;
         return $this;
     }
 
-    public function disabled(): static {
+    public function disabled (): static {
         $this->disabled = true;
         return $this;
     }
 
-    public function passwordField(): static {
+    public function passwordField (): static {
         $this->type = self::TYPE_PASSWORD;
         return $this;
     }
 
-    public function fileField(): static {
+    public function fileField (): static {
         $this->type = self::TYPE_FILE;
         return $this;
     }
 
-    public function emailField(): static {
+    public function emailField (): static {
         $this->type = self::TYPE_EMAIL;
         return $this;
     }
 
-    public function telField(): static {
+    public function telField (): static {
         $this->type = self::TYPE_TEL;
         return $this;
     }
 
-    public function urlField(): static {
+    public function urlField (): static {
         $this->type = self::TYPE_URL;
         return $this;
     }
 
-    public function dateField(): static {
+    public function dateField (): static {
         $this->type = self::TYPE_DATE;
         return $this;
     }
 
-    public function selectField(): static {
+    public function selectField (): static {
         $this->type = self::TYPE_SELECT;
         return $this;
     }

@@ -1,14 +1,14 @@
 <?php
 /**
- * @var $this \tframe\core\View
+ * @var $this \calamity\common\models\core\View
  */
 
-use tframe\common\components\alert\Sweetalert;
-use tframe\common\models\Users;
-use tframe\core\Application;
+use calamity\common\components\alert\Sweetalert;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\Users;
 
-/** @var \tframe\common\models\Users $sessionUser */
-$sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session->get('sessionUser')]);
+/** @var \calamity\common\models\Users $sessionUser */
+$sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
 
 ?>
 
@@ -23,13 +23,17 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
 
     <title><?= $this->title ?></title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/modules/adminlte/adminlte.css">
-    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fh-3.4.0/r-2.5.0/sc-2.3.0/sb-1.6.0/sp-2.2.0/datatables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/af-2.7.0/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/date-1.5.2/fh-4.0.1/r-3.0.1/sc-2.4.1/sb-1.7.0/sp-2.3.0/datatables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/eliyantosarage/font-awesome-pro@main/fontawesome-pro-6.5.1-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+    <?php if (!empty(Calamity::$config['google'])): ?>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+    <?php endif; ?>
     <link rel="stylesheet" href="/assets/site.css?v=<?= time() ?>">
 
     {{css}}
@@ -57,9 +61,9 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
                     <span class="d-none d-md-inline">
                         <?= $sessionUser->getFullName() ?>
                     </span>
-                    <?php if(!empty($sessionUser->getActveRole()->roleIcon)): ?>
-                    <span class="d-none d-md-inline">
-                        <?= $sessionUser->getActveRole()->roleIcon ?>
+                    <?php if (!empty($sessionUser->getActiveRole()->roleIcon)): ?>
+                        <span class="d-none d-md-inline">
+                        <?= $sessionUser->getActiveRole()->roleIcon ?>
                     </span>
                     <?php endif; ?>
                 </span>
@@ -68,7 +72,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
                             <img src="<?= $sessionUser->getPicture() ?>" class="img-circle shadow" alt="User">
                             <p>
                                 <?= $sessionUser->getFullName() ?>
-                                <small><?= $sessionUser->getActveRole()->roleIcon ?><?= $sessionUser->getActveRole()->roleName ?></small>
+                                <small><?= $sessionUser->getActiveRole()->roleIcon ?><?= $sessionUser->getActiveRole()->roleName ?></small>
                             </p>
                         </li>
                         <li class="user-footer">
@@ -83,33 +87,28 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
                 </li>
                 <li class="nav-item dropdown">
                     <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
-                            id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
-                            data-bs-display="static">
-                      <span class="theme-icon-active">
+                            id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
+                        <span class="theme-icon-active">
                             <i class="my-1"></i>
-                      </span>
+                        </span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme"
-                        style="--bs-dropdown-min-width: 8rem;">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme" style="--bs-dropdown-min-width: 8rem;">
                         <li>
-                            <button type="button" class="dropdown-item d-flex align-items-center active"
-                                    data-bs-theme-value="light">
+                            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light">
                                 <i class="fa-solid fa-sun me-2 opacity-50"></i>
                                 Light
                                 <i class="fa-solid fa-check ms-auto d-none"></i>
                             </button>
                         </li>
                         <li>
-                            <button type="button" class="dropdown-item d-flex align-items-center"
-                                    data-bs-theme-value="dark">
+                            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
                                 <i class="fa-solid fa-moon me-2 opacity-50"></i>
                                 Dark
                                 <i class="fa-solid fa-check ms-auto d-none"></i>
                             </button>
                         </li>
                         <li>
-                            <button type="button" class="dropdown-item d-flex align-items-center"
-                                    data-bs-theme-value="auto">
+                            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto">
                                 <i class="fa-solid fa-circle-half-stroke me-2 opacity-50"></i>
                                 Auto
                                 <i class="fa-solid fa-check ms-auto d-none"></i>
@@ -125,7 +124,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
         <div class="brand-container">
             <a href="/site/dashboard" class="brand-link">
                 <img src="/assets/images/tframe-logo.png" alt="Logo" class="brand-image shadow">
-                <span class="brand-text fw-light"><?= Application::$GLOBALS['APP_NAME'] ?></span>
+                <span class="brand-text fw-light"><?= Calamity::$GLOBALS['APP_NAME'] ?></span>
             </a>
             <span class="pushmenu mx-1" data-lte-toggle="sidebar-mini" role="button">
             <i class="fa-solid fa-angles-left"></i>
@@ -207,23 +206,23 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
     <footer class="main-footer">
         <strong>
             Copyright &copy; <?= date('Y') ?> |
-            <a href="<?= Application::$URL['PUBLIC'] ?>" ><?= Application::$GLOBALS['APP_NAME'] ?></a> |
+            <a href="<?= Calamity::$URL['@public'] ?>"><?= Calamity::$GLOBALS['APP_NAME'] ?></a> |
             All Rights Reserved.
         </strong>
 
         <div class="float-end d-none d-sm-inline-block">
-            <b>Version</b> v1.0
+            <b>Version</b> v2.0
         </div>
     </footer>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 <script src="/assets/modules/adminlte/adminlte.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-1.13.8/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/date-1.5.1/fh-3.4.0/r-2.5.0/sc-2.3.0/sb-1.6.0/sp-2.2.0/datatables.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/af-2.7.0/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/date-1.5.2/fh-4.0.1/r-3.0.1/sc-2.4.1/sb-1.7.0/sp-2.3.0/datatables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
@@ -232,12 +231,14 @@ $sessionUser = Users::findOne([Users::primaryKey() => Application::$app->session
 
 <script src="/assets/site.js?v=<?= time() ?>"></script>
 
-<?php if (Application::$app->session->getFlash('success')): ?>
-    <?= Sweetalert::generateToastAlert('success', Application::$app->session->getFlash('success')) ?>
-<?php endif; ?>
-<?php if (Application::$app->session->getFlash('error')): ?>
-    <?= Sweetalert::generateToastAlert('error', Application::$app->session->getFlash('error')) ?>
-<?php endif; ?>
+<?php
+if (Calamity::$app->session->getFlash('success')) {
+    Calamity::$app->view->registerJS(Sweetalert::generateToastAlert('success', Calamity::$app->session->getFlash('success')));
+}
+if (Calamity::$app->session->getFlash('error')) {
+    Calamity::$app->view->registerJS(Sweetalert::generateToastAlert('error', Calamity::$app->session->getFlash('error')));
+}
+?>
 
 </body>
 </html>

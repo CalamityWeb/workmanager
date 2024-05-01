@@ -1,18 +1,17 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Application;
-use tframe\core\Model;
+use calamity\common\models\core\Calamity;
+use calamity\common\models\core\Model;
 
 class SwitchField extends BaseField {
-
-    public function __construct(Model $model, string $attribute, array $options, $disabled) {
+    public function __construct (Model $model, string $attribute, array $options, $disabled) {
         $this->disabled = $disabled;
         parent::__construct($model, $attribute, $options);
     }
 
-    public function renderInput(array $options): string {
+    public function renderInput (array $options): string {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
@@ -30,7 +29,7 @@ class SwitchField extends BaseField {
 
         $element .= ' type="checkbox" role="switch"';
 
-        if (!isset($_POST[$this->attribute]) and $this->model->{$this->attribute} and Application::$app->request->isPost()) {
+        if (!isset($_POST[$this->attribute]) and $this->model->{$this->attribute} and Calamity::$app->request->isPost()) {
             $element .= '>';
         } elseif (isset($_POST[$this->attribute]) or $this->model->{$this->attribute}) {
             $element .= 'checked>';
@@ -43,7 +42,7 @@ class SwitchField extends BaseField {
         return $element;
     }
 
-    public function disabled(): static {
+    public function disabled (): static {
         $this->disabled = true;
         return $this;
     }

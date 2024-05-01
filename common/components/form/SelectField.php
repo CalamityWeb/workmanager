@@ -1,22 +1,21 @@
 <?php
 
-namespace tframe\common\components\form;
+namespace calamity\common\components\form;
 
-use tframe\core\Model;
+use calamity\common\models\core\Model;
 
 class SelectField extends BaseField {
-
     private array $choices;
     private bool $canBeNull;
 
-    public function __construct(Model $model, string $attribute, array $options, array $choices, bool $canBeNull, bool $disabled) {
+    public function __construct (Model $model, string $attribute, array $options, array $choices, bool $canBeNull, bool $disabled) {
         $this->choices = $choices;
         $this->canBeNull = $canBeNull;
         $this->disabled = $disabled;
         parent::__construct($model, $attribute, $options);
     }
 
-    public function renderInput(array $options): string {
+    public function renderInput (array $options): string {
         $attributes = [];
         foreach ($options as $key => $value) {
             $attributes[] = "$key=\"$value\"";
@@ -31,7 +30,7 @@ class SelectField extends BaseField {
         $element .= ($this->required) ? ' required' : '';
         $element .= ($this->disabled) ? ' disabled>' : '>';
 
-        if($this->canBeNull) $element .= '<option value="null">(not set)</option>';
+        if ($this->canBeNull) $element .= '<option value="null">(not set)</option>';
 
         foreach ($this->choices as $key => $value) {
             $element .= '<option value="' . $key . '"';
@@ -44,12 +43,12 @@ class SelectField extends BaseField {
         return $element;
     }
 
-    public function required(): static {
+    public function required (): static {
         $this->required = true;
         return $this;
     }
 
-    public function disabled(): static {
+    public function disabled (): static {
         $this->disabled = true;
         return $this;
     }
