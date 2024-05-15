@@ -187,6 +187,7 @@ class Mailer {
     }
 
     public function setBody (string $body): static {
+        $this->mail->isHTML(true);
         $this->mail->Body = $body;
         return $this;
     }
