@@ -99,7 +99,7 @@ values (1, '@admin/auth/login', null, '2000-01-01 00:00:00', null),
        (19, '@admin/routes-management/roles/list-all', null, '2000-01-01 00:00:00', null),
        (20, '@admin/routes-management/roles/manage/{id}', null, '2000-01-01 00:00:00', null),
        (21, '@public/', null, '2000-01-01 00:00:00', null),
-       (22, '@admin/auth/google-auth', null, '2000-01-01 00:00:00', null);
+       (22, '@admin/auth/google-auth', null, '2000-01-01 00:00:00', null),
     (23, '@admin/auth/verify-account/{token}', null, '2000-01-01 00:00:00', null);
 
 insert into `roles` (`id`, `roleName`, `roleIcon`, `description`, `created_at`, `updated_at`)
