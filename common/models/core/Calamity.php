@@ -5,6 +5,7 @@ namespace calamity\common\models\core;
 use calamity\common\components\mailer\Mailer;
 use calamity\common\helpers\CoreHelper;
 use calamity\common\models\core\database\Database;
+use calamity\common\models\core\exception\Error;
 use calamity\common\models\Users;
 use Exception;
 
@@ -52,10 +53,12 @@ class Calamity {
             self::$GLOBALS[$key] = $value;
         }
 
+        $this->mailer = new Mailer($config['mailer']);
+
         try {
             $this->db = new Database($config['database']);
-            $this->mailer = new Mailer($config['mailer']);
         } catch (Exception $e) {
+            Error::sendErrorEmail($e);
             echo $this->router->renderViewOnly('@common.error', [
                 'exception' => $e,
             ]);
@@ -104,6 +107,7 @@ class Calamity {
         try {
             echo $this->router->resolve();
         } catch (Exception $e) {
+            Error::sendErrorEmail($e);
             echo $this->router->renderViewOnly('@common.error', [
                 'exception' => $e,
             ]);

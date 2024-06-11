@@ -18,17 +18,17 @@ class Router {
         $this->response = $response;
     }
 
-    public function get(string $url, $callback): void {
-        $this->routeMap['get'][$url] = $callback;
+    public static function get(string $url, $callback): void {
+        Calamity::$app->router->routeMap['get'][$url] = $callback;
     }
 
-    public function post(string $url, $callback): void {
-        $this->routeMap['post'][$url] = $callback;
+    public static function post(string $url, $callback): void {
+        Calamity::$app->router->routeMap['post'][$url] = $callback;
     }
 
-    public function getNpost(string $url, $callback): void {
-        $this->routeMap['get'][$url] = $callback;
-        $this->routeMap['post'][$url] = $callback;
+    public static function getNpost(string $url, $callback): void {
+        Calamity::$app->router->routeMap['get'][$url] = $callback;
+        Calamity::$app->router->routeMap['post'][$url] = $callback;
     }
 
     /**
