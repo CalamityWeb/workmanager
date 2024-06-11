@@ -3,8 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+use calamity\common\helpers\CoreHelper;
 use calamity\common\models\core\Calamity;
-use calamity\public\controllers\SiteController;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -35,6 +35,6 @@ $config = [
 
 $app = new Calamity(dirname(__DIR__), $config);
 
-$app->router->get('/', [SiteController::class, 'index']);
+require_once CoreHelper::getAlias('@common') . '/routes/public.php';
 
 $app->run();
