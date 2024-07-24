@@ -61,9 +61,9 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
                     <span class="d-none d-md-inline">
                         <?= $sessionUser->getFullName() ?>
                     </span>
-                    <?php if (!empty($sessionUser->getActiveRole()->roleIcon)): ?>
+                    <?php if (!empty($sessionUser->getActiveRole()->icon)): ?>
                         <span class="d-none d-md-inline">
-                        <?= $sessionUser->getActiveRole()->roleIcon ?>
+                        <?= $sessionUser->getActiveRole()->icon ?>
                     </span>
                     <?php endif; ?>
                 </span>
@@ -72,7 +72,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
                             <img src="<?= $sessionUser->getPicture() ?>" class="img-circle shadow" alt="User">
                             <p>
                                 <?= $sessionUser->getFullName() ?>
-                                <small><?= $sessionUser->getActiveRole()->roleIcon ?><?= $sessionUser->getActiveRole()->roleName ?></small>
+                                <small><?= $sessionUser->getActiveRole()->icon ?><?= $sessionUser->getActiveRole()->name ?></small>
                             </p>
                         </li>
                         <li class="user-footer">
