@@ -211,7 +211,7 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
         </strong>
 
         <div class="float-end d-none d-sm-inline-block">
-            <b>Version</b> v2.0
+            <b>Version</b> v3-dev
         </div>
     </footer>
 </div>
