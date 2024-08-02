@@ -3,6 +3,7 @@
 namespace calamity\common\models\core;
 
 use calamity\common\components\mailer\Mailer;
+use calamity\common\components\text\Generator;
 use calamity\common\helpers\CoreHelper;
 use calamity\common\models\core\database\Database;
 use calamity\common\models\core\exception\Error;
@@ -30,6 +31,7 @@ class Calamity {
     public string $language;
     protected array $eventListeners = [];
     public static array $config;
+    public string $csrf;
 
     public function __construct($rootDir, $config) {
         $this->user = null;
@@ -77,6 +79,8 @@ class Calamity {
                 $this->logout();
             }
         }
+
+        $this->setCSRF();
     }
 
     public function logout(): void {
@@ -123,5 +127,24 @@ class Calamity {
 
     public function on($eventName, $callback): void {
         $this->eventListeners[$eventName][] = $callback;
+    }
+
+    private function setCSRF() {
+        $site = null;
+
+        $host = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+        if($host == Calamity::$URL['@admin']) {
+            $site = 'admin';
+        } elseif($host == Calamity::$URL['@public']) {
+            $site = 'public';
+        }
+
+        if(Calamity::$app->user) {
+            $salt = hash('md5', Calamity::$app->user->email);
+        } else {
+            $salt = hash('md5',$_SERVER['HTTP_USER_AGENT'] . $_SERVER['HTTP_SEC_CH_UA']);
+        }
+
+        $this->csrf = $site . '_' . hash('sha256', $host);
     }
 }
