@@ -36,7 +36,7 @@ class LoginForm extends Model {
             $this->addError('email', Calamity::t('auth', 'This email is not in our system!'));
             return false;
         }
-        if ($user->auth_provider != 'internal' && empty($user->password)) {
+        if ($user->auth_provider != Users::AUTH_PROVIDER_INTERNAL && empty($user->password)) {
             Calamity::$app->view->registerJS(Sweetalert::generatePopupAlert('warning', Calamity::t('general', 'Error'), Calamity::t('auth', 'You registered with an external provider, please log in with that provider and set up a password to use this feature of login in the next time!'), 'true'));
             return false;
         }

@@ -148,7 +148,12 @@ class AuthController extends Controller {
 
         $loginForm = new LoginForm();
 
+        /* @var $user Users */
         if ($user = Users::findOne(['email' => $google_account_info->getEmail()])) {
+            if($user->auth_provider != Users::AUTH_PROVIDER_GOOGLE) {
+                $user->auth_provider = Users::AUTH_PROVIDER_GOOGLE;
+                $user->save();
+            }
             Calamity::$app->login($user);
             Calamity::$app->session->setFlash('success', Calamity::t('auth', 'Login successful'), '/site/dashboard');
         } else {

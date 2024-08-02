@@ -48,7 +48,7 @@ class GoogleAuth {
         $user->email = $userinfo->getEmail();
         $user->firstName = $userinfo->getGivenName();
         $user->lastName = $userinfo->getFamilyName();
-        $user->auth_provider = 'google';
+        $user->auth_provider = Users::AUTH_PROVIDER_GOOGLE;
         $user->email_confirmed = false;
         $user->password = null;
         $user->save();
