@@ -44,7 +44,7 @@ class RegisterForm extends Model {
         $user->lastName = $this->lastName;
         $user->password = password_hash($this->password, PASSWORD_ARGON2ID, ['memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3]);
         $user->email_confirmed = false;
-        $user->auth_provider = 'internal';
+        $user->auth_provider = Users::AUTH_PROVIDER_INTERNAL;
         $user->save();
 
         $userRole = new UserRoles();

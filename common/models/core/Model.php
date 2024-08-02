@@ -2,6 +2,9 @@
 
 namespace calamity\common\models\core;
 
+use calamity\common\models\core\exception\BadRequestException;
+use calamity\common\models\core\exception\InvalidArgumentException;
+
 class Model {
     public const RULE_REQUIRED = 'required';
     public const RULE_EMAIL = 'email';
@@ -14,10 +17,17 @@ class Model {
     public const RULE_PASSWORD = 'password';
     public const RULE_EXISTS = 'exists';
     public array $errors = [];
+    public bool $csrfProtection = true;
+
+    public function __construct($csrfprotection = true) {
+        $this->csrfProtection = $csrfprotection;
+    }
 
     public function loadData($data): void {
         foreach ($data as $key => $value) {
-            $this->{$key} = $value;
+            if(property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
         }
     }
 
@@ -26,6 +36,14 @@ class Model {
     }
 
     public function validate(): bool {
+        if($this->csrfProtection) {
+            $token = Calamity::$app->request->getBody()['csrf'];
+
+            if(!$token == Calamity::$app->csrf) {
+                throw new BadRequestException("CSRF token does not match.");
+            }
+        }
+
         foreach ($this->rules() as $attribute => $rules) {
             $value = $this->{$attribute};
             foreach ($rules as $rule) {
@@ -85,6 +103,7 @@ class Model {
                 }
             }
         }
+
         return empty($this->errors);
     }
 

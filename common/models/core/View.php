@@ -6,27 +6,40 @@ use calamity\common\helpers\CoreHelper;
 
 class View {
     public string $title = '';
-    public string $css = '<style> </style>';
-    public string $js = '<script> </script>';
+    public array $css = [];
+    public array $js = [];
 
     public function registerJS(string $js): void {
-        $this->js = substr_replace($this->js, $js, -10, 0) . ' ';
+        $this->js[] = $js;
     }
 
     public function registerCSS(string $css): void {
-        $this->css = substr_replace($this->css, $css, -9, 1) . ' ';
+        $this->css[] = $css;
     }
 
     public function renderView($view, array $params): string {
         $layoutName = Calamity::$app->controller->layout ?? Calamity::$app->layout;
+
         if (str_contains($layoutName, '.')) {
             $layoutName = str_replace('.', '/', $layoutName);
         }
+
         $viewContent = $this->renderViewOnly($view, $params);
         ob_start();
         include_once $this->layoutPathBuilder($layoutName);
         $layoutContent = ob_get_clean();
-        return str_replace(['{{content}}', '{{css}}', '{{js}}'], [$viewContent, $this->css, $this->js], $layoutContent);
+
+        $css = '';
+        $js = '';
+
+        foreach ($this->css as $c) {
+            $css .= '<style>' . $c . '</style>';
+        }
+        foreach ($this->js as $j) {
+            $js .= '<script>' . $j . '</script>';
+        }
+
+        return str_replace(['{{content}}', '{{css}}', '{{js}}'], [$viewContent, $css, $js], $layoutContent);
     }
 
     public function renderViewOnly($view, array $params): string {

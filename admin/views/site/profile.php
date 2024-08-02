@@ -20,7 +20,7 @@ $this->title = Calamity::t('general', 'Profile');
                          class="profile-user-img img-fluid img-circle">
                 </div>
                 <h3 class="profile-username text-center"><?= $user->getFullName() ?></h3>
-                <p class="text-muted text-center mb-0"><?= $user->getActiveRole()->roleIcon ?> <?= $user->getActiveRole()->roleName ?></p>
+                <p class="text-muted text-center mb-0"><?= $user->getActiveRole()->icon ?> <?= $user->getActiveRole()->name ?></p>
             </div>
         </div>
     </div>

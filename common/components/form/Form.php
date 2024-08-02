@@ -3,19 +3,34 @@
 namespace calamity\common\components\form;
 
 use calamity\common\components\button\Button;
+use calamity\common\models\core\Calamity;
 use calamity\common\models\core\Model;
 
 class Form {
     private array $disabledFields = [];
+    private bool $csrf;
+
+    public const string CSRF = 'csrf';
+
+    public function __construct($csrf) {
+        $this->csrf = $csrf;
+
+        $this->csrfField();
+    }
 
     public static function begin (string $method, array $options = [], string $action = ''): Form {
         $attributes = [];
+        $csrf = true;
         foreach ($options as $key => $value) {
-            $attributes[] = "$key=\"$value\"";
+            if($key == self::CSRF) {
+                $csrf = $value;
+            } else {
+                $attributes[] = "$key=\"$value\"";
+            }
         }
 
         echo "<form action=\"$action\" method=\"$method\" " . implode(" ", $attributes) . ">";
-        return new Form();
+        return new Form($csrf);
     }
 
     public static function end (): void {
@@ -68,5 +83,11 @@ class Form {
     public function icheckField (Model $model, $attribute, $options = []): IcheckField {
         $disabled = in_array($attribute, $this->disabledFields);
         return new IcheckField($model, $attribute, $options, $disabled);
+    }
+
+    public function csrfField(): void {
+        if ($this->csrf) {
+            echo '<input type="hidden" name="csrf" value="' . base64_encode(Calamity::$app->csrf) . '" >';
+        }
     }
 }

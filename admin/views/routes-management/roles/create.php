@@ -19,8 +19,8 @@ $this->title = Calamity::t('general', 'Create Role');
             <div class="card-body">
                 <?php $form = Form::begin('post') ?>
 
-                <?= $form->field($role, 'roleName')->required() ?>
-                <?= $form->textareaField($role, 'roleIcon') ?>
+                <?= $form->field($role, 'name')->required() ?>
+                <?= $form->textareaField($role, 'icon') ?>
                 <?= $form->textareaField($role, 'description') ?>
 
                 <?= $form->submitButton(Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>

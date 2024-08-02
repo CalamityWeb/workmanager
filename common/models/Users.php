@@ -20,6 +20,9 @@ use calamity\common\models\core\database\MagicRecord;
  * @property string  $updated_at
  */
 class Users extends MagicRecord {
+    public const string AUTH_PROVIDER_INTERNAL = 'internal';
+    public const string AUTH_PROVIDER_GOOGLE = 'google';
+
     public static function tableName(): string {
         return "users";
     }
