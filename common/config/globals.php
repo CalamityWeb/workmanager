@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'APP_NAME' => 'Calamity',
+    'APP_NAME' => 'Workmanager',
 ];

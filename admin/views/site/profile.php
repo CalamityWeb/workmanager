@@ -36,7 +36,7 @@ $this->title = Calamity::t('general', 'Profile');
                 <?= $form->field($user, 'firstName')->required(); ?>
                 <?= $form->field($user, 'lastName')->required(); ?>
 
-                <?= $form->captchaSubmitButton('submit-profile', Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
+                <?= $form->submitButton(Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 
                 <p class="fs-7 mb-0 mt-3 fst-italic text-end">
                     <?= Calamity::t('general', 'Created') ?>: <?= $user->created_at ?>

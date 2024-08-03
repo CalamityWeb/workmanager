@@ -49,7 +49,7 @@ class RegisterForm extends Model {
 
         $userRole = new UserRoles();
         $userRole->userId = Users::findOne(['email' => $this->email])->id;
-        $userRole->roleId = Roles::findOne(['roleName' => 'Visitor'])->id;
+        $userRole->roleId = Roles::findOne(['name' => 'Visitor'])->id;
         $userRole->save();
 
         return Users::findOne(['email' => $this->email]);

@@ -22,19 +22,15 @@ class SiteController extends Controller {
         $user = Users::findOne([Users::primaryKey() => Calamity::$app->session->get('sessionUser')]);
         if ($request->isPost()) {
             $user->loadData($request->getBody());
-            if (isset($request->getBody()['g-recaptcha-response'])) {
-                $captcha = CoreHelper::validateGoogleCaptcha($request->getBody()['g-recaptcha-response']);
-            } else {
-                $captcha = true;
-            }
-            if ($user->validate() and $captcha) {
+            if ($user->validate()) {
                 $user->save();
                 Calamity::$app->session->setFlash('success', Calamity::t('general', 'Update successful!'));
             }
-            if (!$captcha) {
-                Calamity::$app->session->setFlash('error', Calamity::t('general', 'Captcha validation failed!'));
-            }
         }
         return $this->render('site.profile', ['user' => $user]);
+    }
+
+    public function systeminfo(Request $request, Response $response): string {
+        return $this->render('site.system-info');
     }
 }

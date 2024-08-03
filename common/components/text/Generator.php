@@ -37,4 +37,20 @@ class Generator {
 
         return $value;
     }
+
+    public static function generatePassword() {
+        $value = '';
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%*()-_';
+        $charactersLength = strlen($characters);
+
+        $length = 16;
+
+        do {
+            for ($i = 0; $i < $length; $i++) {
+                $value .= $characters[random_int(0, $charactersLength - 1)];
+            }
+        } while (!preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{8,})((?=.*[-+_!@#$%^&*.,?])|(?=.*_))^[^ ]+$/', $value));
+
+        return $value;
+    }
 }

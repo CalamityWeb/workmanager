@@ -37,7 +37,7 @@ class CoreHelper {
         curl_setopt($ch, CURLOPT_POSTFIELDS, "secret=" . $secret . "&response=" . $captcha);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $response = curl_exec($ch);
+        $response = json_decode(curl_exec($ch), true);
 
         return isset($response["success"]) and $response["success"];
     }

@@ -80,6 +80,22 @@ class Users extends MagicRecord {
         return $can;
     }
 
+    public function hasRole(string $role): bool {
+        $can = false;
+        $roles = UserRoles::findMany(['userId' => $this->id]);
+
+        foreach ($roles as $r) {
+            /* @var $userRole \calamity\common\models\Roles */
+            $userRole = Roles::findOne([Roles::primaryKey() => $r->roleId]);
+
+            if($userRole->id == $role || $userRole->name == $role) {
+                $can = true;
+            }
+        }
+
+        return $can;
+    }
+
     private static function isItemMatches(false|array $auths, string $route): bool {
         $can = false;
         foreach ($auths as $auth) {

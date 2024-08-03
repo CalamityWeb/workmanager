@@ -9,6 +9,8 @@ use calamity\common\models\core\Router;
 
 Router::get('/', function() { Calamity::$app->response->redirect('/auth/login'); });
 
+Router::get('/system-info',[SiteController::class, 'systemInfo']);
+
 /* *Site routes */
 Router::getNpost('/site/dashboard', [SiteController::class, 'dashboard']);
 Router::getNpost('/site/profile', [SiteController::class, 'profile']);

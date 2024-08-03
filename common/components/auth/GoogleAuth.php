@@ -2,6 +2,7 @@
 
 namespace calamity\common\components\auth;
 
+use calamity\common\components\text\Generator;
 use calamity\common\helpers\CoreHelper;
 use calamity\common\models\core\Calamity;
 use calamity\common\models\core\exception\InvalidConfigException;
@@ -50,14 +51,14 @@ class GoogleAuth {
         $user->lastName = $userinfo->getFamilyName();
         $user->auth_provider = Users::AUTH_PROVIDER_GOOGLE;
         $user->email_confirmed = false;
-        $user->password = null;
+        $user->password = password_hash(Generator::generatePassword(), PASSWORD_ARGON2ID, ['memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3]);
         $user->save();
 
         $user->sendConfirmationEmail();
 
         $userRole = new UserRoles();
         $userRole->userId = Users::findOne(['email' => $userinfo->getEmail()])->id;
-        $userRole->roleId = Roles::findOne(['roleName' => 'Visitor'])->id;
+        $userRole->roleId = Roles::findOne(['name' => 'Visitor'])->id;
         $userRole->save();
 
         return Users::findOne(['email' => $userinfo->getEmail()]);
