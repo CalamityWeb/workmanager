@@ -155,6 +155,26 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
                             <p>Profile</p>
                         </a>
                     </li>
+                    <li class="nav-header">Organization Management</li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="">
+                            <i class="nav-icon fa-solid fa-sitemap"></i>
+                            <p>My organization</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="">
+                            <i class="nav-icon fa-solid fa-file-certificate"></i>
+                            <p>Licence</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="">
+                            <i class="nav-icon fa-solid fa-users-gear"></i>
+                            <p>Members</p>
+                        </a>
+                    </li>
+                    <?php if($sessionUser->hasRole('Administrator')): ?>
                     <li class="nav-header">User Management</li>
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" href="/users/list-all">
@@ -175,7 +195,14 @@ $sessionUser = Users::findOne([Users::primaryKey() => Calamity::$app->session->g
                             <p>Roles</p>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <li class="nav-header">Miscellaneous</li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" href="/system-info">
+                            <i class="nav-icon fa-solid fa-circle-info"></i>
+                            <p>System Information</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link cursor-pointer" href="/auth/logout">
                             <i class="nav-icon fa-solid fa-right-from-bracket"></i>

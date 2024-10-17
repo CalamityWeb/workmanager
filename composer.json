@@ -1,6 +1,6 @@
 {
-	"name": "calamityweb/framework",
-	"description": "Calamity framework",
+	"name": "calamityweb/workmanager",
+	"description": "Workmanager software",
 	"minimum-stability": "stable",
 	"license": "MIT",
 	"type": "project",
