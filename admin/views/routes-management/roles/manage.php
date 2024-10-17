@@ -13,7 +13,7 @@ use calamity\common\components\form\Form;
 use calamity\common\components\text\Text;
 use calamity\common\models\core\Calamity;
 
-$this->title = Calamity::t('general', 'Create Role');
+$this->title = Calamity::t('general', 'Modify Role');
 ?>
 
 <div class="row">
@@ -28,6 +28,7 @@ $this->title = Calamity::t('general', 'Create Role');
                 <?= $form->field($role, 'name')->required(); ?>
                 <?= $form->textareaField($role, 'icon') ?>
                 <?= $form->textareaField($role, 'description'); ?>
+                <?= $form->field($role, 'level')->numberField() ?>
 
                 <?= $form->submitButton(Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 

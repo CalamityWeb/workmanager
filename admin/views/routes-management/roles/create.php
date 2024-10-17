@@ -22,6 +22,7 @@ $this->title = Calamity::t('general', 'Create Role');
                 <?= $form->field($role, 'name')->required() ?>
                 <?= $form->textareaField($role, 'icon') ?>
                 <?= $form->textareaField($role, 'description') ?>
+                <?= $form->field($role, 'level')->numberField() ?>
 
                 <?= $form->submitButton(Calamity::t('general', 'Save'), 'btn-success', 'fa-floppy-disk') ?>
 
