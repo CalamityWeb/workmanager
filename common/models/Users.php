@@ -108,15 +108,23 @@ class Users extends MagicRecord {
         }
 
         /** @var $role Roles */
-        $maxCount = 0;
+        $maxLevel = 99;
         $maxRole = null;
         foreach ($this->getRoles() as $role) {
+            /* @var $assignments AuthAssignments */
             $assignments = AuthAssignments::findMany(['role' => $role->id]);
-            if (count($assignments) > $maxCount) {
-                $maxCount = count($assignments);
-                $maxRole = $role;
+
+            foreach ($assignments as $assignment) {
+                /* @var $role \calamity\common\models\Roles */
+                $role = Roles::findOne([Roles::primaryKey() => $assignment->role]);
+
+                if ($role->level < $maxLevel) {
+                    $maxLevel = $role->level;
+                    $maxRole = $role;
+                }
             }
         }
+
         return $maxRole;
     }
 

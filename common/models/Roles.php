@@ -10,6 +10,7 @@ use calamity\common\models\core\database\MagicRecord;
  * @property string $name
  * @property string $icon
  * @property string $description
+ * @property int    $level
  * @property string $created_at
  * @property string $completed_at
  */
@@ -19,7 +20,7 @@ class Roles extends MagicRecord {
     public static function primaryKey(): string|array { return 'id'; }
 
     public static function attributes(): array {
-        return ['name', 'icon', 'description'];
+        return ['name', 'icon', 'description', 'level'];
     }
 
     public static function labels(): array {
@@ -27,6 +28,7 @@ class Roles extends MagicRecord {
             'name' => Calamity::t('attributes', 'Role Name'),
             'icon' => Calamity::t('attributes', 'Role Icon'),
             'description' => Calamity::t('attributes', 'Description'),
+            'level' => Calamity::t('attributes', 'Level'),
         ];
     }
 

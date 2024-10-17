@@ -129,7 +129,7 @@ class Calamity {
         $this->eventListeners[$eventName][] = $callback;
     }
 
-    private function setCSRF() {
+    private function setCSRF(): void {
         $site = null;
 
         $host = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
@@ -142,7 +142,7 @@ class Calamity {
         if(Calamity::$app->user) {
             $salt = hash('md5', Calamity::$app->user->email);
         } else {
-            $salt = hash('md5',$_SERVER['HTTP_USER_AGENT'] . $_SERVER['HTTP_SEC_CH_UA']);
+            $salt = hash('md5',$_SERVER['HTTP_USER_AGENT']);
         }
 
         $this->csrf = $site . '_' . hash('sha256', $host);
